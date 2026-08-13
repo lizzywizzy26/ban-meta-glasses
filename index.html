@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stop the Sale — Smart Glasses Campaign</title>
 <meta name="description" content="A UK campaign against smart glasses with hidden recording capability. Sign the petition, email your optician, find your MP.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta property="og:title" content="They shouldn't be able to film you without asking.">
+<meta property="og:description" content="A BBC investigation found men using smart glasses to covertly film women in public. Sign the petition, email your optician, write to your MP — takes about ten minutes.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Stop the Sale — Smart Glasses Campaign">
+<meta name="twitter:description" content="A BBC investigation found men using smart glasses to covertly film women in public. Three things you can do about it, in about ten minutes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -109,6 +116,7 @@ Kind regards,
         <button type="button" class="secondary" id="openMailtoBtn">Open in email app</button>
         <span class="copied-msg" id="copiedMsg" role="status">Copied ✓</span>
       </div>
+      <p class="mailto-warn" id="mailtoWarnOptician" role="status" hidden>This message is long enough that some email apps cut it off when opened this way — if it looks truncated, use "Copy email text" instead and paste it into a new email.</p>
       <p class="inline-stat"><span id="statOpticianInline">–</span> optician emails started so far</p>
     </div>
   </section>
@@ -222,6 +230,7 @@ Kind regards,
         <button type="button" class="secondary" id="openRaybanMailtoBtn">Open in email app</button>
         <span class="copied-msg" id="copiedMsg4" role="status">Copied ✓</span>
       </div>
+      <p class="mailto-warn" id="mailtoWarnRayban" role="status" hidden>This message is long enough that some email apps cut it off when opened this way — if it looks truncated, use "Copy message text" instead and paste it into a new email.</p>
       <p class="inline-stat"><span id="statRaybanInline">–</span> Ray-Ban messages started so far</p>
     </div>
   </section>

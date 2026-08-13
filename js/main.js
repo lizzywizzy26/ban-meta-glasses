@@ -38,11 +38,22 @@ function buildOpticianEmail() {
   return text;
 }
 
-function mailtoFromTemplate(text) {
+// Some mail clients (older Outlook desktop, some OS-level mailto handlers)
+// truncate mailto: links past ~2000 characters. Both the optician and
+// Ray-Ban templates can land close to or over that once URL-encoded, so warn
+// rather than risk silently sending a cut-off message.
+const MAILTO_SAFE_LENGTH = 1800;
+
+function mailtoFromTemplate(text, warnId) {
   const lines = text.split('\n');
   const subjectLine = lines[0].replace(/^Subject:\s*/i, '');
   const body = lines.slice(1).join('\n').trim();
-  window.location.href = `mailto:?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(body)}`;
+  const mailtoUrl = `mailto:?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(body)}`;
+  if (mailtoUrl.length > MAILTO_SAFE_LENGTH && warnId) {
+    const el = document.getElementById(warnId);
+    if (el) el.hidden = false;
+  }
+  window.location.href = mailtoUrl;
 }
 
 document.getElementById('copyEmailBtn').addEventListener('click', () => {
@@ -50,7 +61,7 @@ document.getElementById('copyEmailBtn').addEventListener('click', () => {
   reportHit('optician');
 });
 document.getElementById('openMailtoBtn').addEventListener('click', () => {
-  mailtoFromTemplate(buildOpticianEmail());
+  mailtoFromTemplate(buildOpticianEmail(), 'mailtoWarnOptician');
   reportHit('optician');
 });
 
@@ -73,6 +84,6 @@ document.getElementById('copyRaybanBtn').addEventListener('click', () => {
   reportHit('rayban');
 });
 document.getElementById('openRaybanMailtoBtn').addEventListener('click', () => {
-  mailtoFromTemplate(document.getElementById('raybanEmailBody').value);
+  mailtoFromTemplate(document.getElementById('raybanEmailBody').value, 'mailtoWarnRayban');
   reportHit('rayban');
 });

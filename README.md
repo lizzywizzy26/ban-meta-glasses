@@ -2,7 +2,7 @@
 
 A single-page UK campaign site against smart glasses with hidden recording capability (e.g. Meta Ray-Ban). It drives five actions: find local opticians, email opticians and MPs with editable templates, sign the live UK Parliament petition, and petition Ray-Ban/EssilorLuxottica directly. Plain HTML/CSS/JS, no build step — the site itself needs no backend. An optional Cloudflare Worker (see `worker/`) powers the "campaign impact" counters if you choose to deploy it.
 
-**Before launch:** two different petition-signature snapshots ended up in this repo's source material — the build brief said 5,399, a later research pass said 4,997. Neither is necessarily current. Check the real number at https://petition.parliament.uk/petitions/769206 and set it via `js/main.js` (see below) before pointing anyone at the site.
+**Before launch — verify the signature count by hand.** Multiple sources in and around this repo disagree by a lot: the build brief said 5,399, a later research pass said 4,997, a live web search turned up 5,367, and a third-party tracker site showed just 1,220 for the same petition (769206). I couldn't fetch petition.parliament.uk directly to resolve this (blocked by this session's network egress rules) — so **don't trust any number currently in this repo**. Open https://petition.parliament.uk/petitions/769206 yourself, read the real count off the page, and set it via `js/main.js` (see below) before pointing anyone at the site. The closing date (9 December 2026) was consistent across every source, so that one's solid.
 
 ## Run it locally
 
