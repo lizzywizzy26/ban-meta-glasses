@@ -1,0 +1,13 @@
+name = "stop-meta-glasses-counters"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "stop-meta-glasses-db"
+database_id = "REPLACE_WITH_YOUR_DATABASE_ID"
+
+[vars]
+# Comma-separated list of origins allowed to call this API.
+# Add your GitHub Pages URL and any custom domain you later attach.
+ALLOWED_ORIGINS = "https://lizzywizzy26.github.io,http://localhost:8000"

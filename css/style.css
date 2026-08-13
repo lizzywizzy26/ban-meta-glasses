@@ -1,0 +1,296 @@
+:root{
+  --ink:#14181f;
+  --paper:#f2efe7;
+  --panel:#ffffff;
+  --signal:#b3421f;
+  --signal-soft:#f0dcd2;
+  --line:#d8d2c4;
+  --muted:#5c5c52;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  line-height:1.5;
+}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+
+.skip-link{
+  position:absolute;
+  left:-9999px;
+  top:0;
+  background:var(--ink);
+  color:var(--paper);
+  padding:12px 18px;
+  border-radius:0 0 8px 0;
+  z-index:100;
+}
+.skip-link:focus{left:0;}
+
+.visually-hidden{
+  position:absolute;
+  width:1px;height:1px;
+  padding:0;margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible{
+  outline:3px solid var(--signal);
+  outline-offset:2px;
+}
+
+header{
+  padding:56px 24px 40px;
+  border-bottom:1px solid var(--line);
+}
+.eyebrow{
+  font-size:13px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--signal);
+  font-weight:600;
+  margin-bottom:14px;
+}
+h1{
+  font-family:'Fraunces',serif;
+  font-weight:700;
+  font-size:clamp(34px,6vw,52px);
+  line-height:1.04;
+  margin:0 0 18px;
+  letter-spacing:-0.01em;
+}
+header p{
+  font-size:17px;
+  color:var(--muted);
+  max-width:56ch;
+  margin:0 0 22px;
+}
+.status-row{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  font-size:13px;
+  color:var(--muted);
+  border-top:1px solid var(--line);
+  padding-top:18px;
+}
+.status-row strong{color:var(--ink);font-weight:600;}
+
+section{padding:52px 0;border-bottom:1px solid var(--line);}
+section:last-of-type{border-bottom:none;}
+
+.step-label{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  margin-bottom:6px;
+}
+.step-letter{
+  font-family:'Fraunces',serif;
+  font-size:15px;
+  font-weight:600;
+  color:var(--signal);
+  border:1px solid var(--signal);
+  width:26px;height:26px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+h2{
+  font-family:'Fraunces',serif;
+  font-size:26px;
+  font-weight:600;
+  margin:0;
+}
+.step-desc{color:var(--muted);font-size:15px;margin:10px 0 26px;max-width:56ch;}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:22px;
+  margin-bottom:14px;
+}
+.card h3{
+  font-size:14px;
+  margin:0 0 12px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  color:var(--muted);
+  font-weight:600;
+}
+.evidence-card ul{
+  margin:0;
+  padding-left:20px;
+  font-size:14.5px;
+  line-height:1.75;
+  color:var(--ink);
+}
+.source-note{font-size:12.5px;color:var(--muted);margin:14px 0 0;}
+.chip-intro{font-size:13px;color:var(--muted);margin:14px 0 8px;}
+
+.impact-card{background:var(--panel);}
+.impact-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
+  gap:16px;
+  margin:4px 0 4px;
+}
+.impact-stat{text-align:left;}
+.impact-stat span{
+  display:block;
+  font-family:'Fraunces',serif;
+  font-size:26px;
+  font-weight:700;
+  color:var(--signal);
+  line-height:1.1;
+}
+.impact-stat label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:2px;
+}
+.inline-stat{
+  font-size:12.5px;
+  color:var(--muted);
+  margin:10px 0 0;
+}
+.inline-stat span{font-weight:600;color:var(--ink);}
+
+#impactPanel[hidden]{display:none;}
+
+.link-btn{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 18px;
+  background:var(--ink);
+  color:var(--paper);
+  text-decoration:none;
+  border-radius:8px;
+  font-weight:500;
+  font-size:15px;
+  margin-bottom:10px;
+  transition:opacity .15s ease;
+}
+.link-btn:hover{opacity:.85;}
+.link-btn span.arrow{opacity:.6;}
+
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.chip{
+  padding:9px 14px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:20px;
+  font-size:13.5px;
+  color:var(--ink);
+  text-decoration:none;
+}
+.chip:hover{border-color:var(--signal);color:var(--signal);}
+
+textarea{
+  width:100%;
+  min-height:220px;
+  font-family:'Inter',sans-serif;
+  font-size:14.5px;
+  line-height:1.6;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  resize:vertical;
+  background:#fbfaf6;
+  color:var(--ink);
+}
+.share-textarea{min-height:110px;}
+
+label.field-label{
+  font-size:12.5px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  color:var(--muted);
+  font-weight:600;
+  display:block;
+  margin-bottom:6px;
+}
+input[type=text]{
+  width:100%;
+  padding:11px 14px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  font-family:'Inter',sans-serif;
+  font-size:14.5px;
+  margin-bottom:14px;
+  background:#fbfaf6;
+}
+.btn-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center;}
+button{
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:14px;
+  padding:11px 18px;
+  border-radius:8px;
+  border:1px solid var(--ink);
+  background:var(--ink);
+  color:var(--paper);
+  cursor:pointer;
+}
+button.secondary{
+  background:transparent;
+  color:var(--ink);
+}
+.copied-msg{
+  font-size:13px;
+  color:var(--signal);
+  font-weight:600;
+  margin-left:4px;
+  opacity:0;
+  transition:opacity .2s;
+}
+.copied-msg.show{opacity:1;}
+
+.petition-panel{
+  background:var(--signal-soft);
+  border:1px solid var(--signal);
+  border-radius:10px;
+  padding:26px;
+}
+.petition-panel .count{
+  font-family:'Fraunces',serif;
+  font-size:38px;
+  font-weight:700;
+  color:var(--signal);
+  margin-bottom:2px;
+}
+.petition-panel .count-label{font-size:13px;color:var(--muted);margin-bottom:18px;}
+.sign-btn{
+  display:inline-block;
+  background:var(--signal);
+  color:#fff;
+  text-decoration:none;
+  padding:14px 26px;
+  border-radius:8px;
+  font-weight:600;
+  font-size:15.5px;
+}
+.share-note{font-size:13px;color:var(--muted);margin-top:16px;}
+
+footer{padding:40px 0 0;font-size:13px;color:var(--muted);}
+footer a{color:var(--muted);}
+
+@media (max-width:480px){
+  .link-btn{font-size:14px;padding:13px 16px;}
+  .petition-panel .count{font-size:32px;}
+}

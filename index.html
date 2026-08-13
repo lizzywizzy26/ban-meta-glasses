@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stop the Sale — Smart Glasses Campaign</title>
+<meta name="description" content="A UK campaign against smart glasses with hidden recording capability. Sign the petition, email your optician, find your MP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Community privacy campaign · UK</div>
+    <h1>They shouldn't be able to film you without asking.</h1>
+    <p>A BBC investigation found men using smart glasses to covertly film women in public, then monetising the footage — in one case demanding payment to take it down. This page gives you three concrete things to do about it, in about ten minutes.</p>
+    <div class="status-row">
+      <div><strong id="sigCount">5,399</strong> of <strong>10,000</strong> signatures</div>
+      <div><strong>Closes:</strong> <span id="closeDate">9 December 2026</span></div>
+      <div><strong>Documented:</strong> ~50 women identified by the BBC as filmed without knowledge; 3bn+ views across 65+ channels</div>
+    </div>
+  </header>
+
+  <main id="main">
+
+  <section id="impactPanel" aria-labelledby="impact-heading">
+    <h2 id="impact-heading" class="visually-hidden">Campaign impact so far</h2>
+    <div class="card impact-card">
+      <h3>Campaign impact so far</h3>
+      <div class="impact-grid">
+        <div class="impact-stat"><span id="statVisitPanel">–</span><label>people on this page</label></div>
+        <div class="impact-stat"><span id="statOpticianPanel">–</span><label>optician emails started</label></div>
+        <div class="impact-stat"><span id="statRaybanPanel">–</span><label>Ray-Ban messages started</label></div>
+        <div class="impact-stat"><span id="statMpPanel">–</span><label>MP emails started</label></div>
+        <div class="impact-stat"><span id="statPetitionClickPanel">–</span><label>click-throughs to the petition</label></div>
+        <div class="impact-stat"><span id="statSharePanel">–</span><label>share texts copied</label></div>
+      </div>
+      <p class="source-note">Counts uses of this page's tools (copy / open-email / sign-petition-link clicks), rate-limited per visitor to resist casual inflation — not confirmed deliveries or verified signatures. See <a href="worker/README.md">worker/README.md</a> for how they're produced.</p>
+    </div>
+  </section>
+
+  <section id="evidence" aria-labelledby="evidence-heading">
+    <h2 id="evidence-heading" class="visually-hidden">Evidence</h2>
+    <div class="card evidence-card">
+      <h3>What's actually been documented (BBC, 2026)</h3>
+      <ul>
+        <li>A London woman ("Alice") was covertly filmed via smart glasses in a shopping centre; the video reached ~40,000 views, and when she asked for it to be removed, the man behind it said he'd only take it down as a "paid service."</li>
+        <li>A separate BBC investigation identified nearly 50 women filmed without their knowledge on nights out, across 65+ online channels with 3bn+ combined views.</li>
+        <li>Home Secretary Shabana Mahmood said this misuse of technology "will not be tolerated." Lib Dem MP Wera Hobhouse has introduced a bill to close the legal loophole around covert filming.</li>
+        <li>A March 2026 poll found 49% of Britons support banning smart glasses in public spaces (30% opposed).</li>
+      </ul>
+      <p class="source-note">Source: BBC News, "Woman covertly filmed for 'humiliating' social media content – then told to pay" (7 May 2026) and "Men covertly filming women at night and profiting from footage" (Feb 2026).</p>
+    </div>
+  </section>
+
+  <section id="locate" aria-labelledby="locate-heading">
+    <div class="step-label"><div class="step-letter">A</div><h2 id="locate-heading">Find opticians near you</h2></div>
+    <p class="step-desc">There's no public database of exactly who stocks Meta Ray-Ban glasses, so the reliable way is a live map search — it'll surface Ray-Ban stockists and optician chains, which you can then check.</p>
+
+    <div class="card">
+      <h3>Open a live search</h3>
+      <a class="link-btn" href="https://www.google.com/maps/search/opticians+near+me" target="_blank" rel="noopener">
+        Search "opticians near me" on Google Maps <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="link-btn" href="https://www.google.com/maps/search/ray-ban+store+near+me" target="_blank" rel="noopener">
+        Search "Ray-Ban stockists near me" <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <p class="chip-intro">Or jump straight to a major city:</p>
+      <div class="chip-row" id="cityChips"></div>
+    </div>
+  </section>
+
+  <section id="email" aria-labelledby="email-heading">
+    <div class="step-label"><div class="step-letter">B</div><h2 id="email-heading">Email your local optician</h2></div>
+    <p class="step-desc">Edit this to add the shop name and anything local. Then copy it or open it directly in your email app.</p>
+
+    <div class="card">
+      <label class="field-label" for="shopName">Optician / shop name (optional)</label>
+      <input type="text" id="shopName" placeholder="e.g. Specsavers, Market Street">
+
+      <label class="field-label" for="emailBody">Email text</label>
+      <textarea id="emailBody">Subject: Request to stop selling smart glasses with hidden recording
+
+Dear [Optician name],
+
+I'm a local customer writing to ask you to reconsider stocking Meta Ray-Ban smart glasses, or any glasses with a built-in camera that can record people without a clear, unmistakable signal.
+
+This isn't a hypothetical concern. A BBC investigation published in May 2026 documented a London woman covertly filmed via smart glasses in a shopping centre; when she asked for the video to be taken down, the man who filmed her said he'd only remove it as a "paid service." A separate BBC investigation found nearly 50 women filmed without their knowledge on nights out, across more than 65 online channels with a combined 3 billion+ views. The Home Secretary has said this misuse of technology "will not be tolerated," and a Liberal Democrat MP has introduced a bill to close the legal loophole around covert filming.
+
+These glasses have already led UK venues (including Wetherspoons, Soho House and several theatre chains) and courts in England and Wales to restrict or ban their use, and there is a live UK Parliament petition calling for a ban on their sale: https://petition.parliament.uk/petitions/769206
+
+As a trusted local business, you have real influence over what gets normalised on our high street. I'd ask you to:
+
+1. Stop actively promoting or displaying smart glasses with recording capability
+2. Let customers know, if they ask, why you're taking this position
+3. Consider adding a note in-store about the current parliamentary petition
+
+I'd be glad to hear your thoughts, and I hope you'll consider this seriously.
+
+Kind regards,
+[Your name]</textarea>
+
+      <div class="btn-row">
+        <button type="button" id="copyEmailBtn">Copy email text</button>
+        <button type="button" class="secondary" id="openMailtoBtn">Open in email app</button>
+        <span class="copied-msg" id="copiedMsg" role="status">Copied ✓</span>
+      </div>
+      <p class="inline-stat"><span id="statOpticianInline">–</span> optician emails started so far</p>
+    </div>
+  </section>
+
+  <section id="petition" aria-labelledby="petition-heading">
+    <div class="step-label"><div class="step-letter">C</div><h2 id="petition-heading">Sign the government petition now</h2></div>
+    <p class="step-desc">This is the fastest, highest-leverage action. At 10,000 signatures the government must respond. At 100,000, it can be debated in Parliament.</p>
+
+    <div class="petition-panel">
+      <div class="count"><span id="sigCount2">5,399</span> / 10,000</div>
+      <div class="count-label">signatures needed for a Government response</div>
+      <a class="sign-btn" id="signPetitionBtn" href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">Sign the petition on parliament.uk →</a>
+      <p class="share-note">Open to UK residents and British citizens. Takes under a minute — you'll need an email address to confirm.</p>
+      <p class="inline-stat"><span id="statPetitionClickInline">–</span> click-throughs to the petition so far</p>
+    </div>
+
+    <div class="card">
+      <h3>Ask others to sign too</h3>
+      <label class="field-label visually-hidden" for="shareText">Share text</label>
+      <textarea id="shareText" class="share-textarea">A BBC investigation found men using smart glasses to covertly film women in public — one demanded payment before he'd take a video down. There's a live UK Parliament petition to ban the sale of smart glasses with recording capability. Takes under a minute to sign: https://petition.parliament.uk/petitions/769206</textarea>
+      <div class="btn-row">
+        <button type="button" id="copyShareBtn">Copy share text</button>
+        <span class="copied-msg" id="copiedMsg2" role="status">Copied ✓</span>
+      </div>
+      <p class="inline-stat"><span id="statShareInline">–</span> share texts copied so far</p>
+    </div>
+  </section>
+
+  <section id="mp" aria-labelledby="mp-heading">
+    <div class="step-label"><div class="step-letter">D</div><h2 id="mp-heading">Write to your MP</h2></div>
+    <p class="step-desc">A petition asks the government to act. Your MP can act directly — Liberal Democrat MP Wera Hobhouse has already introduced a private member's bill to close the legal loophole around covert filming and force platforms to remove this content fast. A short email from a constituent carries real weight.</p>
+
+    <div class="card">
+      <h3>Find and email your MP</h3>
+      <a class="link-btn" href="https://www.writetothem.com" target="_blank" rel="noopener">
+        Look up your MP by postcode on WriteToThem <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <p class="chip-intro">WriteToThem is a free, independent tool (run by mySociety) that finds your MP from your postcode and lets you message them directly.</p>
+    </div>
+
+    <div class="card">
+      <h3>Email template</h3>
+      <label class="field-label visually-hidden" for="mpEmailBody">MP email text</label>
+      <textarea id="mpEmailBody">Subject: Please support action on covert filming with smart glasses
+
+Dear [MP name],
+
+I'm writing as a constituent to ask you to support stronger protections against covert filming using smart glasses with hidden cameras, such as Meta Ray-Ban glasses.
+
+A BBC investigation published in May 2026 documented a London woman covertly filmed via smart glasses in a shopping centre, who was then told the footage would only be removed as a "paid service." A separate BBC investigation identified nearly 50 women filmed without their knowledge on nights out, across more than 65 online channels with a combined 3 billion+ views.
+
+I understand Liberal Democrat MP Wera Hobhouse has introduced a private member's bill to close the legal loophole around covert filming and require platforms to remove such content quickly. I'd ask you to support this bill, or similar measures, and to consider backing the current public petition calling for a ban on the sale of smart glasses with recording capability: https://petition.parliament.uk/petitions/769206
+
+I'd welcome your view on this issue.
+
+Kind regards,
+[Your name]
+[Your address, so they can confirm you're a constituent]</textarea>
+      <div class="btn-row">
+        <button type="button" id="copyMpEmailBtn">Copy email text</button>
+        <span class="copied-msg" id="copiedMsg3" role="status">Copied ✓</span>
+      </div>
+      <p class="inline-stat"><span id="statMpInline">–</span> MP emails started so far</p>
+    </div>
+  </section>
+
+  <section id="rayban" aria-labelledby="rayban-heading">
+    <div class="step-label"><div class="step-letter">E</div><h2 id="rayban-heading">Petition Ray-Ban directly</h2></div>
+    <p class="step-desc">Ray-Ban is owned by EssilorLuxottica, and it's their brand name on the "Ray-Ban Meta" glasses — they chose this partnership and can end it. A direct message adds pressure alongside the petition and your MP.</p>
+
+    <div class="card">
+      <h3>Contact Ray-Ban / EssilorLuxottica</h3>
+      <a class="link-btn" href="https://www.ray-ban.com/uk/contact-us" target="_blank" rel="noopener">
+        Ray-Ban UK official contact form <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="link-btn" href="https://www.instagram.com/raybanmeta/" target="_blank" rel="noopener">
+        @raybanmeta on Instagram <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="link-btn" href="https://x.com/ray_ban" target="_blank" rel="noopener">
+        @ray_ban on X <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <p class="chip-intro">Prefer email? EssilorLuxottica's corporate communications inbox is <a href="mailto:media@essilorluxottica.com">media@essilorluxottica.com</a> — a role inbox for the company, not a named individual, so it's the appropriate place for a message like this.</p>
+    </div>
+
+    <div class="card">
+      <h3>Message template</h3>
+      <p class="step-desc" style="margin:0 0 14px;">Paste this into the contact form, use it as a reply/comment on their social posts, or send it by email. Keep it short if posting publicly.</p>
+      <label class="field-label visually-hidden" for="raybanEmailBody">Ray-Ban message text</label>
+      <textarea id="raybanEmailBody">Subject: Please end the camera-enabled "Ray-Ban Meta" collaboration
+
+Dear Ray-Ban / EssilorLuxottica,
+
+I'm a customer of your eyewear, writing to ask you to reconsider your partnership with Meta on camera-enabled "Ray-Ban Meta" smart glasses.
+
+A BBC investigation published in May 2026 documented a London woman covertly filmed via smart glasses in a shopping centre; when she asked for the video to be taken down, the man who filmed her said he'd only remove it as a "paid service." A separate BBC investigation found nearly 50 women filmed without their knowledge on nights out, across more than 65 online channels with a combined 3 billion+ views. The UK Home Secretary has said this misuse of technology "will not be tolerated," and a Liberal Democrat MP has introduced a bill to close the legal loophole around covert filming.
+
+Ray-Ban's name and reputation are on these frames. I'd ask EssilorLuxottica to:
+
+1. Add a clear, unmistakable recording signal that can't be disabled
+2. Pause or end the camera-enabled Meta collaboration until covert recording is no longer possible
+3. Respond publicly to the concerns raised by this reporting
+
+There is also a live UK Parliament petition calling for a ban on the sale of smart glasses with recording capability: https://petition.parliament.uk/petitions/769206
+
+I'd welcome your response.
+
+Kind regards,
+[Your name]</textarea>
+      <div class="btn-row">
+        <button type="button" id="copyRaybanBtn">Copy message text</button>
+        <button type="button" class="secondary" id="openRaybanMailtoBtn">Open in email app</button>
+        <span class="copied-msg" id="copiedMsg4" role="status">Copied ✓</span>
+      </div>
+      <p class="inline-stat"><span id="statRaybanInline">–</span> Ray-Ban messages started so far</p>
+    </div>
+  </section>
+
+  </main>
+
+  <footer>
+    <p>Built as a community toolkit. Claims sourced from BBC News reporting (Feb &amp; May 2026) and petition.parliament.uk, checked as of August 2026 — always verify current signature counts at
+    <a href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">petition.parliament.uk</a>. Ray-Ban/EssilorLuxottica contact details from
+    <a href="https://www.ray-ban.com/uk/contact-us" target="_blank" rel="noopener">ray-ban.com</a> and EssilorLuxottica's published corporate communications channel.</p>
+  </footer>
+</div>
+
+<script src="js/stats.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
