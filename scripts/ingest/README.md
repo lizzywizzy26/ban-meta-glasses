@@ -94,23 +94,62 @@ npx wrangler d1 execute stop-meta-glasses-db --remote --file=output/vision-expre
 
 ## Proof this actually works
 
-The full chain — fixture → parse → normalize → geocode → SQL → real local
-D1 (via `wrangler d1 execute --local`) → the real Worker code (via
-`wrangler dev --local`) → a real browser hitting the real `/api/stockists`
-endpoint and rendering result cards — has been run end-to-end using the
-test fixture. It correctly returns the one verified test branch within
-range, correctly excludes a deliberately-inserted `authorised_chain` test
-record even though it was geographically closer, and correctly shows the
-"no verified seller here" / "couldn't recognise that postcode" messages for
-the appropriate inputs. What hasn't happened yet: running step 1 against
-the real Vision Express page (blocked in the build environment, needs a
-human to run it — see above) and loading the real result through steps 2–3.
+The full chain — parse → normalize → geocode → SQL → real local D1 (via
+`wrangler d1 execute --local`) → the real Worker code (via `wrangler dev
+--local`) → a real browser hitting the real `/api/stockists` endpoint and
+rendering result cards — has been run end-to-end twice: once against the
+synthetic test fixture (proves the mechanics), and once against a real
+saved copy of Vision Express's page with 440 real branches (proves it at
+real scale). Both runs correctly exclude everything that isn't
+`verified_branch` from public results — including, in the real run, all
+440 real branches at once, none of which incorrectly reached
+`verified_branch`. See the finding below for why.
 
-## Next Phase 1 sources, once Vision Express works end-to-end
+## What we learned from the first real Vision Express fetch (14 Aug 2026)
+
+The page (`visionexpress.com/opticians/ray-ban-meta`) genuinely has a
+well-structured 440-branch store list — real addresses, postcodes, phone
+numbers, per-branch page URLs. But it's Vision Express's **generic** store
+locator widget, reused on the Ray-Ban Meta landing page. The page's own
+copy says Ray-Ban Meta is available "in **selected** Vision Express
+stores," but every one of the 440 entries carries the exact same set of
+feature tags (only "Wheelchair accessible" ever appears anywhere in the
+440) — there is no per-branch signal distinguishing the "selected" subset
+from the rest. Importing this data any other way than `authorised_chain`
+would mean publicly claiming specific named shops sell something we have
+no branch-level evidence for, which is exactly what the verification model
+exists to prevent.
+
+So: **all 440 real Vision Express branches are correctly sitting in D1 as
+`authorised_chain`, not `verified_branch`** (real geocoded addresses, real
+contact info, ready to upgrade — just not shown to supporters yet). This
+isn't a failure of the pipeline; the pipeline did exactly what it should.
+It's an open problem: **where would genuine branch-level Ray-Ban Meta
+evidence for Vision Express actually come from?** Untried ideas, in
+roughly ascending effort:
+
+- An individual branch's own page (e.g. `visionexpress.com/opticians/aberdeen/aberdeen`,
+  linked from each store-list entry) might show product availability that
+  the aggregate locator view doesn't — untested.
+- A "book a Ray-Ban Meta demo" flow, if one exists separately from the
+  general appointment booker, might only offer branches that actually have
+  demo units — the kind of dynamic stock-checker the master brief
+  anticipated as a later-phase signal, not something to force into Phase 1.
+- Contacting Vision Express directly (their press/corporate line, not a
+  scrape) and asking for the actual "selected stores" list.
+
+None of these have been investigated — flagging them rather than guessing.
+
+## Next Phase 1 sources
 
 Per the master brief: David Clulow next, then Ray-Ban's own store locator
-and Boots Opticians (branch-level Meta signal required for the latter two,
-not just chain presence). Phase 2 (Currys, Argos, EE, InMotion, John Lewis,
-O2, Three, Very) is chain-level (`authorised_chain`) evidence only until
-someone finds a branch-level signal for each — don't upgrade those to
-`verified_branch` without one.
+and Boots Opticians. Worth checking early, before investing in the same
+targeted-parser effort, whether each source actually distinguishes
+Ray-Ban-Meta-carrying branches from its general store list the way Vision
+Express's turned out not to — David Clulow's ~30-store national footprint
+(versus Vision Express's 440) at least raises the possibility its Ray-Ban
+Meta page is a genuinely curated subset rather than a generic locator, but
+that needs verifying the same way, not assuming. Phase 2 (Currys, Argos,
+EE, InMotion, John Lewis, O2, Three, Very) is chain-level
+(`authorised_chain`) evidence only until someone finds a branch-level
+signal for each — don't upgrade those to `verified_branch` without one.
