@@ -176,71 +176,47 @@ reasoning and the corroborating phone-check evidence — so anyone asking
 "why does this site say this shop sells Meta Ray-Bans" gets a real,
 specific answer, not just "trust us."
 
-**Before this goes to production: re-run step 2 without `--mock-geocoder`.**
-The 440 records currently sitting in local D1 (proven end-to-end against
-the real Worker code) were geocoded using the mock lookup table, since this
-build environment can't reach postcodes.io — meaning their stored
-coordinates are fake placeholders, not real branch locations. Real
-geocoding requires a human running the pipeline with normal network
-access, exactly like the fetch step. Applying the current mock-geocoded SQL
-to the real production database would make every branch's proximity search
-meaningless.
+**Vision Express's 438 records already have real coordinates** — step 2 was
+re-run without `--mock-geocoder` on 14 Aug 2026 once real network access
+was available, and that's what's committed in `../data/stockists/`. Any
+*new* source still needs the same treatment: build/test against
+`--mock-geocoder` in a restricted environment if needed, but the version
+that goes anywhere near production must be geocoded for real.
 
-If the same "directory-is-product-specific" reasoning turns out not to
-apply to a future source (David Clulow, Ray-Ban, Boots), it needs its own
-explicit human decision each time, on its own facts — not inherited from
-this one. The still-open leads below remain open for cases where a real
-per-branch signal is worth finding, independent of this decision:
+If the same "directory-is-product-specific" reasoning applied to Vision
+Express turns out to fit a future source too, it needs its own explicit
+human decision each time, on its own facts — never inherited automatically
+from Vision Express's case.
 
-- An individual branch's own page (e.g. `visionexpress.com/opticians/aberdeen/aberdeen`,
-  linked from each store-list entry) might show product availability that
-  the aggregate locator view doesn't — untested.
-- A "book a Ray-Ban Meta demo" flow, if one exists separately from the
-  general appointment booker, might only offer branches that actually have
-  demo units — the kind of dynamic stock-checker the master brief
-  anticipated as a later-phase signal, not something to force into Phase 1.
-- Contacting Vision Express directly (their press/corporate line, not a
-  scrape) and asking for the actual "selected stores" list.
+## Current status across all sources
 
-These are being actively worked, not just flagged — see the four
-workstreams below.
+See **`../data/stockists/RETAILER-MATRIX.md`** for the full picture — every
+retailer investigated so far (Vision Express, David Clulow, Ray-Ban,
+Sunglass Hut, Currys, Argos, John Lewis, EE, O2, Three, Vodafone, InMotion,
+Very, Amazon), whether Meta sales and branch-level signals are confirmed
+for each, extraction difficulty, priority, and — for the retailers whose
+branch data only appears through a live "check stock" interaction rather
+than static HTML (Currys, Argos, John Lewis) — a step-by-step DevTools
+guide for capturing the underlying request, since a fetch script can't
+reach that data the way it did for Vision Express/David Clulow.
 
-## Four active workstreams (as of 14 Aug 2026)
-
-**1. David Clulow** — `1-fetch-david-clulow.mjs` targets
-`davidclulow.com/stores/ray-ban-meta`. Unlike the Vision Express script,
-this one does NOT have a targeted parser yet (its page structure hasn't
-been seen) — it uses the same generic multi-strategy extraction Vision
-Express started with. Run it, send back both output files, and a targeted
-parser gets built from the real structure the same way it was for Vision
-Express. David Clulow's much smaller UK footprint (~30 stores vs Vision
-Express's 440) and its "Stockists near me" page title are reasons to be
-*hopeful* this list is a genuinely curated Ray-Ban Meta subset rather than
-a reused generic locator — but that's a hypothesis to check the same
-rigorous way (real per-branch feature tags? does the page's own copy claim
-"selected stores" the way Vision Express's did?), not something to assume
-just because the URL sounds more specific.
-
-**2. Vision Express branch-page / booking-flow signal** —
-`2-investigate-branch-page-signal.mjs` fetches a small spread of 5 real
-individual branch pages (not all 440 — this is a yes/no investigation) and
-checks each for Ray-Ban Meta mentions and any nearby availability language.
-Already ruled out one lead from the main locator page's own markup: a
-`storeId`-specific booking link existed, but turned out to be for "video
-contact lens check up" in the main nav — unrelated to Ray-Ban Meta,
-confirmed by checking its context rather than assuming.
-
-**3. Contact Vision Express directly** — see `../outreach/vision-express-data-request.md`
-for a draft message and their verified press contact (`PR@visionexpress.com`,
-a role inbox, not a named individual). Could unlock the real "selected
-stores" list — the phrase is straight from their own marketing copy —
-faster than any amount of further scraping. Not something I can send
-myself; it's a real-world outreach action for a human.
-
-**4. Ray-Ban's own store locator + Boots Opticians** — next in line per the
-master brief once the above resolve, same rigor applies (branch-level
-signal required, not just chain presence).
-
-Phase 2 (Currys, Argos, EE, InMotion, John Lewis, O2, Three, Very) stays
-`authorised_chain`-only evidence until someone finds a branch-level signal
-for each — don't upgrade those to `verified_branch` without one.
+Quick summary as of 15 Aug 2026:
+- **Vision Express**: done, 438 `verified_branch` records committed
+- **David Clulow**: done, 40 `authorised_chain` records committed, parked
+  pending the campaign owner's phone corroboration before any
+  `verified_branch` decision
+- **Ray-Ban, Sunglass Hut**: fetch scripts ready
+  (`1-fetch-rayban.mjs`, `1-fetch-sunglasshut.mjs`), waiting on a real run
+- **Currys, Argos, John Lewis**: confirmed to sell Ray-Ban Meta with real
+  per-store stock checkers, but these are JavaScript-driven — needs the
+  DevTools capture process, not a fetch script, before any ingestion work
+  can start
+- **EE, O2, Three**: confirmed to sell Ray-Ban Meta online; in-store
+  physical availability not yet established either way
+- **Vodafone, InMotion**: no evidence found that either currently sells
+  Ray-Ban Meta at all
+- **Very**: no evidence of selling it, and moot either way — no physical
+  stores exist to make it a branch-level source
+- **Amazon UK**: deliberately excluded from branch-level work — stays a
+  national retailer/action target per the campaign owner's decision, not a
+  postcode-proximity result
