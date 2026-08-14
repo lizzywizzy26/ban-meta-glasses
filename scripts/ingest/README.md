@@ -52,17 +52,35 @@ never accidentally produce something that looks publicly verified. Pass it
 only once you've confirmed the input actually came from a real fetch of the
 named retailer's own official page.
 
-Even with the flag, a record only reaches `verified_branch` if it also has
-branch-specific Meta evidence (`metaEvidenceText` in the input). A record
-from a genuine first-party source that only proves "this chain sells Ray-Ban
-Meta somewhere" — not this specific branch — is capped at
-`authorised_chain`, and `authorised_chain` rows are never returned by the
-public `/api/stockists` endpoint. See the `verification_status` comment in
-`../../worker/schema.sql` for the full model.
+Even with the flag, a record only reaches `verified_branch` by default if
+it also has branch-specific Meta evidence (`metaEvidenceText` in the
+input). A record from a genuine first-party source that only proves "this
+chain sells Ray-Ban Meta somewhere" — not this specific branch — is capped
+at `authorised_chain`, and `authorised_chain` rows are never returned by
+the public `/api/stockists` endpoint. See the `verification_status`
+comment in `../../worker/schema.sql` for the full model.
+
+**`--directory-is-product-specific`** is a separate, explicit override for
+one documented case (see the Vision Express decision below): when set
+(requires `--assume-first-party` too), every record in the run is marked
+`verified_branch` with `verification_method =
+first_party_product_specific_directory`, regardless of per-record
+`metaEvidenceText`. This is a deliberate human judgment call about the
+*directory itself* — "this retailer presents this whole page as its
+dedicated Ray-Ban Meta store finder" — not a per-branch fact, and it must
+be invoked explicitly each time, never assumed as a default for a new
+source. Pair it with `--corroboration-note="..."` to record supporting
+evidence (e.g. phone spot-checks) directly in every affected record's
+`notes` field, so the reasoning lives in the data, not just in a
+conversation.
 
 `--mock-geocoder` swaps the real postcodes.io call for a small fixed lookup
 table (see `../../worker/src/geocode.js`) — needed for testing in a
-network-restricted environment, never used in production.
+network-restricted environment. **Never use it for a real dataset** — every
+record geocoded this way gets a fake, mostly-shared fallback coordinate,
+which would make distance-based search meaningless in production. Any run
+whose output is meant to actually go live needs real network access to
+postcodes.io (i.e. run by a human, not from a restricted sandbox).
 
 Try it now against the test fixture (safe — produces `candidate` records
 only, since `--assume-first-party` is deliberately omitted here):
@@ -120,13 +138,59 @@ would mean publicly claiming specific named shops sell something we have
 no branch-level evidence for, which is exactly what the verification model
 exists to prevent.
 
-So: **all 440 real Vision Express branches are correctly sitting in D1 as
-`authorised_chain`, not `verified_branch`** (real geocoded addresses, real
-contact info, ready to upgrade — just not shown to supporters yet). This
-isn't a failure of the pipeline; the pipeline did exactly what it should.
-It's an open problem: **where would genuine branch-level Ray-Ban Meta
-evidence for Vision Express actually come from?** Untried ideas, in
-roughly ascending effort:
+At the time, this meant: **all 440 real Vision Express branches sat in D1
+as `authorised_chain`, not `verified_branch`.** That data-structure finding
+is still accurate — there is no per-branch tag distinguishing "selected"
+stores in the locator's own markup. What changed is the interpretation of
+what counts as sufficient evidence — see the decision below.
+
+## Decision: Vision Express's 440 branches upgraded to verified_branch (14 Aug 2026)
+
+The campaign owner reviewed the finding above and decided the directory's
+own framing — Vision Express explicitly presents this page as its Ray-Ban
+Meta store finder, returning 440 selected-store results — counts as
+sufficient first-party evidence on its own, treating the "selected stores"
+language as describing the 440 results themselves rather than an
+unidentified smaller subset within them. This was checked against one
+piece of independently verifiable context before proceeding: Vision
+Express's total UK store count is roughly 500-533 (third-party count) to
+"over 550" (their own site, likely including Ireland) — meaningfully more
+than 440, so this directory is not simply "every store nationally,
+regardless of product" (which would have been a direct contradiction).
+That doesn't independently prove the exclusion criterion is specifically
+Ray-Ban Meta stock, but it doesn't contradict the reading either. Combined
+with phone spot-checks confirming physical stock at sampled locations
+(including a Vision Express inside a Tesco in Northern Ireland, confirmed
+to hold multiple models and an in-store demo pair), the campaign owner
+judged this sufficient and made the call.
+
+This introduced a new verification method,
+`first_party_product_specific_directory` (see `../../worker/schema.sql`
+and the `--directory-is-product-specific` flag documented above), reserved
+specifically for this kind of directory-level judgment call — distinct
+from `first_party_stockist_directory`, which requires actual per-record
+evidence. All 440 records now carry `verification_method =
+'first_party_product_specific_directory'`, source URL + verification date
+as provenance, and a `notes` field recording both the directory-level
+reasoning and the corroborating phone-check evidence — so anyone asking
+"why does this site say this shop sells Meta Ray-Bans" gets a real,
+specific answer, not just "trust us."
+
+**Before this goes to production: re-run step 2 without `--mock-geocoder`.**
+The 440 records currently sitting in local D1 (proven end-to-end against
+the real Worker code) were geocoded using the mock lookup table, since this
+build environment can't reach postcodes.io — meaning their stored
+coordinates are fake placeholders, not real branch locations. Real
+geocoding requires a human running the pipeline with normal network
+access, exactly like the fetch step. Applying the current mock-geocoded SQL
+to the real production database would make every branch's proximity search
+meaningless.
+
+If the same "directory-is-product-specific" reasoning turns out not to
+apply to a future source (David Clulow, Ray-Ban, Boots), it needs its own
+explicit human decision each time, on its own facts — not inherited from
+this one. The still-open leads below remain open for cases where a real
+per-branch signal is worth finding, independent of this decision:
 
 - An individual branch's own page (e.g. `visionexpress.com/opticians/aberdeen/aberdeen`,
   linked from each store-list entry) might show product availability that

@@ -9,7 +9,7 @@
 // interchangeably — see fixtures/vision-express-sample.json.
 //
 // Usage:
-//   node scripts/ingest/2-normalize-and-geocode.mjs <input.json> --chain-id=vision-express --chain-name="Vision Express" --category=optician [--assume-first-party] [--mock-geocoder]
+//   node scripts/ingest/2-normalize-and-geocode.mjs <input.json> --chain-id=vision-express --chain-name="Vision Express" --category=optician [--assume-first-party] [--directory-is-product-specific] [--corroboration-note="..."] [--mock-geocoder]
 //
 // Example against the test fixture (safe — will NOT produce verified_branch
 // records, see the safety rule below):
@@ -23,10 +23,21 @@
 // retailer's own official page — never set by default. Without it, every
 // record is forced to verification_status = 'candidate' regardless of
 // content, so test/fixture runs can never accidentally produce data that
-// looks publicly verified. Even WITH the flag, a record only reaches
-// verified_branch if it also has branch-level Meta-specific evidence
-// (metaEvidenceText) — chain-level sourcing alone caps a record at
-// 'authorised_chain', per the campaign's core data principle.
+// looks publicly verified. By default, even with the flag, a record only
+// reaches verified_branch if it also has branch-level Meta-specific
+// evidence (metaEvidenceText) — chain-level sourcing alone caps a record
+// at 'authorised_chain', per the campaign's core data principle.
+//
+// --directory-is-product-specific is a SEPARATE, explicit override for a
+// specific documented case: a human has judged that the directory ITSELF
+// (not each individual record) is the retailer's dedicated product-specific
+// store finder, and decided that's sufficient evidence for verified_branch
+// across the whole batch — see e.g. the Vision Express decision recorded in
+// this repo's commit history and scripts/ingest/README.md. This bypasses
+// the per-record metaEvidenceText check entirely, so it must be a
+// deliberate, one-off, human-made call each time it's used, never a
+// default — pair it with --corroboration-note to record why in the data
+// itself, not just in a chat conversation.
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
@@ -38,10 +49,20 @@ const OUTPUT_DIR = join(__dirname, 'output');
 
 function parseArgs(argv) {
   const [inputPath, ...rest] = argv;
-  const flags = { assumeFirstParty: false, mockGeocoder: false, chainId: null, chainName: null, category: null };
+  const flags = {
+    assumeFirstParty: false,
+    mockGeocoder: false,
+    directoryIsProductSpecific: false,
+    corroborationNote: null,
+    chainId: null,
+    chainName: null,
+    category: null,
+  };
   for (const arg of rest) {
     if (arg === '--assume-first-party') flags.assumeFirstParty = true;
     else if (arg === '--mock-geocoder') flags.mockGeocoder = true;
+    else if (arg === '--directory-is-product-specific') flags.directoryIsProductSpecific = true;
+    else if (arg.startsWith('--corroboration-note=')) flags.corroborationNote = arg.slice('--corroboration-note='.length).replace(/^"|"$/g, '');
     else if (arg.startsWith('--chain-id=')) flags.chainId = arg.slice('--chain-id='.length);
     else if (arg.startsWith('--chain-name=')) flags.chainName = arg.slice('--chain-name='.length).replace(/^"|"$/g, '');
     else if (arg.startsWith('--category=')) flags.category = arg.slice('--category='.length);
@@ -57,13 +78,27 @@ function slugify(str) {
 }
 
 async function main() {
-  const { inputPath, assumeFirstParty, mockGeocoder, chainId, chainName, category } = parseArgs(process.argv.slice(2));
+  const { inputPath, assumeFirstParty, mockGeocoder, directoryIsProductSpecific, corroborationNote, chainId, chainName, category } = parseArgs(
+    process.argv.slice(2)
+  );
 
   if (!inputPath || !chainId || !chainName || !category) {
     console.error(
-      'Usage: node 2-normalize-and-geocode.mjs <input.json> --chain-id=<id> --chain-name=<"Name"> --category=<optician|eyewear|electronics|department_store|carrier|other> [--assume-first-party] [--mock-geocoder]'
+      'Usage: node 2-normalize-and-geocode.mjs <input.json> --chain-id=<id> --chain-name=<"Name"> --category=<optician|eyewear|electronics|department_store|carrier|other> [--assume-first-party] [--directory-is-product-specific] [--corroboration-note="..."] [--mock-geocoder]'
     );
     process.exit(1);
+  }
+
+  if (directoryIsProductSpecific && !assumeFirstParty) {
+    console.error('--directory-is-product-specific requires --assume-first-party (it only makes sense for a confirmed real first-party fetch).');
+    process.exit(1);
+  }
+  if (directoryIsProductSpecific) {
+    console.log(
+      'NOTE: --directory-is-product-specific is set — every record in this run will be marked verified_branch ' +
+        '(verification_method=first_party_product_specific_directory) regardless of per-record metaEvidenceText. ' +
+        'This is a deliberate human override for a documented case, not the default path.\n'
+    );
   }
 
   const raw = JSON.parse(await readFile(inputPath, 'utf-8'));
@@ -123,6 +158,10 @@ async function main() {
     if (!assumeFirstParty) {
       verificationStatus = 'candidate';
       verificationMethod = 'manual_confirmation';
+    } else if (directoryIsProductSpecific) {
+      // Explicit human override — see the flag's own comment above.
+      verificationStatus = 'verified_branch';
+      verificationMethod = 'first_party_product_specific_directory';
     } else if (hasMetaEvidence) {
       verificationStatus = 'verified_branch';
       verificationMethod = 'first_party_stockist_directory';
@@ -153,7 +192,10 @@ async function main() {
       phone_number: rec.phone || null,
       contact_type: 'branch_page',
       contact_value: null,
-      contact_url: rec.sourceUrl || sourceUrl,
+      // Prefer this specific branch's own page (e.g. Vision Express's
+      // per-store pages) over the generic directory URL, so "Visit branch
+      // page" in the finder actually lands somewhere branch-specific.
+      contact_url: rec.branchPageUrl || rec.sourceUrl || sourceUrl,
       booking_url: null,
       stock_checker_url: null,
       prescription_available: null,
@@ -162,12 +204,16 @@ async function main() {
       verification_method: verificationMethod,
       source_url: rec.sourceUrl || sourceUrl,
       source_label: `${chainName}'s official Ray-Ban Meta directory`,
-      verified_product_scope: hasMetaEvidence ? 'ray_ban_meta' : null,
+      verified_product_scope: hasMetaEvidence || directoryIsProductSpecific ? 'ray_ban_meta' : null,
       last_verified_at: (raw.fetchedAt || new Date().toISOString()).slice(0, 10),
       notes:
         [
           rec.needsReview ? 'Extracted via low-confidence method — needs manual review before trusting.' : null,
           cityIsGuessed ? `City guessed from address text ("${city}") — verify before trusting.` : null,
+          directoryIsProductSpecific
+            ? 'Verified via directory-level judgment: this retailer presents this directory as its dedicated Ray-Ban Meta store finder, not a generic locator — not an individually-confirmed branch fact.'
+            : null,
+          corroborationNote || null,
         ]
           .filter(Boolean)
           .join(' ') || null,

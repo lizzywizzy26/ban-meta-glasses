@@ -71,6 +71,17 @@ CREATE TABLE IF NOT EXISTS stockists (
   -- first_party_branch_page
   -- first_party_stockist_directory
   -- first_party_stock_checker
+  -- first_party_product_specific_directory
+  --   The whole directory is presented by the retailer as ITS product-
+  --   specific store finder (e.g. a "Ray-Ban Meta store finder" page,
+  --   distinct from a generic "find any store" locator), so every result
+  --   it returns counts as verified_branch evidence without a per-record
+  --   Meta-specific flag. This is a judgment call about the directory's
+  --   own framing, not a per-branch fact — see `notes` on affected records
+  --   for the reasoning and any corroborating evidence (e.g. phone spot
+  --   checks) behind a specific batch. Requires deliberate human sign-off
+  --   per source (see --directory-is-product-specific in
+  --   scripts/ingest/2-normalize-and-geocode.mjs) — never a default.
   -- manual_confirmation
 
   source_url TEXT NOT NULL,
