@@ -58,9 +58,21 @@ async function liveGeocode(normalizedPostcode) {
   if (!res.ok) throw new Error(`postcodes.io returned ${res.status}`);
   const data = await res.json();
   if (!data || !data.result) return null;
+  const { latitude, longitude } = data.result;
+  // postcodes.io can return a result row for a postcode without real
+  // coordinates in it — confirmed for Channel Islands postcodes (e.g.
+  // Jersey's JE postcodes), which aren't part of the UK for ONS geocoding
+  // purposes despite existing as valid postcode strings. Treat this the
+  // same as "not found" rather than silently storing null coordinates,
+  // which would violate the stockists table's NOT NULL constraint and,
+  // worse, could silently succeed with corrupt data if that constraint
+  // were ever relaxed.
+  if (typeof latitude !== 'number' || typeof longitude !== 'number' || Number.isNaN(latitude) || Number.isNaN(longitude)) {
+    return null;
+  }
   return {
-    latitude: data.result.latitude,
-    longitude: data.result.longitude,
+    latitude,
+    longitude,
     postcode: data.result.postcode,
     source: 'postcodes.io',
   };
