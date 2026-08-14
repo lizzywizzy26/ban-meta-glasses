@@ -66,3 +66,17 @@ js/stats.js          — campaign impact counters: fetches/renders counts, fires
 worker/               — optional Cloudflare Worker + D1 backend for the counters (see worker/README.md)
 meta_rayban_research.md — background research (Gemini Deep Research), not yet fact-checked for site copy
 ```
+
+## License
+
+The code (HTML/CSS/JS, the Worker) is [MIT licensed](LICENSE) — copy it,
+adapt it for your own city or country, fork it for a different campaign, no
+need to ask first. Just keep the copyright notice in the LICENSE file.
+
+The campaign copy — evidence summaries, email/message templates, page text —
+isn't really "software," so if you're a non-developer wanting to reuse just
+the *words* (e.g. lift the optician email template for your own local
+campaign), treat it as [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/):
+free to reuse and adapt, just say where it came from and keep the BBC/source
+citations attached to any factual claims you carry over — don't strip the
+sourcing and present the claims as your own research.
