@@ -138,18 +138,45 @@ roughly ascending effort:
 - Contacting Vision Express directly (their press/corporate line, not a
   scrape) and asking for the actual "selected stores" list.
 
-None of these have been investigated — flagging them rather than guessing.
+These are being actively worked, not just flagged — see the four
+workstreams below.
 
-## Next Phase 1 sources
+## Four active workstreams (as of 14 Aug 2026)
 
-Per the master brief: David Clulow next, then Ray-Ban's own store locator
-and Boots Opticians. Worth checking early, before investing in the same
-targeted-parser effort, whether each source actually distinguishes
-Ray-Ban-Meta-carrying branches from its general store list the way Vision
-Express's turned out not to — David Clulow's ~30-store national footprint
-(versus Vision Express's 440) at least raises the possibility its Ray-Ban
-Meta page is a genuinely curated subset rather than a generic locator, but
-that needs verifying the same way, not assuming. Phase 2 (Currys, Argos,
-EE, InMotion, John Lewis, O2, Three, Very) is chain-level
-(`authorised_chain`) evidence only until someone finds a branch-level
-signal for each — don't upgrade those to `verified_branch` without one.
+**1. David Clulow** — `1-fetch-david-clulow.mjs` targets
+`davidclulow.com/stores/ray-ban-meta`. Unlike the Vision Express script,
+this one does NOT have a targeted parser yet (its page structure hasn't
+been seen) — it uses the same generic multi-strategy extraction Vision
+Express started with. Run it, send back both output files, and a targeted
+parser gets built from the real structure the same way it was for Vision
+Express. David Clulow's much smaller UK footprint (~30 stores vs Vision
+Express's 440) and its "Stockists near me" page title are reasons to be
+*hopeful* this list is a genuinely curated Ray-Ban Meta subset rather than
+a reused generic locator — but that's a hypothesis to check the same
+rigorous way (real per-branch feature tags? does the page's own copy claim
+"selected stores" the way Vision Express's did?), not something to assume
+just because the URL sounds more specific.
+
+**2. Vision Express branch-page / booking-flow signal** —
+`2-investigate-branch-page-signal.mjs` fetches a small spread of 5 real
+individual branch pages (not all 440 — this is a yes/no investigation) and
+checks each for Ray-Ban Meta mentions and any nearby availability language.
+Already ruled out one lead from the main locator page's own markup: a
+`storeId`-specific booking link existed, but turned out to be for "video
+contact lens check up" in the main nav — unrelated to Ray-Ban Meta,
+confirmed by checking its context rather than assuming.
+
+**3. Contact Vision Express directly** — see `../outreach/vision-express-data-request.md`
+for a draft message and their verified press contact (`PR@visionexpress.com`,
+a role inbox, not a named individual). Could unlock the real "selected
+stores" list — the phrase is straight from their own marketing copy —
+faster than any amount of further scraping. Not something I can send
+myself; it's a real-world outreach action for a human.
+
+**4. Ray-Ban's own store locator + Boots Opticians** — next in line per the
+master brief once the above resolve, same rigor applies (branch-level
+signal required, not just chain presence).
+
+Phase 2 (Currys, Argos, EE, InMotion, John Lewis, O2, Three, Very) stays
+`authorised_chain`-only evidence until someone finds a branch-level signal
+for each — don't upgrade those to `verified_branch` without one.
