@@ -30,7 +30,7 @@
 
 import { writeFile, mkdir, readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = join(__dirname, 'output');
@@ -188,8 +188,15 @@ async function main() {
 }
 
 // Only run the network fetch when executed directly (not when imported for
-// testing against a saved HTML file — see the test in this same directory).
-if (import.meta.url === `file://${process.argv[1]}`) {
+// testing against a saved HTML file). Comparing via pathToFileURL rather
+// than a plain `file://${...}` string is required for this to work
+// correctly on any path containing a space or other character that needs
+// URL-encoding (e.g. a folder named "ban-meta-glasses-main 3") — a naive
+// string comparison silently fails to match on such paths, which silently
+// skips main() entirely with zero output and zero error. Confirmed this
+// the hard way: it worked fine in testing from a path with no spaces, and
+// failed silently (no error at all) from a real user's Downloads folder.
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((err) => {
     console.error('Fetch failed:', err.message);
     process.exit(1);
