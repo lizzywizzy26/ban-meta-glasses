@@ -48,14 +48,17 @@ chain sells it somewhere" (`authorised_chain`) — see
 into that table without ever silently promoting weaker evidence into a
 "verified" badge.
 
-**Status: architecture built and tested, real data not loaded yet.** The
-full pipeline (fetch → normalize → geocode → SQL → D1 → `/api/stockists` →
-frontend) has been proven end-to-end using a clearly-labelled synthetic
-test fixture (`scripts/ingest/fixtures/`), run against the real Worker code
-via `wrangler dev --local`. It has **not** been run against real Vision
-Express data yet — see `scripts/ingest/README.md` for the one remaining
-step (running the fetch script, since the environment this was built in
-couldn't reach external sites to do that itself).
+**Status: architecture built and tested; first real dataset ready, not yet
+deployed.** The full pipeline (fetch → normalize → geocode → SQL → D1 →
+`/api/stockists` → frontend) has been proven end-to-end against the real
+Worker code, first with a synthetic test fixture, then with real data.
+`data/stockists/vision-express.normalized.json` holds 438 real,
+first-party-verified Vision Express branches with real coordinates — see
+`data/stockists/README.md` for what that file is and
+`scripts/ingest/README.md` for the full source-by-source status (David
+Clulow next, Ray-Ban's own locator after that). None of this is loaded
+into the real production database yet — that's a deliberate, separate,
+not-yet-taken step.
 
 Same deploy dependency as the counters below: this needs the Worker in
 `worker/` deployed and `js/config.js`'s `API_BASE_URL` set. Until then, the
@@ -101,6 +104,7 @@ worker/                    — optional Cloudflare Worker + D1 backend (see work
   src/distance.js            — Haversine distance + bounding-box helpers
   schema.sql                  — counters + rate_limits + stockists tables
 scripts/ingest/             — the stockist-data pipeline (see scripts/ingest/README.md)
+data/stockists/             — finalized, committed per-source datasets ready to load into D1 (see data/stockists/README.md)
 meta_rayban_research.md   — background research (Gemini Deep Research), not yet fact-checked for site copy
 ```
 
