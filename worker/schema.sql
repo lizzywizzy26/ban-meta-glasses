@@ -8,6 +8,7 @@ INSERT OR IGNORE INTO counters (name, value) VALUES
   ('optician', 0),
   ('mp', 0),
   ('rayban', 0),
+  ('retailer', 0),
   ('petition_click', 0),
   ('petition_share', 0);
 

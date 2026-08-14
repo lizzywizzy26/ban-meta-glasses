@@ -29,13 +29,21 @@ function reportHit(type) {
   if (window.__campaignHit) window.__campaignHit(type);
 }
 
-function buildOpticianEmail() {
-  const shop = document.getElementById('shopName').value.trim();
-  let text = document.getElementById('emailBody').value;
-  if (shop) {
-    text = text.replace('[Optician name]', shop);
+function buildTemplateWithSubstitution(fieldId, textareaId, placeholder) {
+  const value = document.getElementById(fieldId).value.trim();
+  let text = document.getElementById(textareaId).value;
+  if (value) {
+    text = text.replace(placeholder, value);
   }
   return text;
+}
+
+function buildOpticianEmail() {
+  return buildTemplateWithSubstitution('shopName', 'emailBody', '[Optician name]');
+}
+
+function buildRetailerMessage() {
+  return buildTemplateWithSubstitution('retailerName', 'retailerEmailBody', '[Retailer name]');
 }
 
 // Some mail clients (older Outlook desktop, some OS-level mailto handlers)
@@ -86,4 +94,13 @@ document.getElementById('copyRaybanBtn').addEventListener('click', () => {
 document.getElementById('openRaybanMailtoBtn').addEventListener('click', () => {
   mailtoFromTemplate(document.getElementById('raybanEmailBody').value, 'mailtoWarnRayban');
   reportHit('rayban');
+});
+
+document.getElementById('copyRetailerBtn').addEventListener('click', () => {
+  navigator.clipboard.writeText(buildRetailerMessage()).then(() => flash('copiedMsg5'));
+  reportHit('retailer');
+});
+document.getElementById('openRetailerMailtoBtn').addEventListener('click', () => {
+  mailtoFromTemplate(buildRetailerMessage(), 'mailtoWarnRetailer');
+  reportHit('retailer');
 });

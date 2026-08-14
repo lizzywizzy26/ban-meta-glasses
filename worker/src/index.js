@@ -1,4 +1,4 @@
-const COUNTER_TYPES = new Set(['visit', 'optician', 'mp', 'rayban', 'petition_click', 'petition_share']);
+const COUNTER_TYPES = new Set(['visit', 'optician', 'mp', 'rayban', 'retailer', 'petition_click', 'petition_share']);
 
 // How long (seconds) a single IP is locked out from re-incrementing a given
 // counter. This is the main anti-inflation safeguard — it's not bulletproof
@@ -9,6 +9,7 @@ const COOLDOWN_SECONDS = {
   optician: 21600,       // 6 hours — allows emailing a couple of different opticians in one sitting
   mp: 21600,
   rayban: 21600,
+  retailer: 21600,       // 6 hours — allows messaging a couple of different retailers in one sitting
   petition_click: 3600,  // 1 hour — clicking through to the petition
   petition_share: 3600,  // 1 hour — copying the share text
 };

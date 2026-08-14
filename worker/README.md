@@ -51,9 +51,9 @@ You'll need a free Cloudflare account (no credit card required for this).
 
 ## API
 
-- `GET /api/stats` → `{ "visit": 12, "optician": 3, "mp": 1, "rayban": 2, "petition_click": 5, "petition_share": 0 }`
+- `GET /api/stats` → `{ "visit": 12, "optician": 3, "mp": 1, "rayban": 2, "retailer": 4, "petition_click": 5, "petition_share": 0 }`
 - `POST /api/hit` with JSON body `{ "type": "optician" }` (type is one of
-  `visit`, `optician`, `mp`, `rayban`, `petition_click`, `petition_share`) → increments that
+  `visit`, `optician`, `mp`, `rayban`, `retailer`, `petition_click`, `petition_share`) → increments that
   counter unless the calling IP is still within its cooldown window for that
   type, then returns the current counts either way.
 

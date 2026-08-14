@@ -8,6 +8,7 @@ const STAT_ELEMENT_IDS = {
   optician: ['statOpticianPanel', 'statOpticianInline'],
   mp: ['statMpPanel', 'statMpInline'],
   rayban: ['statRaybanPanel', 'statRaybanInline'],
+  retailer: ['statRetailerPanel', 'statRetailerInline'],
   petition_click: ['statPetitionClickPanel', 'statPetitionClickInline'],
   petition_share: ['statSharePanel', 'statShareInline'],
 };
