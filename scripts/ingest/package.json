@@ -1,0 +1,9 @@
+{
+  "name": "ban-meta-glasses-ingest-browser-fallback",
+  "private": true,
+  "type": "module",
+  "description": "Optional dependency, used ONLY by 1b-fetch-sunglasshut-browser.mjs. Every other script in this folder is zero-dependency plain Node — this package.json exists solely so that script can use a real browser (Playwright) against Akamai-protected pages. Run `npm install` from inside scripts/ingest/ (not the repo root) before using 1b-fetch-sunglasshut-browser.mjs. This downloads a Chromium build (~300MB) the first time.",
+  "dependencies": {
+    "playwright": "^1.56.1"
+  }
+}

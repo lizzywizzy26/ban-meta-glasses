@@ -22,8 +22,8 @@ this is a planning document, not a data source.
 |---|---|---|---|---|---|
 | **Vision Express** | ✅ Confirmed | Directory-level only, no per-branch tag | Static (done) | — | 438 branches committed as `verified_branch` via `first_party_product_specific_directory` (campaign owner's decision) |
 | **David Clulow** | ✅ Confirmed | Directory-level only, no per-branch tag; mixed evidence on whether directory itself counts | Static (done) | — | 40 branches committed as `authorised_chain`, pending campaign owner's phone corroboration |
-| **Ray-Ban (own store locator)** | ✅ Confirmed (it's their product) | Unknown — haven't seen real page structure yet | Unknown | High | Fetch script ready (`1-fetch-rayban.mjs`), generic first-pass extraction. Owned by EssilorLuxottica (same group as Vision Express) but locator platform not confirmed to be the same one |
-| **Sunglass Hut UK** | ✅ Confirmed (dedicated product page exists) | Unknown — haven't seen real page structure yet | Unknown | High | Fetch script ready (`1-fetch-sunglasshut.mjs`). ~35–46 UK stores per third-party listings (not yet independently confirmed) |
+| **Ray-Ban (own store locator)** | ✅ Confirmed (it's their product) | Chain-level only so far — 7/7 own-brand boutiques checked pending `2-investigate-rayban-branch-signal.mjs` results | Static (done — targeted parser confirmed) | High | `1-fetch-rayban.mjs` parses a real, small (7-entity) UK directory: Gatwick Airport, Covent Garden, Glasgow Buchanan St, Carnaby St, Battersea Power Station, Brent Cross, Stratford Westfield. These are Ray-Ban's own-brand boutiques, not a stockist list of other shops — see finding below |
+| **Sunglass Hut UK** | ✅ Confirmed (dedicated product page exists) | Blocked — Akamai bot-management block on the store-locations path, confirmed via `errors.edgesuite.net` reference in the 403 body | Static, but actively blocked (Akamai) | High | `1-fetch-sunglasshut.mjs` now runs a 3-step diagnostic (cookies, fuller headers, robots.txt/sitemap discovery); `1b-fetch-sunglasshut-browser.mjs` is a Playwright real-browser fallback if that's still blocked — see finding below |
 | **Currys** | ✅ Confirmed (multiple product listings, Gen 1 + Gen 2) | Yes — per-product "check stock near you" tool, real per-store results | **Dynamic (needs DevTools)** | High | No official public API; an entire third-party scraper ecosystem exists around this (confirms it's real and reverse-engineerable, but not officially documented) |
 | **Argos** | ✅ Confirmed (multiple product listings) | Yes — per-product postcode stock checker, arguably the most mature version of this pattern in UK retail | **Dynamic (needs DevTools)** | High | Same as Currys: no official public API, but a large third-party scraper ecosystem (Apify, GitHub projects, paid stock-checker APIs) confirms the underlying live per-store data is real and accessible |
 | **John Lewis** | ✅ Confirmed (29 models listed) | Yes — "check in-store stock" shows a list of shops with the product, and Click & Collect is explicitly "at selected shops" (not all) | **Dynamic (needs DevTools)** | High | The "selected shops" phrasing is a good sign — same kind of signal that helped the Vision Express decision, but here it's tied to a live stock feature, not just marketing copy |
@@ -34,6 +34,50 @@ this is a planning document, not a data source.
 | **InMotion** | ❌ Not confirmed | N/A | N/A | Low | No evidence found that InMotion's airport stores currently stock Ray-Ban Meta |
 | **Very** | ❌ Not confirmed, and structurally moot | N/A — Very has no physical stores at all (online/catalogue retailer) | N/A | Low | Even if confirmed to sell online, Very can never be a local/branch result — same "national retailer" bucket as Amazon, not worth further branch-level investigation |
 | **Amazon UK** | ✅ (already established) | N/A by design | N/A | — | Per the campaign owner's explicit instruction: stays a national retailer/action target, not a local postcode result, since there's no meaningful UK physical-store case |
+
+## Findings from the first real Ray-Ban and Sunglass Hut fetches (14–15 Aug 2026)
+
+**Ray-Ban:** the page (`stores.ray-ban.com/united-kingdom`) returns 0 usable
+records to a plain-text scan because there's no store markup anywhere in
+the visible HTML — it's a Yext "Pages" site that renders client-side.
+Crucially, the *initial* HTML response isn't actually empty of data: it
+embeds the full directory as a URL-encoded JSON blob fed straight into the
+client-side render call (`decodeURIComponent("%7B%22document%22...`).
+Decoding that string and walking it (`document.dm_directoryChildren`,
+recursively, to leaf nodes with an `address` key) reconstructs the exact
+same data the page hydrates from — no JS execution needed. That data
+confirms `document.dm_baseEntityCount = "7"`: this is a small, *complete*
+list of Ray-Ban's own UK retail boutiques, not a filtered subset and not a
+"stockist directory" of other shops. No phone numbers exist anywhere in the
+source data (checked: zero occurrences of "phone" in the whole decoded
+blob) — that's a genuine absence, not a parsing miss.
+
+Because these are Ray-Ban's own-branded stores, "this is a Ray-Ban store"
+is brand/chain-level identity — not, on its own, branch-level evidence that
+Ray-Ban Meta specifically is stocked/demoable at each one, per this
+project's core verification principle (same reasoning as Vision Express's
+first pass). `2-investigate-rayban-branch-signal.mjs` checks all 7
+individual store pages (not a sample, since there are only 7) for
+Meta-specific text — run it and send back the result before any
+`verified_branch` decision on this source.
+
+**Sunglass Hut:** the 403 response body identifies as an Akamai
+edge/bot-management block (`errors.edgesuite.net` reference ID), not a
+missing-page or rendering problem — the request was rejected before
+reaching the actual site. This is a different problem from Ray-Ban's:
+Akamai Bot Manager fingerprints at the TLS/HTTP-handshake level and via
+missing challenge-cookie state, so headers alone often can't fix it.
+`1-fetch-sunglasshut.mjs` was reworked into a 3-step diagnostic (homepage
+cookie pickup, fuller browser-like headers + Referer, robots.txt/sitemap
+discovery as an unprotected alternative path) — still zero new
+dependencies. If that's still blocked, `1b-fetch-sunglasshut-browser.mjs`
+drives a real (Playwright) Chromium browser instead, which is the
+realistic way past this kind of block, and also captures any JSON network
+responses the page loads (a store-locator API endpoint, if one exists,
+would be a more durable source than scraping rendered HTML). This needs
+one-time setup (`cd scripts/ingest && npm install`, ~300MB Chromium
+download) — the only script in this pipeline that isn't zero-dependency,
+kept deliberately separate and opt-in for exactly that reason.
 
 ## What this means for next steps
 

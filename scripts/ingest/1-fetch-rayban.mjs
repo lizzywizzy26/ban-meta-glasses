@@ -5,23 +5,44 @@
 // HOW TO RUN: same as the other scripts, no arguments.
 //   node scripts/ingest/1-fetch-rayban.mjs
 //
-// UNKNOWN going in (this is a first-pass, generic extraction, same
-// starting point David Clulow's script began with before real data showed
-// its structure):
-//   - Whether this page lists every UK Ray-Ban store, or something
-//     filtered.
-//   - Whether individual entries carry any Smart Glasses / Ray-Ban Meta
-//     availability signal, or whether that only shows up on each store's
-//     own individual page (unknown without seeing real data — a follow-up
-//     investigation script, matching the pattern used for Vision Express's
-//     branch-page signal check, may be needed once this first pass is in).
-//   - Ray-Ban is owned by EssilorLuxottica, same group as Vision Express —
-//     it's possible (not confirmed) this uses a different store-locator
-//     platform than Vision Express/David Clulow's shared one, so no
-//     targeted parser is attempted yet.
+// CONFIRMED FROM THE FIRST REAL RUN (14 Aug 2026): the visible HTML has no
+// store markup at all — the page is a Yext "Pages" site (stores.ray-ban.com,
+// same platform Yext uses for thousands of brand locators) that renders
+// client-side. But the initial HTML response is NOT empty of data: it embeds
+// the full directory as a URL-encoded JSON blob, passed straight into the
+// client-side render call —
+//   pageProps: JSON.parse(decodeURIComponent("%7B%22document%22...
+// decodeURIComponent() + JSON.parse() on that string reconstructs the exact
+// same `document` object the React/Preact component hydrates from, so there
+// is no need to execute JS or render the page — the source data is already
+// there, just percent-encoded. Confirmed against a real saved copy of the
+// page (14 Aug 2026): document.dm_baseEntityCount = "7", and recursively
+// walking document.dm_directoryChildren down to leaf nodes (identified by
+// having an `address` key) yields exactly 7 real UK entities with clean
+// addresses, postcodes, and lat/long — Gatwick Airport, Covent Garden,
+// Glasgow Buchanan Street, Carnaby Street, Battersea Power Station, Brent
+// Cross, and Stratford Westfield.
 //
-// Send back BOTH output files — the raw HTML matters most here, since the
-// generic extraction below is a first guess, not a finished parser.
+// IMPORTANT — these are Ray-Ban's own-brand retail boutiques, not a
+// "stockist directory" of other shops selling Ray-Ban product. That means
+// this is a SMALL, complete list (all UK Ray-Ban-branded stores, not a
+// filtered subset) — but it also means, per this project's core data
+// principle, "this is a Ray-Ban store" is chain/brand-level identity, not
+// branch-level evidence that Ray-Ban Meta specifically is stocked or
+// demoable there. So metaEvidenceText is deliberately left null here too,
+// same as Vision Express's first pass — see
+// scripts/ingest/2-investigate-rayban-branch-signal.mjs for the follow-up
+// check of whether each store's own individual page (URL captured per
+// record below as branchPageUrl) says anything more specific. With only 7
+// stores, that investigation script checks all of them, not a sample.
+//
+// No phone number field exists anywhere in the decoded JSON for any of the
+// 7 entities (checked: zero occurrences of "phone" in the whole decoded
+// blob) — phone is genuinely absent from this source, not a parsing miss.
+//
+// Generic fallbacks are kept below in case Yext changes this encoding
+// scheme in the future, or as a starting point for another Yext-powered
+// source.
 
 import { writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
@@ -30,11 +51,74 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = join(__dirname, 'output');
 const SOURCE_URL = 'https://stores.ray-ban.com/united-kingdom';
+const SITE_ORIGIN = 'https://stores.ray-ban.com';
 
+// Targeted parser for Yext Pages' embedded-directory-JSON pattern. Looks for
+// `decodeURIComponent("...")` in a <script type="module"> block, decodes it,
+// JSON.parses it, and walks the resulting directory tree for leaf entities.
+export function parseYextDirectoryJson(html) {
+  const marker = 'decodeURIComponent("';
+  const start = html.indexOf(marker);
+  if (start === -1) return [];
+  const contentStart = start + marker.length;
+  const end = html.indexOf('"))', contentStart);
+  if (end === -1) return [];
+
+  let data;
+  try {
+    const decoded = decodeURIComponent(html.slice(contentStart, end));
+    data = JSON.parse(decoded);
+  } catch {
+    return []; // encoding scheme changed — fall back to generic heuristics
+  }
+
+  const doc = data?.document;
+  if (!doc || typeof doc !== 'object') return [];
+
+  function* walkLeafEntities(node) {
+    if (!node || typeof node !== 'object') return;
+    if (Array.isArray(node)) {
+      for (const item of node) yield* walkLeafEntities(item);
+      return;
+    }
+    if (node.address && typeof node.address === 'object') {
+      yield node;
+    }
+    if (Array.isArray(node.dm_directoryChildren)) {
+      for (const child of node.dm_directoryChildren) yield* walkLeafEntities(child);
+    }
+  }
+
+  const records = [];
+  for (const entity of walkLeafEntities(doc)) {
+    const addr = entity.address || {};
+    const postcode = addr.postalCode || null;
+    if (!postcode) continue; // no usable location without a postcode
+
+    const label = entity.geomodifier || addr.extraDescription || addr.sublocality || null;
+    records.push({
+      branchName: label ? `${entity.name || 'Ray-Ban'} – ${label}` : entity.name || 'Ray-Ban',
+      address: [addr.line1, addr.line2].filter(Boolean).join(', ') || null,
+      city: addr.city || null,
+      postcode,
+      phone: null, // confirmed absent from this source, see comment above
+      sourceUrl: SOURCE_URL,
+      // Chain/brand identity only — see the file-level comment for why this
+      // stays null pending the branch-page investigation script.
+      metaEvidenceText: null,
+      extractionMethod: 'targeted_yext_directory_json',
+      needsReview: false,
+      branchPageUrl: entity.slug ? `${SITE_ORIGIN}/${entity.slug}` : SOURCE_URL,
+    });
+  }
+  return records;
+}
+
+// Generic fallbacks, kept for resilience if Yext changes this page's
+// encoding, or as a starting point for a different Yext-powered source.
 const UK_POSTCODE_RE = /\b([A-Z]{1,2}[0-9][A-Z0-9]?\s*[0-9][A-Z]{2})\b/gi;
 const UK_PHONE_RE = /\b(0\d{2,4}[\s-]?\d{3,4}[\s-]?\d{3,4})\b/g;
 const META_HINT_RE = /ray-?ban meta|smart glasses|ai glasses/i;
-const STORE_KEY_HINTS = ['store', 'branch', 'location', 'postcode', 'latitude', 'longitude', 'address'];
 
 function extractJsonLdBlocks(html) {
   const blocks = [];
@@ -81,40 +165,6 @@ function recordsFromJsonLd(blocks) {
   return records;
 }
 
-function looksLikeStoreData(jsonText) {
-  const lower = jsonText.toLowerCase();
-  return STORE_KEY_HINTS.filter((k) => lower.includes(k)).length >= 3;
-}
-
-function recordsFromEmbeddedJson(html) {
-  const records = [];
-  const re = /<script[^>]*>([\s\S]*?)<\/script>/gi;
-  let match;
-  while ((match = re.exec(html)) !== null) {
-    const content = match[1].trim();
-    if (content.length < 200 || !looksLikeStoreData(content)) continue;
-    const braceMatch = content.match(/[\{\[][\s\S]*[\}\]]/);
-    if (!braceMatch) continue;
-    try {
-      JSON.parse(braceMatch[0]);
-      records.push({
-        branchName: null,
-        address: null,
-        postcode: null,
-        phone: null,
-        sourceUrl: SOURCE_URL,
-        metaEvidenceText: null,
-        extractionMethod: 'embedded_json_candidate',
-        needsReview: true,
-        _rawCandidate: braceMatch[0].slice(0, 5000),
-      });
-    } catch {
-      // not valid JSON once extracted — skip
-    }
-  }
-  return records;
-}
-
 function recordsFromPostcodeScan(html) {
   const text = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
   const records = [];
@@ -140,6 +190,20 @@ function recordsFromPostcodeScan(html) {
   return records;
 }
 
+// Exported so this same extraction logic can be tested against an
+// already-saved copy of the page without a live fetch.
+export function extractRecords(html) {
+  const targeted = parseYextDirectoryJson(html);
+  if (targeted.length > 0) return { records: targeted, method: 'targeted_yext_directory_json' };
+
+  const jsonLdBlocks = extractJsonLdBlocks(html);
+  const fromJsonLd = recordsFromJsonLd(jsonLdBlocks);
+  if (fromJsonLd.length > 0) return { records: fromJsonLd, method: 'json_ld' };
+
+  const scanned = recordsFromPostcodeScan(html);
+  return { records: scanned, method: 'postcode_text_scan' };
+}
+
 async function main() {
   await mkdir(OUTPUT_DIR, { recursive: true });
 
@@ -157,18 +221,7 @@ async function main() {
   const rawPath = join(OUTPUT_DIR, 'rayban.raw.html');
   await writeFile(rawPath, html, 'utf-8');
 
-  const jsonLdBlocks = extractJsonLdBlocks(html);
-  let records = recordsFromJsonLd(jsonLdBlocks);
-  let method = 'json_ld';
-
-  if (records.length === 0) {
-    records = recordsFromEmbeddedJson(html);
-    method = 'embedded_json_candidate';
-  }
-  if (records.length === 0) {
-    records = recordsFromPostcodeScan(html);
-    method = 'postcode_text_scan';
-  }
+  const { records, method } = extractRecords(html);
 
   const outputPath = join(OUTPUT_DIR, 'rayban.json');
   await writeFile(
@@ -184,6 +237,14 @@ async function main() {
   console.log(`\nFound ${records.length} candidate record(s) via "${method}".`);
   console.log(`Saved: ${outputPath}`);
   console.log(`Also saved raw page HTML: ${rawPath}`);
+
+  if (method !== 'targeted_yext_directory_json') {
+    console.log(
+      '\nNote: the targeted parser found nothing, so this fell back to a rougher method. Ray-Ban/Yext may have ' +
+        'changed their page structure — send back rayban.raw.html so the parser can be updated.'
+    );
+  }
+
   console.log('\nPlease send back BOTH files.');
 }
 

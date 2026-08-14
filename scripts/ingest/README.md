@@ -205,8 +205,17 @@ Quick summary as of 15 Aug 2026:
 - **David Clulow**: done, 40 `authorised_chain` records committed, parked
   pending the campaign owner's phone corroboration before any
   `verified_branch` decision
-- **Ray-Ban, Sunglass Hut**: fetch scripts ready
-  (`1-fetch-rayban.mjs`, `1-fetch-sunglasshut.mjs`), waiting on a real run
+- **Ray-Ban**: real 7-store UK directory confirmed and parsed
+  (`1-fetch-rayban.mjs`), all own-brand boutiques — `authorised_chain` at
+  best until `2-investigate-rayban-branch-signal.mjs` (checks all 7 branch
+  pages) is run and sent back
+- **Sunglass Hut**: confirmed blocked by Akamai bot management on the
+  store-locations path. `1-fetch-sunglasshut.mjs` now tries cookies/fuller
+  headers/robots.txt+sitemap discovery first (still zero-dependency); if
+  still blocked, `1b-fetch-sunglasshut-browser.mjs` is a Playwright
+  real-browser fallback (needs one-time `npm install` inside
+  `scripts/ingest/`) — see `../data/stockists/RETAILER-MATRIX.md` for the
+  full finding
 - **Currys, Argos, John Lewis**: confirmed to sell Ray-Ban Meta with real
   per-store stock checkers, but these are JavaScript-driven — needs the
   DevTools capture process, not a fetch script, before any ingestion work
