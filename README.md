@@ -1,6 +1,6 @@
 # Stop the Sale — Smart Glasses Campaign Site
 
-A single-page UK campaign site against smart glasses with hidden recording capability (e.g. Meta Ray-Ban). It drives six actions: find local opticians, email opticians/MPs/major retailers with editable templates, sign the live UK Parliament petition, and petition Ray-Ban/EssilorLuxottica directly. Plain HTML/CSS/JS, no build step — the site itself needs no backend. An optional Cloudflare Worker (see `worker/`) powers the "campaign impact" counters if you choose to deploy it.
+A single-page UK campaign site against smart glasses with hidden recording capability (e.g. Meta Ray-Ban). It drives six actions: find verified sellers near you by postcode, email opticians/MPs/major retailers with editable templates, sign the live UK Parliament petition, and petition Ray-Ban/EssilorLuxottica directly. Plain HTML/CSS/JS, no build step — the site itself needs no backend for actions B–F. The postcode finder (Action A) and the "campaign impact" counters both need the optional Cloudflare Worker + D1 backend in `worker/` — without it deployed, both features degrade gracefully (finder shows a "search is being set up" message, impact panel hides) and the rest of the site works normally.
 
 **Petition signature count:** a few different snapshots showed up across this repo's source material (5,399 / 4,997 / 5,367 / 1,220, all supposedly for petition 769206). Since a live petition's count only ever goes up until it closes, the largest of those (5,399) is the most recent real snapshot, and that's the value currently set in `js/main.js` — the 1,220 figure looks like a stale or mismatched read from a third-party tracker, not a real data point. Time will have passed since that snapshot was taken, though, so do a final live check at https://petition.parliament.uk/petitions/769206 before any major push (e.g. a press mention) and bump the number up if it's grown. The closing date (9 December 2026) was consistent across every source.
 
@@ -35,21 +35,50 @@ The count and closing date are **not** live-fetched (by design — no scraping/A
    ```
 4. Save, commit, and push — the hero banner and Action C panel both read from these two values
 
+## The postcode finder (Action A)
+
+Replaces the old "search Google Maps yourself" hand-off with a real
+postcode search against a database of **first-party-verified** stockists —
+shops we can point to actual evidence for, not a guess. Ask a postcode,
+get back only branches with `verification_status = 'verified_branch'` in
+D1: real evidence tied to that specific physical branch, not just "this
+chain sells it somewhere" (`authorised_chain`) — see
+`worker/schema.sql` for the full verification model and
+`scripts/ingest/README.md` for how data gets from a retailer's own website
+into that table without ever silently promoting weaker evidence into a
+"verified" badge.
+
+**Status: architecture built and tested, real data not loaded yet.** The
+full pipeline (fetch → normalize → geocode → SQL → D1 → `/api/stockists` →
+frontend) has been proven end-to-end using a clearly-labelled synthetic
+test fixture (`scripts/ingest/fixtures/`), run against the real Worker code
+via `wrangler dev --local`. It has **not** been run against real Vision
+Express data yet — see `scripts/ingest/README.md` for the one remaining
+step (running the fetch script, since the environment this was built in
+couldn't reach external sites to do that itself).
+
+Same deploy dependency as the counters below: this needs the Worker in
+`worker/` deployed and `js/config.js`'s `API_BASE_URL` set. Until then, the
+finder shows a plain "search is being set up" message and the rest of the
+page works normally.
+
 ## Campaign impact counters (optional)
 
 The site can show a live "campaign impact so far" panel — site visits, plus
-per-module counts for optician emails, MP emails, Ray-Ban messages, petition
-click-throughs, and share-text copies. This needs a small backend (a static
+per-module counts for optician/MP/Ray-Ban/retailer messages, finder
+searches, and petition clicks/shares. This needs a small backend (a static
 site alone can't hold a shared counter), so it's off by default and the panel
-stays hidden until you turn it on:
+stays hidden until you turn it on. This is the **same Worker deploy** the
+postcode finder above needs — you only have to do this once for both
+features:
 
 1. Deploy the Worker in `worker/` — follow `worker/README.md` (free
    Cloudflare account, takes about 10 minutes, no cost at this site's
    expected traffic).
-2. Open `js/stats.js` and set `API_BASE_URL` to the Worker URL Wrangler
-   gives you.
-3. Commit and push — the impact panel and inline per-module counters appear
-   automatically.
+2. Open `js/config.js` and set `window.API_BASE_URL` to the Worker URL
+   Wrangler gives you.
+3. Commit and push — the impact panel, inline per-module counters, and the
+   postcode finder all come alive automatically.
 
 These are self-reported interaction counts (rate-limited per visitor so
 they're harder to casually inflate), not confirmed email deliveries or
@@ -59,12 +88,20 @@ worth keeping that framing if the numbers get quoted anywhere, e.g. to press.
 ## Structure
 
 ```
-index.html          — all page content and section markup
-css/style.css        — styles (design tokens as CSS custom properties at the top)
-js/main.js           — petition figures config, city chip generation, copy/mailto handlers
-js/stats.js          — campaign impact counters: fetches/renders counts, fires hits on actions
-worker/               — optional Cloudflare Worker + D1 backend for the counters (see worker/README.md)
-meta_rayban_research.md — background research (Gemini Deep Research), not yet fact-checked for site copy
+index.html               — all page content and section markup
+css/style.css             — styles (design tokens as CSS custom properties at the top)
+js/config.js              — API_BASE_URL, shared by stats.js and finder.js
+js/main.js                — petition figures config, copy/mailto handlers for actions B–F
+js/stats.js               — campaign impact counters: fetches/renders counts, fires hits on actions
+js/finder.js              — postcode finder (Action A): search, result cards, contact routing
+worker/                    — optional Cloudflare Worker + D1 backend (see worker/README.md)
+  src/index.js               — routes: /api/stats, /api/hit, /api/stockists
+  src/stockists.js           — the finder's search logic (geocode → distance → sort → shape)
+  src/geocode.js             — postcode validation + postcodes.io client (shared with ingestion scripts)
+  src/distance.js            — Haversine distance + bounding-box helpers
+  schema.sql                  — counters + rate_limits + stockists tables
+scripts/ingest/             — the stockist-data pipeline (see scripts/ingest/README.md)
+meta_rayban_research.md   — background research (Gemini Deep Research), not yet fact-checked for site copy
 ```
 
 ## License

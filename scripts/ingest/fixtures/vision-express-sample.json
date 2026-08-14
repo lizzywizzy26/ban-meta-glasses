@@ -1,0 +1,40 @@
+{
+  "_fixture_note": "SYNTHETIC TEST FIXTURE — NOT REAL DATA. Shaped like the output of 1-fetch-vision-express.mjs so the normalize/geocode/SQL pipeline can be built and tested end-to-end before real Vision Express data is available. Every branchName is prefixed [TEST FIXTURE] specifically so these records can never be mistaken for real, verified stockists if this file were ever mishandled. Postcodes are real (chosen to match the MOCK_GEOCODER lookup table in worker/src/geocode.js so local testing resolves to real coordinates), but the branch names, addresses, and phone numbers are invented.",
+  "sourceUrl": "https://www.visionexpress.com/opticians/ray-ban-meta",
+  "fetchedAt": "1970-01-01T00:00:00.000Z",
+  "httpStatus": 200,
+  "extractionMethod": "json_ld",
+  "recordCount": 3,
+  "records": [
+    {
+      "branchName": "[TEST FIXTURE] Vision Express — Westminster",
+      "address": "1 Test Street, Westminster",
+      "postcode": "SW1A 1AA",
+      "phone": "020 7000 0001",
+      "sourceUrl": "https://www.visionexpress.com/opticians/ray-ban-meta",
+      "metaEvidenceText": "Ray-Ban Meta AI Glasses available in-store",
+      "extractionMethod": "json_ld",
+      "needsReview": false
+    },
+    {
+      "branchName": "[TEST FIXTURE] Vision Express — Manchester Centre",
+      "address": "2 Test Street, Manchester",
+      "postcode": "M1 1AE",
+      "phone": "0161 000 0002",
+      "sourceUrl": "https://www.visionexpress.com/opticians/ray-ban-meta",
+      "metaEvidenceText": "Ray-Ban Meta AI Glasses available in-store",
+      "extractionMethod": "json_ld",
+      "needsReview": false
+    },
+    {
+      "branchName": "[TEST FIXTURE] Vision Express — Edinburgh Centre",
+      "address": "3 Test Street, Edinburgh",
+      "postcode": "EH1 1BB",
+      "phone": "0131 000 0003",
+      "sourceUrl": "https://www.visionexpress.com/opticians/ray-ban-meta",
+      "metaEvidenceText": "Ray-Ban Meta AI Glasses available in-store",
+      "extractionMethod": "json_ld",
+      "needsReview": false
+    }
+  ]
+}

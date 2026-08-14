@@ -65,20 +65,21 @@
     </div>
   </section>
 
-  <section id="locate" aria-labelledby="locate-heading">
-    <div class="step-label"><div class="step-letter">A</div><h2 id="locate-heading">Find opticians near you</h2></div>
-    <p class="step-desc">There's no public database of exactly who stocks Meta Ray-Ban glasses, so the reliable way is a live map search — it'll surface Ray-Ban stockists and optician chains, which you can then check.</p>
+  <section id="locate" aria-labelledby="locate-heading" class="finder-section">
+    <div class="step-label"><div class="step-letter">A</div><h2 id="locate-heading">Find who sells Meta Ray-Bans near you</h2></div>
+    <p class="step-desc">Enter your postcode to find sellers we've verified — from the retailer's own website, not a guess — actually stock Meta Ray-Ban glasses near you.</p>
 
-    <div class="card">
-      <h3>Open a live search</h3>
-      <a class="link-btn" href="https://www.google.com/maps/search/opticians+near+me" target="_blank" rel="noopener">
-        Search "opticians near me" on Google Maps <span class="arrow" aria-hidden="true">↗</span>
-      </a>
-      <a class="link-btn" href="https://www.google.com/maps/search/ray-ban+store+near+me" target="_blank" rel="noopener">
-        Search "Ray-Ban stockists near me" <span class="arrow" aria-hidden="true">↗</span>
-      </a>
-      <p class="chip-intro">Or jump straight to a major city:</p>
-      <div class="chip-row" id="cityChips"></div>
+    <div class="card finder-card">
+      <form id="finderForm" class="finder-form">
+        <label class="field-label" for="postcodeInput">Your postcode</label>
+        <div class="finder-input-row">
+          <input type="text" id="postcodeInput" placeholder="e.g. SW1A 1AA" autocomplete="postal-code" inputmode="text">
+          <button type="submit" id="finderSubmitBtn">Find sellers near me</button>
+        </div>
+      </form>
+      <p class="finder-status" id="finderStatus" role="status" aria-live="polite"></p>
+      <div class="finder-results" id="finderResults"></div>
+      <div class="finder-message-panel" id="finderMessagePanel" hidden></div>
     </div>
   </section>
 
@@ -306,10 +307,16 @@ Kind regards,
     <p>Built as a community toolkit. Claims sourced from BBC News reporting (Feb &amp; May 2026) and petition.parliament.uk, checked as of August 2026 — always verify current signature counts at
     <a href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">petition.parliament.uk</a>. Ray-Ban/EssilorLuxottica contact details from
     <a href="https://www.ray-ban.com/uk/contact-us" target="_blank" rel="noopener">ray-ban.com</a> and EssilorLuxottica's published corporate communications channel.</p>
+
+    <p class="attribution">Created by Liz Hunter — independent UK privacy campaign. <!-- TODO: turn this into a link once the LinkedIn URL is supplied --> Connect with Liz on LinkedIn.</p>
+
+    <p class="open-source-note">This campaign site was designed to be copied. Want to campaign against Meta Ray-Ban glasses in your country? <a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Copy the code</a> and create your own version.</p>
   </footer>
 </div>
 
+<script src="js/config.js"></script>
 <script src="js/stats.js"></script>
+<script src="js/finder.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

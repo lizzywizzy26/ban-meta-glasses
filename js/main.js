@@ -7,18 +7,6 @@ document.getElementById('sigCount').textContent = PETITION_SIGNATURES;
 document.getElementById('sigCount2').textContent = PETITION_SIGNATURES;
 document.getElementById('closeDate').textContent = PETITION_CLOSE_DATE;
 
-const cities = ["London", "Manchester", "Birmingham", "Edinburgh", "Bristol", "Leeds", "Glasgow", "Cardiff"];
-const chipRow = document.getElementById('cityChips');
-cities.forEach(city => {
-  const a = document.createElement('a');
-  a.className = 'chip';
-  a.target = '_blank';
-  a.rel = 'noopener';
-  a.href = `https://www.google.com/maps/search/opticians+in+${encodeURIComponent(city)}`;
-  a.textContent = city;
-  chipRow.appendChild(a);
-});
-
 function flash(id) {
   const el = document.getElementById(id);
   el.classList.add('show');

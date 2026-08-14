@@ -1,4 +1,17 @@
-const COUNTER_TYPES = new Set(['visit', 'optician', 'mp', 'rayban', 'retailer', 'petition_click', 'petition_share']);
+import { handleStockistsRequest } from './stockists.js';
+
+const COUNTER_TYPES = new Set([
+  'visit',
+  'optician',
+  'mp',
+  'rayban',
+  'retailer',
+  'petition_click',
+  'petition_share',
+  'finder_search',
+  'stockist_selected',
+  'retailer_action_started',
+]);
 
 // How long (seconds) a single IP is locked out from re-incrementing a given
 // counter. This is the main anti-inflation safeguard — it's not bulletproof
@@ -12,6 +25,9 @@ const COOLDOWN_SECONDS = {
   retailer: 21600,       // 6 hours — allows messaging a couple of different retailers in one sitting
   petition_click: 3600,  // 1 hour — clicking through to the petition
   petition_share: 3600,  // 1 hour — copying the share text
+  finder_search: 300,    // 5 min — a supporter may reasonably search a couple of postcodes
+  stockist_selected: 300,
+  retailer_action_started: 21600, // same as the other "started a message" actions — this is NOT "email sent"
 };
 
 function corsHeaders(origin, allowedOrigins) {
@@ -57,6 +73,11 @@ export default {
     if (url.pathname === '/api/stats' && request.method === 'GET') {
       const counts = await getAllCounts(env.DB);
       return json(counts, 200, cors);
+    }
+
+    if (url.pathname === '/api/stockists' && request.method === 'GET') {
+      const { status, body } = await handleStockistsRequest(url, env);
+      return json(body, status, cors);
     }
 
     if (url.pathname === '/api/hit' && request.method === 'POST') {
