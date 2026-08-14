@@ -196,7 +196,7 @@ async function main() {
 // skips main() entirely with zero output and zero error. Confirmed this
 // the hard way: it worked fine in testing from a path with no spaces, and
 // failed silently (no error at all) from a real user's Downloads folder.
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((err) => {
     console.error('Fetch failed:', err.message);
     process.exit(1);

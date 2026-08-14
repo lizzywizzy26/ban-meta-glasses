@@ -1,147 +1,76 @@
 #!/usr/bin/env node
-// Fetches David Clulow's Ray-Ban Meta stockist directory and saves what it
-// finds as ONE json file: scripts/ingest/output/david-clulow.json
+// Fetches the David Clulow Ray-Ban Meta stockist directory and saves what
+// it finds as ONE json file: scripts/ingest/output/david-clulow.json
 //
-// HOW TO RUN THIS (no coding knowledge needed):
-//   1. Same folder you already ran the Vision Express script from.
-//   2. Type this and press Enter:
-//        node scripts/ingest/1-fetch-david-clulow.mjs
-//   3. Send back the file it created:
-//        scripts/ingest/output/david-clulow.json
-//      (and scripts/ingest/output/david-clulow.raw.html too, just in case)
+// HOW TO RUN THIS: same as the other scripts, no arguments.
+//   node scripts/ingest/1-fetch-david-clulow.mjs
 //
-// UNLIKE the Vision Express script, this one does NOT have a targeted
-// parser yet — David Clulow's page structure hasn't been seen. It uses the
-// same generic multi-strategy extraction the Vision Express script started
-// with (JSON-LD, then a "big embedded JSON blob" heuristic, then a
-// last-resort postcode text scan), same as before: whatever it finds,
-// SEND IT BACK, and a targeted parser gets built from the real structure —
-// don't assume the generic output is clean or complete yet.
+// UPDATE (14 Aug 2026): after seeing real data, David Clulow's page turned
+// out to run on the exact same store-locator platform as Vision Express —
+// identical markup (store-tile articles, address-stores-v2 rows, the same
+// gv-stores-v2.imgix.net image CDN), which also explains why their listed
+// customer service phone number matched Vision Express's exactly. This
+// script now uses a targeted parser for that shared structure, the same
+// approach that worked for Vision Express.
 //
-// David Clulow has a much smaller UK footprint than Vision Express (~30
-// stores nationally vs 440) and their Ray-Ban Meta page is titled
-// "Stockists near me" rather than a generic store locator — that's a
-// reason to be hopeful this list might be a genuinely curated Meta-specific
-// subset rather than Vision Express's situation (a generic locator reused
-// on the Meta page). But that is a hypothesis, not a finding — it needs
-// checking the same way Vision Express was checked (look for per-branch
-// feature tags/signals, check what the page's own copy claims, don't
-// assume "dedicated-sounding URL" means "every listed branch is verified").
+// IMPORTANT — evidence is more ambiguous here than Vision Express, not
+// resolved. Two things point different ways:
+//   - David Clulow's intro copy says "Ray-Ban Meta AI Glasses available in
+//     David Clulow stores" — no "selected stores" qualifier the way Vision
+//     Express's page explicitly had one. That's a point in favour of this
+//     being a genuinely Meta-specific list.
+//   - But there's no per-branch tag distinguishing anything here either
+//     (same "Wheelchair accessible"-only limitation as Vision Express), and
+//     the total-store-count comparison that helped with Vision Express is
+//     inconclusive here: David Clulow's own site says "over thirty optical
+//     stores" as a general figure, but this locator returns 44 — MORE than
+//     their stated total, not fewer, so it doesn't cleanly indicate
+//     filtering happened the way Vision Express's 440-of-533 did.
+// So: extractionMethod stays targeted_dom_pattern, but metaEvidenceText
+// stays null, same as Vision Express — this data is real and clean, but
+// whether the whole directory counts as product-specific evidence is a
+// judgment call for a human to make with the full picture, not something
+// to assume here.
 
 import { writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = join(__dirname, 'output');
 const SOURCE_URL = 'https://www.davidclulow.com/stores/ray-ban-meta';
+const BASE_URL = 'https://www.davidclulow.com';
 
-const UK_POSTCODE_RE = /\b([A-Z]{1,2}[0-9][A-Z0-9]?\s*[0-9][A-Z]{2})\b/gi;
-const UK_PHONE_RE = /\b(0\d{2,4}[\s-]?\d{3,4}[\s-]?\d{3,4})\b/g;
-const META_HINT_RE = /ray-?ban meta|smart glasses|ai glasses/i;
-const STORE_KEY_HINTS = ['store', 'branch', 'location', 'postcode', 'latitude', 'longitude', 'address'];
-
-function extractJsonLdBlocks(html) {
-  const blocks = [];
-  const re = /<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
-  let match;
-  while ((match = re.exec(html)) !== null) {
-    try {
-      blocks.push(JSON.parse(match[1].trim()));
-    } catch {
-      // skip malformed blocks
-    }
-  }
-  return blocks;
-}
-
-function recordsFromJsonLd(blocks) {
+// Same shared store-locator platform as Vision Express — see
+// 1-fetch-vision-express.mjs's parseVisionExpressStoreList for the
+// original version of this parser.
+export function parseStoreList(html) {
+  const chunks = html.split(/<article id="\d+" class="store-tile/).slice(1);
   const records = [];
-  const stack = [...blocks];
-  while (stack.length) {
-    const node = stack.pop();
-    if (!node || typeof node !== 'object') continue;
-    if (Array.isArray(node)) {
-      stack.push(...node);
-      continue;
-    }
-    const type = node['@type'];
-    if (typeof type === 'string' && /store|localbusiness|opticalstore/i.test(type)) {
-      const addr = node.address || {};
-      records.push({
-        branchName: node.name || null,
-        address: [addr.streetAddress, addr.addressLocality].filter(Boolean).join(', ') || null,
-        postcode: addr.postalCode || null,
-        phone: node.telephone || null,
-        sourceUrl: SOURCE_URL,
-        metaEvidenceText: null,
-        extractionMethod: 'json_ld',
-        needsReview: false,
-      });
-    }
-    for (const value of Object.values(node)) {
-      if (value && typeof value === 'object') stack.push(value);
-    }
-  }
-  return records;
-}
 
-function looksLikeStoreData(jsonText) {
-  const lower = jsonText.toLowerCase();
-  return STORE_KEY_HINTS.filter((k) => lower.includes(k)).length >= 3;
-}
+  for (const chunk of chunks) {
+    const nameMatch = chunk.match(/class="store-finder__heading-link" href="([^"]+)">([^<]+)</);
+    const addressRows = [...chunk.matchAll(/class="address-stores-v2__row">([^<]*)</g)].map((m) => m[1].trim());
+    const phoneMatch = chunk.match(/href="tel:(\d+)"/);
 
-function recordsFromEmbeddedJson(html) {
-  const records = [];
-  const re = /<script[^>]*>([\s\S]*?)<\/script>/gi;
-  let match;
-  while ((match = re.exec(html)) !== null) {
-    const content = match[1].trim();
-    if (content.length < 200 || !looksLikeStoreData(content)) continue;
-    const braceMatch = content.match(/[\{\[][\s\S]*[\}\]]/);
-    if (!braceMatch) continue;
-    try {
-      JSON.parse(braceMatch[0]); // just confirming it's parseable — full mapping needs real structure
-      records.push({
-        branchName: null,
-        address: null,
-        postcode: null,
-        phone: null,
-        sourceUrl: SOURCE_URL,
-        metaEvidenceText: null,
-        extractionMethod: 'embedded_json_candidate',
-        needsReview: true,
-        _rawCandidate: braceMatch[0].slice(0, 5000), // truncated preview for manual inspection, not for ingestion
-      });
-    } catch {
-      // not valid JSON once extracted — skip
-    }
-  }
-  return records;
-}
+    if (!nameMatch || addressRows.length < 3) continue;
 
-function recordsFromPostcodeScan(html) {
-  const text = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
-  const records = [];
-  let match;
-  const re = new RegExp(UK_POSTCODE_RE.source, 'gi');
-  while ((match = re.exec(text)) !== null) {
-    const postcode = match[1].toUpperCase();
-    const start = Math.max(0, match.index - 200);
-    const end = Math.min(text.length, match.index + 100);
-    const context = text.slice(start, end).trim();
-    const phoneMatch = context.match(UK_PHONE_RE);
+    const [addressLine1, city, postcode] = addressRows;
+
     records.push({
-      branchName: null,
-      address: context,
+      branchName: nameMatch[2].trim(),
+      address: addressLine1,
+      city,
       postcode,
-      phone: phoneMatch ? phoneMatch[0] : null,
+      phone: phoneMatch ? phoneMatch[1] : null,
       sourceUrl: SOURCE_URL,
-      metaEvidenceText: META_HINT_RE.test(context) ? context.match(META_HINT_RE)[0] : null,
-      extractionMethod: 'postcode_text_scan',
-      needsReview: true,
+      metaEvidenceText: null, // see the ambiguity note above — deliberately not assumed
+      extractionMethod: 'targeted_dom_pattern',
+      needsReview: false,
+      branchPageUrl: BASE_URL + nameMatch[1],
     });
   }
+
   return records;
 }
 
@@ -162,19 +91,8 @@ async function main() {
   const rawPath = join(OUTPUT_DIR, 'david-clulow.raw.html');
   await writeFile(rawPath, html, 'utf-8');
 
-  const jsonLdBlocks = extractJsonLdBlocks(html);
-  let records = recordsFromJsonLd(jsonLdBlocks);
-  let method = 'json_ld';
-
-  if (records.length === 0) {
-    records = recordsFromEmbeddedJson(html);
-    method = 'embedded_json_candidate';
-  }
-
-  if (records.length === 0) {
-    records = recordsFromPostcodeScan(html);
-    method = 'postcode_text_scan';
-  }
+  const records = parseStoreList(html);
+  const method = records.length > 0 ? 'targeted_dom_pattern' : 'none_found';
 
   const outputPath = join(OUTPUT_DIR, 'david-clulow.json');
   await writeFile(
@@ -189,11 +107,17 @@ async function main() {
 
   console.log(`\nFound ${records.length} candidate record(s) via "${method}".`);
   console.log(`Saved: ${outputPath}`);
-  console.log(`Also saved raw page HTML (essential this time — the generic extraction above is a first guess, not a finished parser): ${rawPath}`);
-  console.log('\nPlease send back BOTH files.');
+
+  if (records.length === 0) {
+    console.log('\nNote: the targeted parser found nothing — David Clulow may have changed their page structure. Send back david-clulow.raw.html so the parser can be updated.');
+  }
+
+  console.log('\nPlease send back: scripts/ingest/output/david-clulow.json (and the .raw.html if possible).');
 }
 
-main().catch((err) => {
-  console.error('Fetch failed:', err.message);
-  process.exit(1);
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((err) => {
+    console.error('Fetch failed:', err.message);
+    process.exit(1);
+  });
+}
