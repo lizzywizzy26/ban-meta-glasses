@@ -10,6 +10,20 @@
 // Unlike Vision Express (440 stores, so a 5-store sample), there are only 7
 // Ray-Ban stores total in the UK — this checks all 7, not a sample.
 //
+// BUG FIX (15 Aug 2026): the first version of this script stripped
+// <script>...</script> content out of the HTML before searching it for
+// Meta-related terms. That's exactly backwards for this platform — we
+// already confirmed in 1-fetch-rayban.mjs that these Yext Pages sites embed
+// their real page data INSIDE a <script type="module"> block as a
+// decodeURIComponent(JSON) blob, not in the visible markup. So the first
+// run's "0 mentions found on all 7 pages" result is meaningless — it never
+// looked at the part of the page that could contain real content (the
+// ~400-character text length reported for every page in that run is the
+// tell: that's just the static shell, not a rendered store page). This
+// version decodes the same embedded JSON 1-fetch-rayban.mjs uses (via the
+// shared decodeYextPageProps() it exports) and searches the FULL decoded
+// object, not stripped visible text.
+//
 // HOW TO RUN: same as the other scripts — no arguments needed.
 //   node scripts/ingest/2-investigate-rayban-branch-signal.mjs
 //
@@ -18,6 +32,7 @@
 import { writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { decodeYextPageProps } from './1-fetch-rayban.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = join(__dirname, 'output');
@@ -38,20 +53,54 @@ const ALL_STORE_URLS = [
 
 const META_TERMS = ['ray-ban meta', 'smart glasses', 'ai glasses', 'meta ai'];
 
-function analyze(html, url) {
-  const text = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').toLowerCase();
-  const mentions = META_TERMS.filter((term) => text.includes(term));
-  // Look for anything that reads like an availability flag near a mention,
-  // e.g. "available at this store" / "not available at this store".
-  const availabilityHints = [];
-  for (const term of mentions) {
-    const idx = text.indexOf(term);
-    const context = text.slice(Math.max(0, idx - 150), idx + 150);
-    if (/available|in stock|demo|try (it|them) (in|at)/i.test(context)) {
-      availabilityHints.push(context.trim());
+function findMentions(text) {
+  const lower = text.toLowerCase();
+  const mentions = [];
+  for (const term of META_TERMS) {
+    let idx = lower.indexOf(term);
+    while (idx !== -1) {
+      mentions.push({ term, context: text.slice(Math.max(0, idx - 150), idx + 150).trim() });
+      idx = lower.indexOf(term, idx + term.length);
     }
   }
-  return { url, mentionsFound: mentions, availabilityHints, textLength: text.length };
+  return mentions;
+}
+
+function analyze(html, url) {
+  const data = decodeYextPageProps(html);
+
+  if (!data) {
+    // Encoding scheme didn't match what 1-fetch-rayban.mjs found — fall
+    // back to a full (unstripped) text scan rather than silently reporting
+    // a false negative like the buggy first version did.
+    const mentions = findMentions(html);
+    return { url, decodeSucceeded: false, mentionsFound: mentions, htmlLength: html.length };
+  }
+
+  const doc = data.document || {};
+  const docJson = JSON.stringify(doc);
+  const mentions = findMentions(docJson);
+
+  // List every custom field ("c_..." prefix is Yext's convention for
+  // per-site custom fields) so a human can review field names even if none
+  // of them literally contain our search terms — the real field, if any,
+  // might be named something we didn't think to search for (e.g. a
+  // "services" or "featuredProducts" list rendered as icons/images rather
+  // than text).
+  const customFieldKeys = Object.keys(doc).filter((k) => k.startsWith('c_'));
+  const customFieldPreview = {};
+  for (const key of customFieldKeys) {
+    const val = doc[key];
+    customFieldPreview[key] = typeof val === 'string' ? val.slice(0, 500) : val;
+  }
+
+  return {
+    url,
+    decodeSucceeded: true,
+    mentionsFound: mentions,
+    customFieldKeys,
+    customFieldPreview,
+  };
 }
 
 async function main() {
@@ -72,7 +121,10 @@ async function main() {
       const result = analyze(html, url);
       result.httpStatus = res.status;
       results.push(result);
-      console.log(`  status ${res.status}, Meta-related terms found: ${result.mentionsFound.join(', ') || '(none)'}`);
+      console.log(
+        `  status ${res.status}, decode succeeded: ${result.decodeSucceeded}, Meta-related mentions: ${result.mentionsFound.length}` +
+          (result.customFieldKeys ? `, custom fields: ${result.customFieldKeys.join(', ') || '(none)'}` : '')
+      );
     } catch (err) {
       results.push({ url, error: err.message });
       console.log(`  FAILED: ${err.message}`);

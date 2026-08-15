@@ -53,25 +53,32 @@ const OUTPUT_DIR = join(__dirname, 'output');
 const SOURCE_URL = 'https://stores.ray-ban.com/united-kingdom';
 const SITE_ORIGIN = 'https://stores.ray-ban.com';
 
-// Targeted parser for Yext Pages' embedded-directory-JSON pattern. Looks for
-// `decodeURIComponent("...")` in a <script type="module"> block, decodes it,
-// JSON.parses it, and walks the resulting directory tree for leaf entities.
-export function parseYextDirectoryJson(html) {
+// Every page on this Yext "Pages" platform — the country-level directory
+// AND each individual store page — embeds its data the same way: a
+// `decodeURIComponent("...")` call in a <script type="module"> block,
+// containing the exact object the client-side component hydrates from.
+// Exported so both the directory parser below and the branch-page signal
+// investigation script can decode either kind of page with one function.
+export function decodeYextPageProps(html) {
   const marker = 'decodeURIComponent("';
   const start = html.indexOf(marker);
-  if (start === -1) return [];
+  if (start === -1) return null;
   const contentStart = start + marker.length;
   const end = html.indexOf('"))', contentStart);
-  if (end === -1) return [];
+  if (end === -1) return null;
 
-  let data;
   try {
     const decoded = decodeURIComponent(html.slice(contentStart, end));
-    data = JSON.parse(decoded);
+    return JSON.parse(decoded);
   } catch {
-    return []; // encoding scheme changed — fall back to generic heuristics
+    return null; // encoding scheme changed
   }
+}
 
+// Targeted parser for the country-level directory page specifically: walks
+// the decoded document's directory tree for leaf entities (stores).
+export function parseYextDirectoryJson(html) {
+  const data = decodeYextPageProps(html);
   const doc = data?.document;
   if (!doc || typeof doc !== 'object') return [];
 
