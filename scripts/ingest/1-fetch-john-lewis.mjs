@@ -46,18 +46,32 @@
 //     across 36 stores), not a genuine per-branch direct line — included
 //     as-is since it's what the source provides, but don't be surprised
 //     if it's the same number on many records.
-//   - This query is for ONE specific SKU (one colour/lens variant of one
-//     model). John Lewis lists ~29 Ray-Ban Meta models/variants total —
-//     a branch with no stock for THIS SKU might still carry a different
-//     one. Full coverage means running this against multiple SKUs (see
-//     SKU_QUERIES below) and treating a branch as evidenced if ANY
-//     queried SKU shows positive stock there — not implemented yet
-//     (only the SKU that was actually captured is here), flagged as a
-//     follow-up rather than guessed at.
+//   - This query is for a specific SKU (one colour/lens/model variant).
+//     John Lewis lists ~29 Ray-Ban Meta models/variants total — a branch
+//     with no stock for one SKU might still carry another. This script
+//     queries every entry in SKU_QUERIES and merges the results by
+//     storeId (John Lewis's own stable per-branch identifier, confirmed
+//     consistent across different product queries for the same physical
+//     store) — a branch is included with positive evidence if ANY
+//     queried SKU shows positive stock there.
 //
-// Send back BOTH output files — the raw XML matters most here, since if
-// John Lewis changes this response shape, the regex parsing below needs
-// updating to match.
+// MULTI-SKU COVERAGE CHECK (15 Aug 2026): captured two genuinely
+// different variants deliberately chosen to maximise coverage
+// differences, not near-identical colourways — Wayfarer (Gen 1,
+// productCode=85900144) and Skyler (Gen 2, productCode=85900137). Both
+// returned the exact same 36 physical stores (same store network queried
+// regardless of SKU), but Skyler showed 0 positive-stock branches
+// nationwide (35 "Not available", 1 "Stock information not available")
+// against Wayfarer's 21 — a real finding, not a bug, confirmed by
+// checking the actual response body. So the union is still 21 (Skyler
+// added no new positive branches). A third variant (Headliner Gen 1) was
+// attempted but is no longer available online at all (no stock checker
+// exists for a discontinued listing) — not a data gap, just not a live
+// product to query.
+//
+// Send back BOTH output files for every SKU — the raw XML matters most
+// here, since if John Lewis changes this response shape, the regex
+// parsing below needs updating to match.
 
 import { writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
@@ -66,12 +80,37 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = join(__dirname, 'output');
 
-// The one SKU confirmed working via the campaign owner's capture (15 Aug
-// 2026) — see the file-level comment above re: expanding to more SKUs
-// later for fuller coverage.
-const SKU_QUERIES = [{ productCode: '85900144', skuId: '114260874' }];
+// Two SKUs confirmed working via the campaign owner's captures (15 Aug
+// 2026) — see the file-level comment above for what each contributed.
+const SKU_QUERIES = [
+  { productCode: '85900144', skuId: '114260874', label: 'Wayfarer (Gen 1), Shiny Black, Clear' },
+  { productCode: '85900137', skuId: '114260867', label: 'Skyler (Gen 2), Shiny Black' },
+];
 const API_KEY = 'AIzaSyDKwq7dHObeBImz7nMKWu_gUTw5CKY9a2M';
 const SOURCE_URL = 'https://www.johnlewis.com/ray-ban-meta-wayfarer-glasses/shiny-black-clear-lens/p112066492';
+
+// Merges records from multiple SKU queries into one row per physical
+// branch, keyed by John Lewis's own storeId. A branch is kept with its
+// positive-stock evidence if ANY queried SKU shows positive stock there;
+// if none do, it's kept once with no evidence (caps at authorised_chain
+// downstream, same as a single-SKU run).
+export function mergeByStore(recordLists) {
+  const byStore = new Map();
+  for (const records of recordLists) {
+    for (const rec of records) {
+      const existing = byStore.get(rec._storeId);
+      if (!existing) {
+        byStore.set(rec._storeId, rec);
+      } else if (rec.metaEvidenceText && !existing.metaEvidenceText) {
+        // A later SKU found positive stock where an earlier one didn't —
+        // upgrade to the positive record, keeping everything else about
+        // the branch (address etc.) which should be identical anyway.
+        byStore.set(rec._storeId, rec);
+      }
+    }
+  }
+  return [...byStore.values()];
+}
 
 const POSITIVE_STOCK_RE = /^\s*(\d+)\s+in stock\s*$/i;
 
@@ -169,18 +208,21 @@ async function fetchOneSku({ productCode, skuId }) {
 async function main() {
   await mkdir(OUTPUT_DIR, { recursive: true });
 
-  const allRecords = [];
+  const recordLists = [];
   const rawXmlParts = [];
   let lastStatus = null;
 
   for (const skuQuery of SKU_QUERIES) {
+    console.log(`\n${skuQuery.label || `${skuQuery.productCode}/${skuQuery.skuId}`}:`);
     const { xml, status } = await fetchOneSku(skuQuery);
     lastStatus = status;
-    rawXmlParts.push(`<!-- productCode=${skuQuery.productCode} skuId=${skuQuery.skuId} -->\n${xml}`);
+    rawXmlParts.push(`<!-- productCode=${skuQuery.productCode} skuId=${skuQuery.skuId} (${skuQuery.label || ''}) -->\n${xml}`);
     const records = parseJohnLewisStoreXml(xml, SOURCE_URL);
     console.log(`  -> ${records.length} store record(s), ${records.filter((r) => r.metaEvidenceText).length} with positive stock`);
-    allRecords.push(...records);
+    recordLists.push(records);
   }
+
+  const mergedRecords = mergeByStore(recordLists);
 
   const rawPath = join(OUTPUT_DIR, 'john-lewis.raw.xml');
   await writeFile(rawPath, rawXmlParts.join('\n\n'), 'utf-8');
@@ -194,8 +236,8 @@ async function main() {
         fetchedAt: new Date().toISOString(),
         httpStatus: lastStatus,
         extractionMethod: 'first_party_live_stock_api',
-        recordCount: allRecords.length,
-        records: allRecords,
+        recordCount: mergedRecords.length,
+        records: mergedRecords,
       },
       null,
       2
@@ -203,7 +245,7 @@ async function main() {
     'utf-8'
   );
 
-  console.log(`\nFound ${allRecords.length} total store record(s) across ${SKU_QUERIES.length} SKU(s).`);
+  console.log(`\nMerged across ${SKU_QUERIES.length} SKU(s): ${mergedRecords.length} unique physical branch(es), ${mergedRecords.filter((r) => r.metaEvidenceText).length} with positive stock on at least one queried variant.`);
   console.log(`Saved: ${outputPath}`);
   console.log(`Also saved raw XML response(s): ${rawPath}`);
   console.log('\nPlease send back BOTH files.');
