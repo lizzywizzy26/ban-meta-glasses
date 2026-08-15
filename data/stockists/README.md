@@ -7,7 +7,7 @@ regenerated every time someone runs the pipeline scripts.
 
 ```
 vision-express.normalized.json   438 verified_branch records (14 Aug 2026)
-david-clulow.normalized.json     40 authorised_chain records (14 Aug 2026) — pending phone corroboration before any verified_branch decision
+david-clulow.normalized.json     40 verified_branch records (upgraded 15 Aug 2026 — directory-level judgment + campaign owner's phone spot-check, see RETAILER-MATRIX.md)
 EXCLUDED-RECORDS.md              Records found but not included, and why — not lost, just not ready
 DUPLICATE-CHECK.md               Cross-source physical-location checks (none found yet)
 RETAILER-MATRIX.md               Status of every retailer investigated: Meta sales confirmed?, branch-level signal exposed?, extraction difficulty, priority — plus a DevTools guide for the dynamic stock-checkers (Currys/Argos/John Lewis)
