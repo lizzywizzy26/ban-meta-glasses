@@ -21,7 +21,7 @@ this is a planning document, not a data source.
 | Retailer | Sells Ray-Ban Meta? | Branch-level signal exposed? | Extraction difficulty | Priority | Notes |
 |---|---|---|---|---|---|
 | **Vision Express** | ✅ Confirmed | Directory-level only, no per-branch tag | Static (done) | — | 438 branches committed as `verified_branch` via `first_party_product_specific_directory` (campaign owner's decision) |
-| **David Clulow** | ✅ Confirmed | Directory-level only, no per-branch tag; mixed evidence on whether directory itself counts | Static (done) | — | 40 branches committed as `authorised_chain`, pending campaign owner's phone corroboration |
+| **David Clulow** | ✅ Confirmed | Directory-level only, no per-branch tag | Static (done) | — | 40 branches committed as `verified_branch` via `first_party_product_specific_directory`, corroborated by campaign owner's phone spot-check (15 Aug 2026) — see decision below |
 | **Ray-Ban (own store locator)** | ✅ Confirmed (it's their product) | 6/7 stores verified_branch (real per-branch page evidence), Stratford Westfield authorised_chain — see decision below | Static (done — targeted parser + branch-signal merge confirmed) | High | `1-fetch-rayban.mjs` parses a real, small (7-entity) UK directory: Gatwick Airport, Covent Garden, Glasgow Buchanan St, Carnaby St, Battersea Power Station, Brent Cross, Stratford Westfield. These are Ray-Ban's own-brand boutiques, not a stockist list of other shops |
 | **Sunglass Hut UK** | ✅ Confirmed (dedicated product page exists) | Blocked — Akamai bot-management block on the store-locations path, confirmed via `errors.edgesuite.net` reference in the 403 body | Static, but actively blocked (Akamai) | High | `1-fetch-sunglasshut.mjs` now runs a 3-step diagnostic (cookies, fuller headers, robots.txt/sitemap discovery); `1b-fetch-sunglasshut-browser.mjs` is a Playwright real-browser fallback if that's still blocked — see finding below |
 | **Currys** | ✅ Confirmed (multiple product listings, Gen 1 + Gen 2) | Yes — per-product "check stock near you" tool, real per-store results | **Dynamic (needs DevTools)** | High | No official public API; an entire third-party scraper ecosystem exists around this (confirms it's real and reverse-engineerable, but not officially documented) |
@@ -112,6 +112,40 @@ would be a more durable source than scraping rendered HTML). This needs
 one-time setup (`cd scripts/ingest && npm install`, ~300MB Chromium
 download) — the only script in this pipeline that isn't zero-dependency,
 kept deliberately separate and opt-in for exactly that reason.
+
+## Decision: David Clulow — all 40 branches upgraded to verified_branch (15 Aug 2026)
+
+The campaign owner phoned a geographically and operationally varied sample
+of David Clulow's 40 Ray-Ban Meta directory branches — standalone David
+Clulow stores and David Clulow concessions within John Lewis both
+included. Every branch called confirmed Ray-Ban Meta in stock.
+
+Combined with the same directory-level reasoning already applied to Vision
+Express (David Clulow presents `/stores/ray-ban-meta` as its own dedicated
+Ray-Ban Meta store finder, not a generic locator), the campaign owner
+approved the same treatment here: all 40 directory locations are now
+`verified_branch` via `verification_method = first_party_product_specific_directory`.
+
+**Provenance, recorded precisely:** the phone calls corroborate the
+directory-level judgment — they are not, on their own, an individual
+verification of all 40 branches (a sample was called, not all 40). Every
+affected record's `notes` field says this explicitly, so the distinction
+survives independent of this document. Applied via
+`scripts/ingest/apply-david-clulow-verified-branch-decision.mjs`, which
+patches the already-committed `data/stockists/david-clulow.normalized.json`
+directly (no re-fetch needed — the underlying store facts didn't change,
+only the verification judgment). Branch names, including the "David Clulow
+Opticians at John Lewis — [location]" concessions and "Harrods Opticians",
+were already correct in the committed data and are untouched.
+
+Tested locally: applied `worker/schema.sql` + the regenerated
+`david-clulow.upsert.sql` to a local D1 instance via `wrangler d1 execute
+--local`, then queried it directly — confirms all 40 rows show
+`verification_status = 'verified_branch'`, `verification_method =
+'first_party_product_specific_directory'`, and that branch names/notes
+survived the SQL round-trip intact (spot-checked "Harrods Opticians").
+**Not applied to the remote/production database** — that's a separate,
+deliberate step for the campaign owner to trigger.
 
 ## What this means for next steps
 

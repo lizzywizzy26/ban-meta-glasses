@@ -202,9 +202,12 @@ reach that data the way it did for Vision Express/David Clulow.
 
 Quick summary as of 15 Aug 2026:
 - **Vision Express**: done, 438 `verified_branch` records committed
-- **David Clulow**: done, 40 `authorised_chain` records committed, parked
-  pending the campaign owner's phone corroboration before any
-  `verified_branch` decision
+- **David Clulow**: done, all 40 records upgraded to `verified_branch`
+  (`first_party_product_specific_directory`) on 15 Aug 2026 — campaign
+  owner's phone spot-check corroborated the directory-level judgment. See
+  `../data/stockists/RETAILER-MATRIX.md` for the decision and exact
+  provenance wording. Tested against a local D1 instance; not yet applied
+  to production
 - **Ray-Ban**: real 7-store UK directory confirmed and parsed
   (`1-fetch-rayban.mjs`). Branch-signal investigation found a genuine
   per-branch difference (not uniform boilerplate) — 6 stores carry a
