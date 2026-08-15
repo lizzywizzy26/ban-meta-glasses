@@ -212,11 +212,109 @@ built, not decided here.
   it's a different kind of target (no physical stores, no resolved
   contact route yet).
 
+## Future requirement: privacy-conscious campaign momentum counter
+
+**Status: captured for future planning only. Not being built now, and
+should not interrupt current retailer/database work.** Requested 15 Aug
+2026 (fifth message) — a counter so visitors can see they're joining a
+collective action, e.g.:
+
+- X verified UK locations in our database selling Meta glasses
+- X people have taken action
+- X retail locations contacted
+- X national/head-office actions
+- X political actions
+- Eventually, if genuinely achieved and evidenced: X retailers/
+  organisations have changed policy
+
+**Hard constraints, verbatim from the brief:**
+- Never hard-code the current 478 figure (or any snapshot) anywhere
+  public — it's today's work-in-progress subtotal, not a target or a
+  ceiling.
+- Never claim "all UK sellers" unless the evidence genuinely supports it
+  — prefer "we've verified X UK locations selling Meta glasses."
+- No "people currently online" counter.
+- No names, postcodes, or other PII in any public counter.
+- No fake or live-looking activity.
+- Don't call something "emails sent" if the mailto architecture only
+  tells us an action was *initiated* — say what's actually known, not
+  what's implied.
+- Think about abuse/double-counting and what minimal data would actually
+  need to be stored.
+
+### How this relates to what already exists
+
+The site already has real counting infrastructure — `worker/schema.sql`'s
+`counters` table plus per-IP cooldown-based rate-limiting
+(`rate_limits`), fed by `POST /api/hit` and rendered via `js/stats.js`.
+It already tracks more than the current impact panel displays: `visit`,
+`optician`, `mp`, `rayban`, `retailer`, `petition_click`,
+`petition_share` are shown; `finder_search`, `stockist_selected`, and
+`retailer_action_started` are already tracked server-side but not
+currently rendered anywhere. So several of the requested metrics may
+already have a real signal to draw on, not a new pipe to build:
+
+| Requested metric | Closest existing signal | Note |
+|---|---|---|
+| X verified UK locations | *(none yet — new)* | Not a hit-counter at all — a live `SELECT COUNT(*) FROM stockists WHERE verification_status='verified_branch'`, computed at request time. This is the one that must never be hard-coded; unlike the petition signature count (which is deliberately manual, see `README.md`), this one should grow on its own as the database grows, with no manual bump step. |
+| X retail locations contacted | `retailer_action_started` (finder.js — LOCAL, per-branch flow) | Name collision worth knowing about: `retailer_action_started` is the **local** branch-contact signal from the finder, not the national retailer-list one — that's the plain `retailer` counter (from Section F, main.js). Whatever gets built needs to key off the right one deliberately, not by the name looking similar. |
+| X national/head-office actions | `retailer` (Section F template use) | Doesn't yet count clicks on the *link buttons* to each retailer's contact page (currys.co.uk/complaints.html etc., added 15 Aug) — only the message-template copy/mailto actions are tracked. Worth deciding whether outbound link clicks should count too. |
+| X political actions | `mp` + `petition_click` (+ `petition_share`?) | Combining multiple counter types into one displayed number needs a decision on what counts as one "political action" — see double-counting note below. |
+| X people have taken action | *(none — genuinely new)* | See below — this is the metric most in tension with the no-PII/no-session-tracking design the rest of the site deliberately uses. |
+| X retailers/organisations changed policy | *(none — genuinely new)* | Not something to auto-derive from click data at all — see below. |
+
+### Abuse / double-counting / minimal-data considerations
+
+- **"X people have taken action" is the hardest one to do honestly.**
+  Every counter here is currently a raw *event* count with per-IP
+  cooldown (reduces trivial multi-click inflation, doesn't dedupe real
+  distinct actions), not a unique-visitor count — there's no session or
+  cookie concept anywhere in the current architecture, by design (see
+  `README.md`'s existing framing: "self-reported interaction counts...
+  not tied to a visitor session"). Introducing a true "people" count
+  means introducing *some* way to recognise "this is the same visitor
+  who already counted" — which is real new privacy-surface, not a free
+  reframe of existing data. Two honest paths, not decided here: (a) keep
+  the public label to what's actually true — "X actions taken" rather
+  than "X people" — and pay no new privacy cost, or (b) if "people"
+  specifically matters, the minimal-data version would reuse the *same*
+  per-IP-hash mechanism the cooldown already uses (never storing a raw
+  IP, never a name/postcode) to dedupe within a time window — still an
+  approximation, still worth a deliberate sign-off given how central the
+  "no PII" constraint is, not something to build by default.
+- **Verified-location count needs a cache/freshness decision, not just a
+  query.** A live `COUNT(*)` on every impact-panel load is cheap at this
+  site's scale, but worth deciding whether it's queried live each time or
+  cached briefly (e.g. alongside the existing counters) so a burst of
+  traffic doesn't add load unnecessarily.
+- **"X retail locations contacted" needs a definition, not just a
+  label.** Is it total contact-initiation events, or distinct
+  branches/retailers contacted (so one visitor messaging 5 branches
+  counts once, not five times)? Affects both the honest wording and
+  what, if anything, needs to be stored beyond a simple counter increment.
+- **Policy-change claims need the same evidence discipline as everything
+  else in this project** — never an automated inference from click
+  volume. Recommend the same pattern already used for stockist
+  verification: a small, explicitly human-reviewed, sourced record (like
+  `data/stockists/RETAILER-MATRIX.md`'s decision write-ups) for each
+  claimed change, with a citation — not a number that moves on its own.
+- **"No live-looking activity" rules out more than an explicit fake
+  ticker** — it also means no design that *implies* real-time-ness (e.g.
+  numbers visibly ticking up while someone watches) unless that's
+  genuinely how it's computed; a plain "as of [last update]" framing is
+  safer and matches the honesty standard already set by the petition
+  count.
+
+None of this is being built now — captured so it's available when the
+retailer database and main user journey are further along, per the
+brief.
+
 ## Source
 
 Concept developed by the campaign owner using a custom GPT, shared and
-refined across four messages on 15 Aug 2026, including two corrections:
-where "ask organisations to stop allowing them" belongs, and where
-Ray-Ban sits relative to NATIONAL (plus an explicit decision not to build
-a separate "ask Meta" action). Captured here verbatim in intent, lightly
-reformatted for this repo.
+refined across five messages on 15 Aug 2026, including two corrections
+(where "ask organisations to stop allowing them" belongs, and where
+Ray-Ban sits relative to NATIONAL, plus an explicit decision not to build
+a separate "ask Meta" action) and one new future requirement (the
+privacy-conscious momentum counter above). Captured here verbatim in
+intent, lightly reformatted for this repo.
