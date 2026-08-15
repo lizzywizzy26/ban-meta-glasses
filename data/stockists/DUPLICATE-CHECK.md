@@ -31,7 +31,7 @@ near-zero-distance matches between chains on their own — check the address
 text first. A genuine duplicate would need matching (or near-identical)
 street address text, not just a shared postcode.
 
-## Planned check: John Lewis vs David Clulow (methodology drafted 15 Aug 2026, not run yet)
+## John Lewis vs David Clulow (run 15 Aug 2026, real data)
 
 **Why this one is different from the Vision Express/David Clulow check
 above, and needs more care, not less:** 13 of David Clulow's 40 committed
@@ -71,12 +71,40 @@ building, often the same address down to the floor.
      duplicate at all, the same way the shopping-centre pairs above
      weren't.
    Neither of these can be resolved by the data alone — matching postcodes
-   and even matching street addresses can't distinguish (a) from (b). This
-   needs either a phone check (same kind of spot-check already used for
-   the David Clulow verified_branch decision) or a close read of what each
-   source's own page says is being sold where, before deciding
-   case-by-case — not a blanket rule applied to all 13.
-3. Record the outcome here once real John Lewis data exists and this
-   actually gets run, the same way the Vision Express check above is
-   recorded — including which of (a)/(b) applied and why, not just the
-   final count.
+   and even matching street addresses can't distinguish (a) from (b) by
+   themselves. But see the actual result below — one specific piece of
+   evidence in the real data turned out to speak to this directly.
+
+**Result: all 13 David Clulow "at John Lewis" branches matched a John
+Lewis branch on exact postcode AND near-identical address text** (e.g.
+David Clulow "Bluewater Parkway, Greenhithe" vs John Lewis "Bluewater
+Parkway, Greenhithe, Kent" — same building, as expected).
+
+**Real evidence pointing toward (b), not (a):** for 3 of the 13 matched
+pairs (Cheadle, Milton Keynes, Oxford), John Lewis's own live stock
+checker currently shows **no stock** for the specific SKUs queried
+(`authorised_chain`), while David Clulow's parallel branch is
+`verified_branch` — confirmed independently via the campaign owner's
+phone spot-check (see the David Clulow decision above). If these were the
+same underlying stock being surfaced through two different storefronts
+(interpretation (a)), John Lewis's live API and David Clulow's confirmed
+stock should agree. They don't, for at least 3 of the 13. That's real,
+independent evidence the two are tracking **separate inventory** — David
+Clulow's optician concession and John Lewis's own general-merchandise
+stock appear to be genuinely distinct points of sale that happen to share
+a building, the same underlying pattern as the shopping-centre pairs
+above, not a database duplicate.
+
+**Action taken: none — no records merged or removed.** Both sources stay
+as separate rows for all 13 locations. This reading is well-supported by
+the asymmetric stock-status evidence above, but it's still an inference,
+not a certainty (the SKUs John Lewis was queried on might simply not be
+what its own department stocks, independent of the duplicate question
+entirely) — **flagging this for the campaign owner's final sign-off
+before treating it as fully closed**, consistent with treating dataset
+structure decisions with visible user-facing consequences as needing
+human confirmation, not just a confident autonomous inference. If a
+finder search near one of these 13 postcodes ever surfaces both a David
+Clulow and a John Lewis result and that reads as a visible duplicate to a
+real user, revisit this with a phone check of that specific location
+before removing either row.
