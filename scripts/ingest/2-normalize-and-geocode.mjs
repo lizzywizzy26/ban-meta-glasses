@@ -146,7 +146,25 @@ async function main() {
       continue;
     }
 
-    const geo = await geocodePostcode(normalizedPostcode, env);
+    // If the fetch step already captured real coordinates directly from
+    // the retailer's own system (e.g. John Lewis's stock API returns
+    // per-branch lat/long), use those instead of re-deriving from the
+    // postcode via postcodes.io. This is a genuine accuracy upgrade, not
+    // a shortcut — postcodes.io only resolves to a postcode-level
+    // centroid, while a retailer's own store database points at the
+    // actual building. It also means this source doesn't depend on
+    // postcodes.io being reachable at all. Only used when both values are
+    // finite numbers, so a malformed/missing source coordinate falls back
+    // to the normal postcode geocode rather than silently producing a
+    // bad location.
+    const hasSourceCoords = typeof rec.latitude === 'number' && typeof rec.longitude === 'number' && Number.isFinite(rec.latitude) && Number.isFinite(rec.longitude);
+
+    let geo;
+    if (hasSourceCoords) {
+      geo = { error: null, normalized: normalizedPostcode, coords: { latitude: rec.latitude, longitude: rec.longitude, source: 'source_provided' } };
+    } else {
+      geo = await geocodePostcode(normalizedPostcode, env);
+    }
     if (geo.error) {
       report.geocodeFailed++;
       console.log(`SKIP (geocode failed: ${geo.error}): ${rec.branchName || '(unnamed)'} — ${normalizedPostcode}`);

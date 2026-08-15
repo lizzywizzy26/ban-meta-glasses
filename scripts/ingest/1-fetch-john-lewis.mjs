@@ -182,9 +182,12 @@ export function parseJohnLewisStoreXml(xml, sourceUrl) {
       extractionMethod: 'first_party_live_stock_api',
       needsReview: false,
       branchPageUrl: sourceUrl,
+      // Real coordinates straight from John Lewis's own store database —
+      // step 2 (2-normalize-and-geocode.mjs) uses these directly instead
+      // of re-deriving from the postcode via postcodes.io, when present.
+      latitude: latMatch ? Number(latMatch[1].trim()) : null,
+      longitude: lonMatch ? Number(lonMatch[1].trim()) : null,
       _storeId: storeId,
-      _latitude: latMatch ? latMatch[1].trim() : null,
-      _longitude: lonMatch ? lonMatch[1].trim() : null,
       _stockMessageRaw: stockMessage,
     });
   }
