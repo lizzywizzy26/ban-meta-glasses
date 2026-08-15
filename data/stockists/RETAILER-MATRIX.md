@@ -24,7 +24,7 @@ this is a planning document, not a data source.
 | **David Clulow** | ✅ Confirmed | Directory-level only, no per-branch tag | Static (done) | — | 40 branches committed as `verified_branch` via `first_party_product_specific_directory`, corroborated by campaign owner's phone spot-check (15 Aug 2026) — see decision below |
 | **Ray-Ban (own store locator)** | ✅ Confirmed (it's their product) | 6/7 stores verified_branch (real per-branch page evidence), Stratford Westfield authorised_chain — see decision below | Static (done — targeted parser + branch-signal merge confirmed) | High | `1-fetch-rayban.mjs` parses a real, small (7-entity) UK directory: Gatwick Airport, Covent Garden, Glasgow Buchanan St, Carnaby St, Battersea Power Station, Brent Cross, Stratford Westfield. These are Ray-Ban's own-brand boutiques, not a stockist list of other shops |
 | **Sunglass Hut UK** | ✅ Confirmed (dedicated product page exists) | Blocked — Akamai bot-management block on the store-locations path, confirmed via `errors.edgesuite.net` reference in the 403 body | Static, but actively blocked (Akamai) | High | `1-fetch-sunglasshut.mjs` now runs a 3-step diagnostic (cookies, fuller headers, robots.txt/sitemap discovery); `1b-fetch-sunglasshut-browser.mjs` is a Playwright real-browser fallback if that's still blocked — see finding below |
-| **Currys** | ✅ Confirmed (multiple product listings, Gen 1 + Gen 2) | Yes — per-product "check stock near you" tool, real per-store results | **Dynamic (needs DevTools)** | High | No official public API; an entire third-party scraper ecosystem exists around this (confirms it's real and reverse-engineerable, but not officially documented) |
+| **Currys** | ✅ Confirmed (multiple product listings, Gen 1 + Gen 2) | **Parked 15 Aug 2026 — partially solved, not automatable as-is.** Real collection availability confirmed in the live UI (see below), but no clean standalone store-list endpoint was found after two targeted DevTools passes | **Dynamic — investigated, blocked** | High | No official public API; a third-party scraper ecosystem exists around this generally, but this project's own capture attempts didn't land on a reproducible request — see the parking note below for exactly what was tried |
 | **Argos** | ✅ Confirmed (multiple product listings) | Yes — per-product postcode stock checker, arguably the most mature version of this pattern in UK retail | **Dynamic (needs DevTools)** | High | Same as Currys: no official public API, but a large third-party scraper ecosystem (Apify, GitHub projects, paid stock-checker APIs) confirms the underlying live per-store data is real and accessible |
 | **John Lewis** | ✅ Confirmed (29 models listed) | **Multi-SKU coverage check done 15 Aug 2026** — two deliberately different variants (Wayfarer Gen 1, Skyler Gen 2) both query the same 36 physical stores; merged by storeId, **21 unique branches have positive live stock** on at least one variant, 15 do not on either. Skyler alone showed 0 positive branches nationwide (a real finding, not a bug). A third variant (Headliner) is currently unavailable online with no stock checker, so 2-SKU coverage is what's achievable right now, not a gap left open by choice | **Dynamic — solved and coverage-checked.** `1-fetch-john-lewis.mjs` merges by storeId automatically, ready to run for real | High | Response is XML (not JSON as first assumed), parsed with regex (no new dependency). One real bug found and fixed during testing: shopping-centre branches (e.g. White City) have 4 address lines instead of 3, and a naive "3rd line = postcode" assumption silently grabbed "London" instead of the real postcode for those stores — fixed by taking the postcode from the *last* address line instead of a fixed position |
 | **EE** | ✅ Confirmed (sells online with EE ID, dedicated Ray-Ban Meta page) | Ambiguous, re-investigated 15 Aug 2026 — EE Store has an official "How can I check if a product is in stock?" help page, but its own wording ("ship from main warehouse or suppliers' warehouses... readily available to dispatch") reads like **online/delivery fulfillment status, not a per-branch physical-store checker** — a meaningfully weaker signal than O2's | **Unknown, leaning toward "no physical-branch checker"** — needs a direct look at a real product page to confirm either way, not resolvable by search alone | Medium | EE has 550+ UK stores; whether physical branches stock/demo units is still genuinely unclear. If a human visiting `ee.co.uk`'s Ray-Ban Meta product page sees a "check my local store" feature (not just delivery stock status), that changes this to Dynamic/DevTools like O2 |
@@ -189,11 +189,56 @@ Ray-Ban Meta product pages and looking for a "check my local store" /
 you to find) settles it either way — if it's there, they join the DevTools
 queue; if not, they likely stay online-only, like Very.
 
-**Recommended order for the six-retailer push:** Currys first (guide
-already written, most likely to succeed first try), then Argos and John
-Lewis (same guide applies), then O2 (guide extended below to include it).
-Do the EE/Three quick look in parallel — it's fast and unblocks a decision
-either way.
+**Status update (15 Aug 2026):** John Lewis is solved (see the decision
+section above). Currys is parked — investigated and blocked on
+Cloudflare/session dependency, see the parking note below. **Argos and O2
+are next** — same guide applies to both. Do the EE/Three quick look
+whenever convenient — it's fast and unblocks a decision either way.
+
+---
+
+## Parked: Currys (15 Aug 2026) — partially solved, automation unresolved
+
+**What was confirmed real and working, in the live UI (not automatable, but genuinely true):**
+- Product tested: `10256708` — Ray-Ban Meta Headliner (Standard), Shiny Black,
+  Polarised G15 Green.
+- Postcode tested: `E11 2HB`.
+- Result: Currys' own UI resolved this to **"Available to collect from Mon
+  17 Aug – Leyton"** — real evidence the flow works and the underlying data
+  exists.
+
+**What was captured and ruled out:**
+- `GET /cart-delivery-collection-status?postalCode=...&latitude=...&longitude=...`
+  — this request was identified and its shape inspected. It's a
+  cart/session-scoped delivery-eligibility check, not the store-resolver:
+  its own response's `selectedStoreIdForCollection` field stayed `null`
+  even while the UI displayed Leyton, confirming this isn't where the
+  store list comes from.
+- A second targeted pass used Chrome's Network-panel content search for
+  "Leyton" while the UI was showing it — found only the same
+  `cart-delivery-collection-status` request (1/1 match), no separate
+  standalone store-list/store-stock endpoint.
+
+**Why this is being parked rather than pursued further:**
+- The only request identified so far requires **live browser cart/session
+  state** to return anything — not a stateless, reproducible request like
+  John Lewis's.
+- Currys sits behind **Cloudflare's bot-challenge system** (a
+  `cf_clearance` cookie was required in the captured request — noted as a
+  structural fact only; no cookie, session, or Cloudflare-clearance value
+  from any capture is stored anywhere in this repo or its history).
+  Passing that challenge outside a real browser session is exactly the
+  kind of access-control bypass this project has deliberately chosen not
+  to attempt (same principle that parked Sunglass Hut).
+- Two independent targeted capture passes, including a full-text search of
+  network traffic for the exact evidence string ("Leyton"), did not
+  surface a cleaner alternative.
+
+**Status: `Dynamic — investigated, blocked`.** Not ruled out forever — if
+a future pass (by a browser automation approach, e.g. the same Playwright
+pattern built for Sunglass Hut's fallback) manages to hold a
+Cloudflare-cleared session, this could be revisited. For now, no further
+manual capture time should be spent on Currys; move to Argos or O2.
 
 ---
 
