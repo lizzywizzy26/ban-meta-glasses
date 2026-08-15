@@ -38,6 +38,16 @@
 // deliberate, one-off, human-made call each time it's used, never a
 // default — pair it with --corroboration-note to record why in the data
 // itself, not just in a chat conversation.
+//
+// --source-is-live-stock-checker is a labelling-only flag, not a new
+// verification standard: when a record already qualifies for
+// verified_branch via metaEvidenceText, this makes verification_method
+// 'first_party_stock_checker' instead of the generic
+// 'first_party_stockist_directory' — accurate provenance for sources like
+// John Lewis's stock-data API, where the evidence is a live per-branch
+// stock count, not text found on a directory page. Doesn't change whether
+// anything qualifies as verified_branch, only how it's labelled once it
+// does.
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
@@ -53,6 +63,7 @@ function parseArgs(argv) {
     assumeFirstParty: false,
     mockGeocoder: false,
     directoryIsProductSpecific: false,
+    sourceIsLiveStockChecker: false,
     corroborationNote: null,
     chainId: null,
     chainName: null,
@@ -62,6 +73,7 @@ function parseArgs(argv) {
     if (arg === '--assume-first-party') flags.assumeFirstParty = true;
     else if (arg === '--mock-geocoder') flags.mockGeocoder = true;
     else if (arg === '--directory-is-product-specific') flags.directoryIsProductSpecific = true;
+    else if (arg === '--source-is-live-stock-checker') flags.sourceIsLiveStockChecker = true;
     else if (arg.startsWith('--corroboration-note=')) flags.corroborationNote = arg.slice('--corroboration-note='.length).replace(/^"|"$/g, '');
     else if (arg.startsWith('--chain-id=')) flags.chainId = arg.slice('--chain-id='.length);
     else if (arg.startsWith('--chain-name=')) flags.chainName = arg.slice('--chain-name='.length).replace(/^"|"$/g, '');
@@ -78,13 +90,21 @@ function slugify(str) {
 }
 
 async function main() {
-  const { inputPath, assumeFirstParty, mockGeocoder, directoryIsProductSpecific, corroborationNote, chainId, chainName, category } = parseArgs(
-    process.argv.slice(2)
-  );
+  const {
+    inputPath,
+    assumeFirstParty,
+    mockGeocoder,
+    directoryIsProductSpecific,
+    sourceIsLiveStockChecker,
+    corroborationNote,
+    chainId,
+    chainName,
+    category,
+  } = parseArgs(process.argv.slice(2));
 
   if (!inputPath || !chainId || !chainName || !category) {
     console.error(
-      'Usage: node 2-normalize-and-geocode.mjs <input.json> --chain-id=<id> --chain-name=<"Name"> --category=<optician|eyewear|electronics|department_store|carrier|other> [--assume-first-party] [--directory-is-product-specific] [--corroboration-note="..."] [--mock-geocoder]'
+      'Usage: node 2-normalize-and-geocode.mjs <input.json> --chain-id=<id> --chain-name=<"Name"> --category=<optician|eyewear|electronics|department_store|carrier|other> [--assume-first-party] [--directory-is-product-specific] [--source-is-live-stock-checker] [--corroboration-note="..."] [--mock-geocoder]'
     );
     process.exit(1);
   }
@@ -164,7 +184,7 @@ async function main() {
       verificationMethod = 'first_party_product_specific_directory';
     } else if (hasMetaEvidence) {
       verificationStatus = 'verified_branch';
-      verificationMethod = 'first_party_stockist_directory';
+      verificationMethod = sourceIsLiveStockChecker ? 'first_party_stock_checker' : 'first_party_stockist_directory';
     } else {
       // Real first-party source, but no branch-specific Meta signal found —
       // this is exactly the "chain sells it somewhere, this branch unconfirmed"
