@@ -22,7 +22,7 @@ this is a planning document, not a data source.
 |---|---|---|---|---|---|
 | **Vision Express** | ✅ Confirmed | Directory-level only, no per-branch tag | Static (done) | — | 438 branches committed as `verified_branch` via `first_party_product_specific_directory` (campaign owner's decision) |
 | **David Clulow** | ✅ Confirmed | Directory-level only, no per-branch tag; mixed evidence on whether directory itself counts | Static (done) | — | 40 branches committed as `authorised_chain`, pending campaign owner's phone corroboration |
-| **Ray-Ban (own store locator)** | ✅ Confirmed (it's their product) | Chain-level only so far — 7/7 own-brand boutiques checked pending `2-investigate-rayban-branch-signal.mjs` results | Static (done — targeted parser confirmed) | High | `1-fetch-rayban.mjs` parses a real, small (7-entity) UK directory: Gatwick Airport, Covent Garden, Glasgow Buchanan St, Carnaby St, Battersea Power Station, Brent Cross, Stratford Westfield. These are Ray-Ban's own-brand boutiques, not a stockist list of other shops — see finding below |
+| **Ray-Ban (own store locator)** | ✅ Confirmed (it's their product) | 6/7 stores verified_branch (real per-branch page evidence), Stratford Westfield authorised_chain — see decision below | Static (done — targeted parser + branch-signal merge confirmed) | High | `1-fetch-rayban.mjs` parses a real, small (7-entity) UK directory: Gatwick Airport, Covent Garden, Glasgow Buchanan St, Carnaby St, Battersea Power Station, Brent Cross, Stratford Westfield. These are Ray-Ban's own-brand boutiques, not a stockist list of other shops |
 | **Sunglass Hut UK** | ✅ Confirmed (dedicated product page exists) | Blocked — Akamai bot-management block on the store-locations path, confirmed via `errors.edgesuite.net` reference in the 403 body | Static, but actively blocked (Akamai) | High | `1-fetch-sunglasshut.mjs` now runs a 3-step diagnostic (cookies, fuller headers, robots.txt/sitemap discovery); `1b-fetch-sunglasshut-browser.mjs` is a Playwright real-browser fallback if that's still blocked — see finding below |
 | **Currys** | ✅ Confirmed (multiple product listings, Gen 1 + Gen 2) | Yes — per-product "check stock near you" tool, real per-store results | **Dynamic (needs DevTools)** | High | No official public API; an entire third-party scraper ecosystem exists around this (confirms it's real and reverse-engineerable, but not officially documented) |
 | **Argos** | ✅ Confirmed (multiple product listings) | Yes — per-product postcode stock checker, arguably the most mature version of this pattern in UK retail | **Dynamic (needs DevTools)** | High | Same as Currys: no official public API, but a large third-party scraper ecosystem (Apify, GitHub projects, paid stock-checker APIs) confirms the underlying live per-store data is real and accessible |
@@ -58,8 +58,42 @@ Ray-Ban Meta specifically is stocked/demoable at each one, per this
 project's core verification principle (same reasoning as Vision Express's
 first pass). `2-investigate-rayban-branch-signal.mjs` checks all 7
 individual store pages (not a sample, since there are only 7) for
-Meta-specific text — run it and send back the result before any
-`verified_branch` decision on this source.
+Meta-specific text.
+
+## Decision: Ray-Ban — 6 stores verified_branch, 1 stays authorised_chain (15 Aug 2026)
+
+The investigation script initially found nothing on any of the 7 pages —
+that was its own bug (it stripped `<script>` tags before searching, but
+these Yext pages' real content lives inside a script tag; fixed in commit
+`90be223`). Re-run correctly, it found a genuine per-branch difference, not
+uniform boilerplate: **6 of 7 stores** (Gatwick Airport, Covent Garden,
+Glasgow, Carnaby Street, Battersea Power Station, Brent Cross) carry an
+identical first-party content block on their own store page — a "Ray-Ban
+Smart Glasses" gallery tile plus "In partnership with Meta, discover our
+first generation of smart sunglasses and eyeglasses that keeps you
+connected" in their in-store services section. **Stratford Westfield**
+has neither — it shows the older, pre-rebrand "Ray-Ban Stories" tile
+instead, with no Meta-partnership text anywhere on the page.
+
+This is meaningfully different from Vision Express's first pass (identical
+tags on literally every one of 440 records, zero differentiating signal):
+here 6 of 7 genuinely differ from the 7th in real first-party page content.
+It's still marketing/services copy, not a live stock feed, and Stratford's
+gap could reflect a page that simply hasn't been refreshed as recently as
+the others rather than a deliberate "we don't do this here" — the leftover
+"Ray-Ban Stories" branding supports that reading. The campaign owner
+reviewed this and decided: the 6 stores with the content block are
+`verified_branch`; Stratford stays at `authorised_chain` rather than being
+assumed either way.
+
+Implemented via `scripts/ingest/2b-apply-rayban-branch-signal.mjs`, which
+recomputes the evidence check from the investigation file's own data
+(mentions found > 0) rather than hardcoding which 6 stores — so re-running
+the investigation later reproduces the same classification logic
+automatically. Verified end-to-end with `--mock-geocoder`: 6
+`verified_branch`, 1 `authorised_chain`, as expected. Real (non-mock)
+output still needs to be generated by running the pipeline with normal
+network access — see `scripts/ingest/README.md`.
 
 **Sunglass Hut:** the 403 response body identifies as an Akamai
 edge/bot-management block (`errors.edgesuite.net` reference ID), not a

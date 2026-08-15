@@ -206,9 +206,14 @@ Quick summary as of 15 Aug 2026:
   pending the campaign owner's phone corroboration before any
   `verified_branch` decision
 - **Ray-Ban**: real 7-store UK directory confirmed and parsed
-  (`1-fetch-rayban.mjs`), all own-brand boutiques — `authorised_chain` at
-  best until `2-investigate-rayban-branch-signal.mjs` (checks all 7 branch
-  pages) is run and sent back
+  (`1-fetch-rayban.mjs`). Branch-signal investigation found a genuine
+  per-branch difference (not uniform boilerplate) — 6 stores carry a
+  first-party "Ray-Ban Smart Glasses ... in partnership with Meta" content
+  block on their own page, Stratford Westfield doesn't. Campaign owner
+  decided: 6 `verified_branch`, Stratford stays `authorised_chain`.
+  `2b-apply-rayban-branch-signal.mjs` applies this from the investigation
+  data (not hardcoded) — see `../data/stockists/RETAILER-MATRIX.md` for
+  the full decision. Still needs a real (non-mock) run of steps 2 and 3
 - **Sunglass Hut**: confirmed blocked by Akamai bot management on the
   store-locations path. `1-fetch-sunglasshut.mjs` now tries cookies/fuller
   headers/robots.txt+sitemap discovery first (still zero-dependency); if
