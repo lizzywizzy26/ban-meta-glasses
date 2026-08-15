@@ -2,177 +2,209 @@
 
 **Status: captured concept + research, not yet implemented.** This
 document records a design direction from the campaign owner (developed
-with a custom GPT, refined 15 Aug 2026) so it isn't lost before the build
-gets further ahead, plus the national-escalation-contact research the
-second message asked for. Nothing in `index.html`, `css/`, or `js/` has
-changed as a result of this doc — current section order, lettering (A–F),
-and behaviour are all untouched. Treat this as the brief for a future
-build pass, not a spec already implemented.
+with a custom GPT, refined across three messages on 15 Aug 2026) so it
+isn't lost before the build gets further ahead. Nothing in `index.html`,
+`css/`, or `js/` has changed as a result of this doc — current section
+order, lettering (A–F), and behaviour are all untouched. Treat this as the
+brief for a future build pass, not a spec already implemented.
 
-## The core idea
+**Correction (15 Aug 2026, third message):** an earlier version of this
+doc wrongly folded "ask organisations to stop allowing them" into the
+NATIONAL stage. That was wrong and has been corrected below —
+ORGANISATIONS is its own, separate campaign strand, not a stage in this
+escalation.
 
-The campaign's six actions can feel like an unordered list of things to
-maybe do. The proposed fix: organise them as a visible three-stage
-escalation, each stage a natural consequence of the last.
+## The four campaign strands
+
+The campaign has **four** separate asks, not three. Three of them form a
+visible escalation journey; the fourth runs alongside it, not through it.
+
+**The escalation (one continuous journey, encouraged not compulsory):**
 
 1. **LOCAL** — *Ask your nearest seller to stop.*
-   Enter your postcode → see verified sellers nearby → send a personalised
-   message to that branch.
+   Find a verified local seller by postcode and ask that specific branch
+   to stop selling them.
 2. **NATIONAL** — *Ask their head office to stop.*
-   An individual branch may not control stocking policy — take the same
-   demand to the organisation that can make a chain-wide decision.
+   Escalate from the local retailer to the people capable of making a
+   nationwide stocking decision.
 3. **POLITICAL** — *Ask government to regulate.*
-   Contact your MP → support the petition → demand regulation.
+   MP / petition / government action.
 
-This maps directly onto language already used elsewhere in the campaign:
-*"Ask retailers to stop selling them. Ask organisations to stop allowing
-them. Ask government to regulate them."* The postcode finder stays the
-hero of the page and the primary action — *enter your postcode, find who
-sells them near you, ask them to stop* — with national and political
-action unfolding naturally from it, not diluting it or requiring a visitor
-to understand the whole campaign up front.
+**Separate, parallel strand:**
 
-Proposed momentum prompts between stages (exact wording from the 15 Aug
-brief):
+- **ORGANISATIONS** — *Ask organisations to stop allowing them.* Schools,
+  workplaces, venues, sports organisations and other premises adopting
+  policies restricting or forbidding wearable recording hardware. **This
+  is not a retailer-head-office action** — it's about places banning the
+  glasses being *worn on their premises*, not about anyone's stocking
+  policy. It runs alongside the escalation, not as a stage inside it.
+
+Proposed momentum prompts between escalation stages (exact wording from
+the campaign owner's brief):
 - After the local action: *"You asked your local shop. Now take it to the
   top."*
 - After the national action: *"Now ask government to act."*
 
-## Where "ask organisations to stop allowing them" belongs
+These prompts belong only to the LOCAL→NATIONAL→POLITICAL thread.
+ORGANISATIONS doesn't get a "now do X next" prompt because it isn't a step
+in that sequence — it's its own thing a visitor can do at any point.
 
-Direct answer to the open question: **it doesn't get replaced — it *is*
-the NATIONAL stage.** Nothing about Section E (petition Ray-Ban) or
-Section F (ask the retailers) needs to change in substance. What changes
-is presentation and sequencing:
+## Where ORGANISATIONS actually stands today
 
-| Stage | Current section(s) | Why it fits |
+It's **evidence, not yet an action.** The current site already documents
+real venue bans — Wetherspoons (800+ pubs), Soho House, Jeremy King's
+restaurants, and courts in England and Wales — in the Evidence section
+(`index.html` line ~103) and in `meta_rayban_research.md` ("Institutional
+and Commercial Prohibition: Venue and Corporate Bans"). But there is
+**no action section today** that asks a visitor to do anything about their
+own school/workplace/venue — no template, no call to action, nothing
+equivalent to Sections B/D/E/F for this strand. Building it is new work,
+not a relabelling of something that already exists (that was the mistake
+in the earlier version of this doc). Flagged as its own item in "what's
+new to build," below.
+
+## The escalation mapped onto today's site
+
+| Stage | Current section(s) | Fit |
 |---|---|---|
-| **1. LOCAL** | **A** — postcode finder <br> **B** — email your local optician | Both act on *this specific verified branch*, found by postcode. |
-| **2. NATIONAL** | **E** — petition Ray-Ban directly (the manufacturer) <br> **F** — ask the retailers who sell them to stop (the sellers) | Both are asks of an *organisation*, not a single shop — "stop making/allowing this nationwide," not "stop stocking this in one branch." Ray-Ban (makes them) and the retailers (sell them) are the two organisational targets the existing campaign language already names. |
-| **3. POLITICAL** | **C** — sign the petition <br> **D** — write to your MP | Both are asks of government/Parliament. |
+| **LOCAL** | **A** — postcode finder <br> **B** — email your local optician | Discovery (A) plus the actual ask (B) — see the completion rule below, these aren't the same thing. |
+| **NATIONAL** | **F** — ask the retailers who sell them to stop (Currys, Argos, John Lewis, Amazon, EE, O2) | This is already a head-office-level ask, not a specific-branch one — F's own copy already frames it that way ("highest-leverage place to apply pressure"). |
+| **POLITICAL** | **C** — sign the petition <br> **D** — write to your MP | Both are asks of government/Parliament. |
 
-So E+F together *are* the "ask organisations to stop allowing them"
-strand — the national stage doesn't add a new ask, it gives the existing
-one a clearer place in the journey and (per the research below) sharper,
-more legitimate targets to aim F at.
+**Open question, deliberately not resolved here: where does Section E
+(petition Ray-Ban directly) sit?** Ray-Ban is the *manufacturer*, not a
+retailer — the campaign owner's NATIONAL definition is specifically about
+escalating "from that local retailer" to a retail chain's head office.
+Getting the ORGANISATIONS mapping wrong once already this session is
+reason enough not to guess again: E could sit alongside NATIONAL (same
+"ask an organisation with the power to act" logic, just aimed at the
+maker instead of a seller), or it could be its own fifth thing. Needs your
+call before it's placed anywhere in a rebuilt page.
 
-## National targets: who F should actually name
+## National targets: who NATIONAL/F should actually name
 
-Section F's current placeholder text names Currys, Argos, John Lewis,
-Amazon, EE, O2. Cross-checked against `data/stockists/RETAILER-MATRIX.md`
-(the retailer research already done for the stockist finder), all of
-those are confirmed Ray-Ban Meta sellers — plus one that's missing from
-F's current copy:
+Cross-checked the priority list you gave (John Lewis, EE, Currys, O2,
+Argos, Three) against `data/stockists/RETAILER-MATRIX.md` — all six are
+confirmed Ray-Ban Meta sellers. Section F's current copy names five of
+them (Currys, Argos, John Lewis, Amazon, EE, O2) but is missing **Three**
+(confirmed seller via `accessories.three.co.uk/collections/ray-ban-meta`,
+established during the Ray-Ban/Sunglass Hut research on 14–15 Aug — not
+yet in F's copy). Amazon is confirmed too but is a different kind of
+target (no physical stores, already deliberately excluded from
+branch-level results per your earlier decision) — worth deciding whether
+it belongs in the same "head office" framing as the other five or needs
+its own wording.
 
-- **Currys** — confirmed, multiple product listings (Gen 1 + Gen 2)
-- **Argos** — confirmed, multiple product listings
-- **John Lewis** — confirmed, 29 models listed, "check in-store stock" +
-  "selected shops" Click & Collect language
-- **EE** — confirmed, dedicated Ray-Ban Meta page, sells with EE ID
-- **O2** — confirmed, dedicated shop pages, Pay Monthly option
-- **Amazon UK** — confirmed (per the campaign owner's earlier explicit
-  decision to treat it as a national target, not a branch-level result)
-- **Three** — confirmed via `accessories.three.co.uk/collections/ray-ban-meta`
-  (established during Ray-Ban/Sunglass Hut research on 14–15 Aug) — **not
-  currently named in Section F's copy**, worth adding
+Vodafone and InMotion are **not** confirmed sellers (no evidence found
+either time they were checked) — don't add them without new evidence.
 
-Vodafone and InMotion are explicitly *not* confirmed sellers (no evidence
-found either time they were checked) — they shouldn't be added as national
-targets without new evidence.
-
-## National escalation contact research
+## Head-office contact-route research (priority list: John Lewis, EE, Currys, O2, Argos, Three)
 
 **The constraint that shaped this:** this session runs behind a network
 egress allowlist that blocks fetching arbitrary retailer web pages
-directly (same restriction documented in `scripts/ingest/README.md` for
-the stockist data — confirmed again here against `johnlewis.com` directly).
-Web *search* worked, direct page fetches didn't. That matters for how much
-to trust what follows: everything below is a search-result summary, not a
-page I could open and read myself, so **verify the specific URL still
+directly (confirmed again here against `johnlewis.com`) — web *search*
+worked, direct page fetches didn't. So everything below is a search-result
+summary, not a page I opened and read myself. **Verify each URL still
 resolves and still says what's quoted here before it goes anywhere
 public.**
 
-**The bigger finding, more important than any single contact: for every
-retailer searched, the officially-published "press office" contact is
-explicitly for journalists, not the public** (e.g. Currys' own page says
-its `CorporatePR@currys.co.uk` address is "strictly for use by members of
-the media... not for customer use"). Using a press inbox for a mass
-consumer campaign risks being ignored or, worse, read as spam by the one
-team whose job is press relations — not what a credibility-conscious
-campaign wants. **So the recommended "route" per retailer below is each
-company's own official public complaints/contact-escalation page, not a
-press or named-individual email** — those pages exist precisely to receive
-structured public correspondence, even if a stocking-policy ask isn't the
-faulty-goods complaint they're mainly built for.
+**The finding that matters most, again:** every retailer's
+officially-published "press office" contact is for journalists only, not
+the public (Currys' own page says its press address is "strictly for use
+by members of the media... not for customer use"). Recommending each
+retailer's own official public complaints/contact page instead — not a
+press or named-individual email.
 
-**Also excluded on principle, per "do not invent email addresses":** any
-address that only appeared via an unofficial complaint-aggregator site
-(resolver.co.uk, complaintinfo.com, pissedconsumer.com, and similar), a
-"standard email format" guess from a sales-intelligence tool, or a named
-individual staff member's personal address scraped from a press directory
-(that's both an accuracy risk — people change roles — and not really a
-"head office route," it's one person's inbox). None of those are used
-below; where a retailer only turned up contacts like that, it's flagged as
-unresolved rather than filled in with something unverifiable.
+**Excluded on principle, per "do not invent email addresses":** anything
+that only surfaced via an unofficial complaint-aggregator site
+(resolver.co.uk, complaintinfo.com, pissedconsumer.com and similar), a
+"standard email format" guess, or a named staff member's personal address
+scraped from a press directory. None of those appear below — where a
+retailer only turned up contacts like that, it's flagged as unresolved.
 
 | Retailer | Recommended public route | Confidence | Source |
 |---|---|---|---|
-| **Currys** | [currys.co.uk/complaints.html](https://www.currys.co.uk/complaints.html) — official complaints/escalation page. Phone: 0344 561 1234 | High — official domain | [Complaints \| Currys](https://www.currys.co.uk/complaints.html) |
-| **John Lewis** | [johnlewis.com/customer-services/escalated-complaints](https://www.johnlewis.com/customer-services/escalated-complaints) — explicitly the *escalated* tier, a strong match for "head office, not ordinary customer service" | High — official domain | [Escalated Complaints \| John Lewis & Partners](https://www.johnlewis.com/customer-services/escalated-complaints) |
-| **O2** | [o2.co.uk/how-to-complain](https://www.o2.co.uk/how-to-complain) | High — official domain | [How to Complain \| Help \| O2](https://www.o2.co.uk/how-to-complain) |
-| **Three** | [three.co.uk/support/complaints/how-to-complain](https://www.three.co.uk/support/complaints/how-to-complain) | High — official domain | [How to complain \| Support \| Three](https://www.three.co.uk/support/complaints/how-to-complain) |
-| **Argos** | [corporate.sainsburys.co.uk/contact-us](https://corporate.sainsburys.co.uk/contact-us/) — Argos is a Sainsbury's subsidiary; this is the parent company's official contact page | Medium — official domain, but couldn't confirm it's the best-fit page for a non-Sainsbury's-branded query (vs. an argos.co.uk-specific page, which didn't surface) | [Contact us \| J Sainsbury plc](https://corporate.sainsburys.co.uk/contact-us/) |
-| **EE** | [ee.co.uk/help/help-new/safety-and-security/protecting-your-information/complaints-code-of-practice](https://ee.co.uk/help/help-new/safety-and-security/protecting-your-information/complaints-code-of-practice) — official complaints process page, but it's the regulatory code-of-practice page, not a friendly "contact us" form | Medium — official domain, but a cleaner consumer-facing complaints page may exist and wasn't found | EE Complaints Code of Practice (ee.co.uk) |
-| **Amazon UK** | Not resolved — no single official public complaints/escalation page surfaced (multiple sources note Amazon UK doesn't publish one the way the others do). Only press-only (`press.aboutamazon.com/uk/contact-us`) and unverified third-party-sourced emails came up | Low / unresolved | — |
+| **John Lewis** | [johnlewis.com/customer-services/escalated-complaints](https://www.johnlewis.com/customer-services/escalated-complaints) — explicitly the *escalated* tier, a strong match for "head office, not ordinary customer service." Phone: 0345 604 9049 | High — official domain, consumer-facing | [Escalated Complaints \| John Lewis & Partners](https://www.johnlewis.com/customer-services/escalated-complaints) |
+| **EE** | [ee.co.uk/help/contact-ee/complaint](https://ee.co.uk/help/contact-ee/complaint) — official consumer complaints page (not the business or regulatory-only page found in the first pass). Phone: 0800 956 6000 | High — official domain, consumer-facing | [Make a Complaint \| EE](https://ee.co.uk/help/contact-ee/complaint) |
+| **Currys** | [currys.co.uk/complaints.html](https://www.currys.co.uk/complaints.html) — official complaints/escalation page. Phone: 0344 561 1234 | High — official domain, consumer-facing | [Complaints \| Currys](https://www.currys.co.uk/complaints.html) |
+| **O2** | [o2.co.uk/how-to-complain](https://www.o2.co.uk/how-to-complain) | High — official domain, consumer-facing | [How to Complain \| Help \| O2](https://www.o2.co.uk/how-to-complain) |
+| **Argos** | [help.argos.co.uk/help/contact-us](https://help.argos.co.uk/help/contact-us) — Argos-branded page (better fit than the Sainsbury's-parent corporate page found in the first pass). Phone: 0345 640 0800 | High — official domain, consumer-facing | [Contact us \| Argos Help](https://help.argos.co.uk/help/contact-us) |
+| **Three** | [three.co.uk/support/complaints/how-to-complain](https://www.three.co.uk/support/complaints/how-to-complain) | High — official domain, consumer-facing | [How to complain \| Support \| Three](https://www.three.co.uk/support/complaints/how-to-complain) |
+| **Amazon UK** *(not on the priority list — carried over from the first pass)* | Not resolved — no official public complaints/escalation page surfaced | Low / unresolved | — |
 
-**Recommendation:** treat this table as a first pass, not final copy. Before
-anything goes into a live template: (1) open each "High confidence" URL to
-confirm it still resolves and still describes the same route, (2) do a
-fresh, more targeted search specifically for EE's and Amazon's
-consumer-facing (not regulatory/press) contact routes, (3) decide whether
+All six priority retailers now have a **High-confidence, official,
+consumer-facing** route — an improvement on the first pass, where EE and
+Argos only had weaker (regulatory-only / parent-company) results. Amazon
+remains unresolved but wasn't on this round's priority list.
+
+**Before this goes into a live template:** (1) open each URL to confirm it
+still resolves and still describes the same route — these were found via
+search snippets, not a page I could load myself; (2) decide whether
 pointing a policy ask at a "complaints" page (built for individual
-purchase disputes) is the right framing, or whether a differently-worded
-message is needed to make sense arriving there.
+purchase disputes) is the right framing, or whether the message itself
+needs to acknowledge that mismatch (e.g. "this isn't a faulty-goods
+complaint, but there's no better public channel — please pass this to
+whoever sets stocking policy").
 
-## Proposed escalation mechanics (not yet built)
+## Your three open-question answers, incorporated
 
-- Three numbered stages (1/2/3, or LOCAL/NATIONAL/POLITICAL) visible in the
-  page's structure, replacing or overlaying the current A–F lettering.
-- Progress shown as stages are completed — visually distinct from the
-  existing per-action inline counters (those count *aggregate* interactions
-  site-wide; this needs a *per-visitor* sense of "you've done stage 1,"
-  which is new state the current site doesn't track anywhere).
-- The two momentum prompts quoted above, shown after the relevant stage's
-  action is taken.
+1. **Stage completion is not a gate.** No wizard, no locking NATIONAL
+   until LOCAL is "done." The escalation is a suggested path shown to
+   everyone, not an unlock sequence.
+2. **LOCAL completes on the ask, not the search.** Finding results (A) is
+   discovery. The LOCAL stage only counts as done when the visitor
+   actually proceeds to contact/ask the branch (B, or the finder's own
+   per-branch message flow — see the open question below on how those two
+   relate). This matters for whatever "stage complete" state gets built —
+   it should key off the send/copy/mailto action, not off search results
+   rendering.
+3. **Not optimising around A–F.** The proposed IA below doesn't reuse the
+   current letters — it's a fresh structure; if it's approved, implementation
+   labels (letters, numbers, whatever) can follow from it rather than
+   the other way round.
 
-## Open questions for whoever builds this (deliberately unresolved here)
+## Proposed information architecture (new, not tied to A–F)
 
+A page built around this would read as:
+
+1. **Hero + postcode finder** — the primary entry point, not literally
+   "step 1 of 3" (it's the thing everyone sees first, escalation or not).
+2. **The escalation** (LOCAL → NATIONAL → POLITICAL), presented as one
+   visible three-part journey, with the momentum prompts between parts.
+   Whatever's decided about Section E (Ray-Ban) slots in here once that's
+   resolved.
+3. **Organisations** — a separate section, visually distinct from the
+   escalation, not sequenced relative to it. Needs new content built (see
+   above) — currently only evidence exists, no action.
+4. Impact panel / evidence / share, as today — not really "stages," stay
+   where they are.
+
+This is a shape, not a layout — spacing, visual treatment, and exact
+component boundaries are implementation decisions for whenever this gets
+built, not decided here.
+
+## Remaining open questions (deliberately unresolved here)
+
+- **Where Section E (Ray-Ban) sits** — see above, needs your call.
 - **Per-visitor progress needs new state.** The impact panel counts are
-  aggregate and anonymous (see `js/stats.js`), not tied to a visitor
-  session. Showing "you've completed stage 1" needs some client-side state
-  (e.g. `localStorage` flags set when B, E/F, or C/D actions are taken) —
-  worth deciding whether that's in scope for a first pass or a follow-up.
-- **Does A+B truly need to happen together for "stage 1" to count?** The
-  postcode finder (A) can be used without ever sending a message (B) —
-  worth deciding what "local stage complete" actually requires.
-- **Do E and F both need to happen for "stage 2" to count**, or does
-  either one (Ray-Ban or a retailer) complete the national stage?
-- **Relettering vs. renumbering vs. leaving letters alone and just adding
-  a visual stage grouping around them** — the mapping above works with
-  either; this doc doesn't take a position on the actual page mechanics.
-- **Where the finder's "send a personalised message to the branch" flow
-  (built in `js/finder.js`) fits relative to Action B** — the finder
-  already produces a per-branch contact flow; check whether B (the
-  generic optician email template) becomes redundant once someone's used
-  the finder, or serves people who couldn't find a verified branch nearby.
-- **Should Section F's retailer list be updated to add Three (confirmed
-  seller, not currently named) before or independent of the escalation
-  redesign** — this is a small, low-risk copy fix that doesn't depend on
-  the bigger UX work.
+  aggregate and anonymous (`js/stats.js`), not tied to a visitor session.
+  "You've completed the local stage" needs new client-side state (e.g.
+  `localStorage` flags) — worth deciding if that's in scope for a first
+  pass.
+- **How the finder's own per-branch message flow (`js/finder.js`) relates
+  to Section B's generic optician email template** — check whether B
+  becomes redundant once someone's used the finder, or serves people who
+  couldn't find a verified branch nearby.
+- **Should F's retailer list get Three added now**, independent of the
+  bigger redesign — small, low-risk copy fix.
+- **Whether Amazon needs different wording** in the national ask, given
+  it's a different kind of target (no physical stores, no resolved
+  contact route yet).
 
 ## Source
 
 Concept developed by the campaign owner using a custom GPT, shared and
-refined in two messages on 15 Aug 2026. Captured here verbatim in intent,
-lightly reformatted for this repo. National contact research added in
-response to the second message's explicit ask.
+refined across three messages on 15 Aug 2026, including a correction to
+an earlier misreading of where "ask organisations to stop allowing them"
+belongs. Captured here verbatim in intent, lightly reformatted for this
+repo.
