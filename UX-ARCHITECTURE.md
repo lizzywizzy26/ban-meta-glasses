@@ -14,30 +14,49 @@ NATIONAL stage. That was wrong and has been corrected below —
 ORGANISATIONS is its own, separate campaign strand, not a stage in this
 escalation.
 
-## The four campaign strands
+**Correction (15 Aug 2026, fourth message):** this doc previously left
+open where Section E (petition Ray-Ban) sits, floating the idea that it
+might merge into NATIONAL. Resolved now: **Ray-Ban is its own separate
+action target, not part of NATIONAL, and not merged with it.** Also
+explicit: **no new "ask Meta directly" action should be built.** Meta is
+judged fundamentally committed to the product, so asking them to stop is
+not considered a worthwhile use of a visitor's attention — Ray-Ban (the
+brand actually selling the glasses at retail) stays the target, exactly
+as Section E already does today. Nothing about Section E's own content
+needs to change; what changes is confirming it stays a distinct strand,
+not folded into another one.
 
-The campaign has **four** separate asks, not three. Three of them form a
-visible escalation journey; the fourth runs alongside it, not through it.
+## The five campaign strands
+
+The campaign has **five** separate asks. Three form a visible escalation
+journey; two are additional targets that run alongside it, not through
+it.
 
 **The escalation (one continuous journey, encouraged not compulsory):**
 
 1. **LOCAL** — *Ask your nearest seller to stop.*
    Find a verified local seller by postcode and ask that specific branch
    to stop selling them.
-2. **NATIONAL** — *Ask their head office to stop.*
+2. **NATIONAL** — *Ask major retailers/head offices to stop selling them
+   nationwide.*
    Escalate from the local retailer to the people capable of making a
    nationwide stocking decision.
 3. **POLITICAL** — *Ask government to regulate.*
    MP / petition / government action.
 
-**Separate, parallel strand:**
+**Additional action targets (not compulsory stages, not sequenced
+relative to the escalation):**
 
+- **RAY-BAN** — *Ask Ray-Ban to stop selling them.* The manufacturer/brand
+  target — distinct from NATIONAL (which is about retailers' stocking
+  decisions, not the maker) and distinct from a "ask Meta" action (which
+  this campaign has explicitly decided not to build).
 - **ORGANISATIONS** — *Ask organisations to stop allowing them.* Schools,
   workplaces, venues, sports organisations and other premises adopting
   policies restricting or forbidding wearable recording hardware. **This
   is not a retailer-head-office action** — it's about places banning the
   glasses being *worn on their premises*, not about anyone's stocking
-  policy. It runs alongside the escalation, not as a stage inside it.
+  policy.
 
 Proposed momentum prompts between escalation stages (exact wording from
 the campaign owner's brief):
@@ -45,9 +64,9 @@ the campaign owner's brief):
   top."*
 - After the national action: *"Now ask government to act."*
 
-These prompts belong only to the LOCAL→NATIONAL→POLITICAL thread.
-ORGANISATIONS doesn't get a "now do X next" prompt because it isn't a step
-in that sequence — it's its own thing a visitor can do at any point.
+These prompts belong only to the LOCAL→NATIONAL→POLITICAL thread. RAY-BAN
+and ORGANISATIONS don't get a "now do X next" prompt because neither is a
+step in that sequence — both are things a visitor can do at any point.
 
 ## Where ORGANISATIONS actually stands today
 
@@ -70,26 +89,17 @@ new to build," below.
 | **LOCAL** | **A** — postcode finder <br> **B** — email your local optician | Discovery (A) plus the actual ask (B) — see the completion rule below, these aren't the same thing. |
 | **NATIONAL** | **F** — ask the retailers who sell them to stop (Currys, Argos, John Lewis, Amazon, EE, O2) | This is already a head-office-level ask, not a specific-branch one — F's own copy already frames it that way ("highest-leverage place to apply pressure"). |
 | **POLITICAL** | **C** — sign the petition <br> **D** — write to your MP | Both are asks of government/Parliament. |
-
-**Open question, deliberately not resolved here: where does Section E
-(petition Ray-Ban directly) sit?** Ray-Ban is the *manufacturer*, not a
-retailer — the campaign owner's NATIONAL definition is specifically about
-escalating "from that local retailer" to a retail chain's head office.
-Getting the ORGANISATIONS mapping wrong once already this session is
-reason enough not to guess again: E could sit alongside NATIONAL (same
-"ask an organisation with the power to act" logic, just aimed at the
-maker instead of a seller), or it could be its own fifth thing. Needs your
-call before it's placed anywhere in a rebuilt page.
+| **RAY-BAN** *(additional target, not an escalation stage)* | **E** — petition Ray-Ban directly | Stays exactly as-is — the manufacturer/brand target, kept separate from NATIONAL's retailer-head-office framing. No "ask Meta" action to be built. |
 
 ## National targets: who NATIONAL/F should actually name
 
 Cross-checked the priority list you gave (John Lewis, EE, Currys, O2,
 Argos, Three) against `data/stockists/RETAILER-MATRIX.md` — all six are
-confirmed Ray-Ban Meta sellers. Section F's current copy names five of
-them (Currys, Argos, John Lewis, Amazon, EE, O2) but is missing **Three**
-(confirmed seller via `accessories.three.co.uk/collections/ray-ban-meta`,
-established during the Ray-Ban/Sunglass Hut research on 14–15 Aug — not
-yet in F's copy). Amazon is confirmed too but is a different kind of
+confirmed Ray-Ban Meta sellers. **Update: Three has since been added to
+Section F** (campaign owner explicitly confirmed 15 Aug 2026 via
+`accessories.three.co.uk/collections/ray-ban-meta` — chain-level evidence
+only, not a branch-level finder inclusion, per the usual verification
+standard). Amazon is confirmed too but is a different kind of
 target (no physical stores, already deliberately excluded from
 branch-level results per your earlier decision) — worth deciding whether
 it belongs in the same "head office" framing as the other five or needs
@@ -171,12 +181,13 @@ A page built around this would read as:
    "step 1 of 3" (it's the thing everyone sees first, escalation or not).
 2. **The escalation** (LOCAL → NATIONAL → POLITICAL), presented as one
    visible three-part journey, with the momentum prompts between parts.
-   Whatever's decided about Section E (Ray-Ban) slots in here once that's
-   resolved.
-3. **Organisations** — a separate section, visually distinct from the
+3. **Ray-Ban** — a separate section for the manufacturer target, visually
+   distinct from the escalation, not sequenced relative to it. This is
+   Section E's existing content, unchanged.
+4. **Organisations** — a separate section, visually distinct from the
    escalation, not sequenced relative to it. Needs new content built (see
    above) — currently only evidence exists, no action.
-4. Impact panel / evidence / share, as today — not really "stages," stay
+5. Impact panel / evidence / share, as today — not really "stages," stay
    where they are.
 
 This is a shape, not a layout — spacing, visual treatment, and exact
@@ -185,7 +196,8 @@ built, not decided here.
 
 ## Remaining open questions (deliberately unresolved here)
 
-- **Where Section E (Ray-Ban) sits** — see above, needs your call.
+- ~~Where Section E (Ray-Ban) sits~~ — resolved, 15 Aug 2026: its own
+  separate action target, not part of NATIONAL.
 - **Per-visitor progress needs new state.** The impact panel counts are
   aggregate and anonymous (`js/stats.js`), not tied to a visitor session.
   "You've completed the local stage" needs new client-side state (e.g.
@@ -195,8 +207,7 @@ built, not decided here.
   to Section B's generic optician email template** — check whether B
   becomes redundant once someone's used the finder, or serves people who
   couldn't find a verified branch nearby.
-- **Should F's retailer list get Three added now**, independent of the
-  bigger redesign — small, low-risk copy fix.
+- ~~Should F's retailer list get Three added now~~ — done, 15 Aug 2026.
 - **Whether Amazon needs different wording** in the national ask, given
   it's a different kind of target (no physical stores, no resolved
   contact route yet).
@@ -204,7 +215,8 @@ built, not decided here.
 ## Source
 
 Concept developed by the campaign owner using a custom GPT, shared and
-refined across three messages on 15 Aug 2026, including a correction to
-an earlier misreading of where "ask organisations to stop allowing them"
-belongs. Captured here verbatim in intent, lightly reformatted for this
-repo.
+refined across four messages on 15 Aug 2026, including two corrections:
+where "ask organisations to stop allowing them" belongs, and where
+Ray-Ban sits relative to NATIONAL (plus an explicit decision not to build
+a separate "ask Meta" action). Captured here verbatim in intent, lightly
+reformatted for this repo.
