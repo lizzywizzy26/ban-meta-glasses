@@ -321,3 +321,41 @@ on its own — it means neither can offer branch-level data no matter what
 script gets built, the same way Very was ruled out for having no physical
 stores at all (different reason, same practical outcome for this
 database).
+
+## Ireland coverage (added 16 Aug 2026)
+
+Priority raised because of press interest (a technology journalist's first
+question was whether the campaign covers Ireland). Scope for the Monday
+tester build is deliberately narrow: **Ray-Ban Ireland + Vision Express
+Ireland only** — reusing the existing UK parsers, not new retailers, and not
+Currys.ie (out of scope until these two are working).
+
+| Retailer | Sells Ray-Ban Meta in Ireland? | Status |
+|---|---|---|
+| **Ray-Ban Ireland** (`stores.ray-ban.com/ireland`) | ✅ Confirmed | Script written (`1-fetch-rayban-ireland.mjs`), reuses the UK's confirmed-working Yext decode logic unchanged, just a different country slug. **Untested against the live site** — this session's network sandbox blocks direct fetches to retailer websites (confirmed via the proxy status: policy-level 403 on `stores.ray-ban.com`, and even on plain `google.com`), so this needs to be run locally the same way the original UK scripts were |
+| **Vision Express Ireland** (`visionexpress.ie`) | ✅ Confirmed (dedicated Ray-Ban Meta pages exist) | Script written (`1-fetch-vision-express-ireland.mjs`), reuses the UK's confirmed-working DOM parser. **Untested** for the same network-sandbox reason, AND the exact listing-page URL is unconfirmed (search found `/brands/ray-ban-meta` and `/ai-glasses/ray-ban` but not which matches the UK's `/opticians/ray-ban-meta` markup pattern) — the script tries 3 candidate URLs and uses whichever one actually has store markup |
+| **Currys Ireland** (`currys.ie`) | ✅ Confirmed (online + "order & collect") | **Explicitly out of scope for now** per campaign owner's instruction — not investigated further |
+
+### What changed to support Ireland
+
+- `stockists` table gained a `country` column (`UK` \| `IE`) — every public
+  query is now scoped by country as well as `verification_status`, so a UK
+  search can never surface an Ireland branch or vice versa. See
+  `worker/schema.sql` and `worker/migrate-add-country.sql` (only needed if a
+  D1 database was already created before this change).
+- `2-normalize-and-geocode.mjs` gained `--country=UK|IE`. The UK path is
+  unchanged. The Ireland path deliberately does **not** validate/geocode
+  Eircodes (see below) — it uses a source's own coordinates when available
+  (e.g. Ray-Ban's Yext platform), and otherwise falls back to a town-level
+  centroid coordinate (see `IRELAND_TOWN_COORDS` in `worker/src/geocode.js`),
+  clearly flagged as such in the record's `notes` field. A record with
+  neither is skipped, not invented.
+- The finder's search box now accepts a UK postcode OR an Ireland town/city
+  name in the same field — `geocodeQuery()` in `worker/src/geocode.js`
+  detects which one it's looking at. **Exact Eircode search is explicitly
+  not supported yet** (a real, common-shaped input, so it gets a specific
+  "we can't search by Eircode yet, try your town/city" message rather than a
+  generic "not recognised" error) — this was a deliberate scope decision,
+  not an oversight: free Eircode-capable geocoders (Nominatim/OSM) were
+  found to have unreliable coverage, and this campaign's principle is
+  "verified or don't show it," not "best guess."

@@ -45,7 +45,14 @@ const SOURCE_URL = 'https://www.visionexpress.com/opticians/ray-ban-meta';
 // stores parsed cleanly, 0 missing phone numbers, 440 unique postcodes.
 // If Vision Express changes their page structure, this will find 0 records
 // and the caller falls back to the generic heuristics below.
-export function parseVisionExpressStoreList(html) {
+// sourceUrl/siteOrigin are parameterized (defaulting to this file's UK
+// constants) so this same markup-pattern parser can be reused for another
+// country on the same platform (e.g. visionexpress.ie) — see
+// 1-fetch-vision-express-ireland.mjs. The 3rd address row is UK-postcode-
+// shaped on the UK site; kept as plain captured text here (not validated)
+// since an Ireland run may have a real Eircode, a county name, or nothing
+// there — step 2 decides what to do with it per-country.
+export function parseVisionExpressStoreList(html, { sourceUrl = SOURCE_URL, siteOrigin = 'https://www.visionexpress.com' } = {}) {
   const chunks = html.split(/<article id="\d+" class="store-tile/).slice(1);
   const records = [];
 
@@ -64,14 +71,14 @@ export function parseVisionExpressStoreList(html) {
       city,
       postcode,
       phone: phoneMatch ? phoneMatch[1] : null,
-      sourceUrl: SOURCE_URL,
+      sourceUrl,
       // See the "IMPORTANT FINDING" comment above — deliberately null.
       metaEvidenceText: null,
       extractionMethod: 'targeted_dom_pattern',
       needsReview: false,
       // Not part of the shared record shape used by other sources, but
       // useful provenance step 2 can carry through if present.
-      branchPageUrl: 'https://www.visionexpress.com' + nameMatch[1],
+      branchPageUrl: siteOrigin + nameMatch[1],
     });
   }
 

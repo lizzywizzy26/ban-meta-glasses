@@ -254,7 +254,7 @@ async function runSearch(postcode) {
     // shown as a plain status line, no "browse retailers instead" clutter.
     // Only a genuine "valid postcode, nothing verified nearby yet" result
     // gets the richer empty state with next-action buttons.
-    if (data.reason === 'invalid_postcode' || data.reason === 'lookup_unavailable') {
+    if (data.reason === 'invalid_postcode' || data.reason === 'lookup_unavailable' || data.reason === 'eircode_not_supported') {
       setStatus(data.message, 'error');
       return;
     }

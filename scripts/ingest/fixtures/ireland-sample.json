@@ -1,0 +1,46 @@
+{
+  "_fixture_note": "SYNTHETIC TEST FIXTURE — NOT REAL DATA. Exercises the new --country=IE path in 2-normalize-and-geocode.mjs: one record with source-provided coordinates (simulating Ray-Ban's Yext platform), one without coordinates but with a city on the IRELAND_TOWN_COORDS list (should fall back to the town centroid), and one with a city NOT on that list (should be skipped, not invented). Every branchName is prefixed [TEST FIXTURE] so these can never be mistaken for real data.",
+  "sourceUrl": "https://example.invalid/ireland-test-fixture",
+  "fetchedAt": "1970-01-01T00:00:00.000Z",
+  "httpStatus": 200,
+  "extractionMethod": "test_fixture",
+  "recordCount": 3,
+  "records": [
+    {
+      "branchName": "[TEST FIXTURE] Ray-Ban — Grafton Street",
+      "address": "1 Test Street, Grafton Street",
+      "city": "Dublin",
+      "postcode": "D02 AF30",
+      "latitude": 53.3417,
+      "longitude": -6.2601,
+      "countryCode": "IE",
+      "phone": null,
+      "sourceUrl": "https://example.invalid/ireland-test-fixture",
+      "metaEvidenceText": "Ray-Ban Meta AI Glasses available in-store",
+      "extractionMethod": "test_fixture",
+      "needsReview": false
+    },
+    {
+      "branchName": "[TEST FIXTURE] Vision Express — Cork",
+      "address": "2 Test Street, Cork",
+      "city": "Cork",
+      "postcode": "",
+      "phone": "021 000 0002",
+      "sourceUrl": "https://example.invalid/ireland-test-fixture",
+      "metaEvidenceText": "Ray-Ban Meta AI Glasses available in-store",
+      "extractionMethod": "test_fixture",
+      "needsReview": false
+    },
+    {
+      "branchName": "[TEST FIXTURE] Vision Express — Nowheresville",
+      "address": "3 Test Street, Nowheresville",
+      "city": "Nowheresville",
+      "postcode": "",
+      "phone": "000 000 0003",
+      "sourceUrl": "https://example.invalid/ireland-test-fixture",
+      "metaEvidenceText": "Ray-Ban Meta AI Glasses available in-store",
+      "extractionMethod": "test_fixture",
+      "needsReview": false
+    }
+  ]
+}

@@ -67,15 +67,16 @@
 
   <section id="locate" aria-labelledby="locate-heading" class="finder-section">
     <div class="step-label"><div class="step-letter">A</div><h2 id="locate-heading">Find who sells Meta Ray-Bans near you</h2></div>
-    <p class="step-desc">Enter your postcode to find sellers we've verified — from the retailer's own website, not a guess — actually stock Meta Ray-Ban glasses near you.</p>
+    <p class="step-desc">Enter your postcode (UK) or town/city (Ireland) to find sellers we've verified — from the retailer's own website, not a guess — actually stock Meta Ray-Ban glasses near you.</p>
 
     <div class="card finder-card">
       <form id="finderForm" class="finder-form">
-        <label class="field-label" for="postcodeInput">Your postcode</label>
+        <label class="field-label" for="postcodeInput">Your postcode (UK) or town/city (Ireland)</label>
         <div class="finder-input-row">
-          <input type="text" id="postcodeInput" placeholder="e.g. SW1A 1AA" autocomplete="postal-code" inputmode="text">
+          <input type="text" id="postcodeInput" placeholder="e.g. SW1A 1AA or Cork" autocomplete="postal-code" inputmode="text">
           <button type="submit" id="finderSubmitBtn">Find sellers near me</button>
         </div>
+        <p class="field-hint">Ireland search is by town/city for now — we don't yet support exact Eircode search.</p>
       </form>
       <p class="finder-status" id="finderStatus" role="status" aria-live="polite"></p>
       <div class="finder-results" id="finderResults"></div>

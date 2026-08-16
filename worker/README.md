@@ -73,6 +73,33 @@ You'll need a free Cloudflare account (no credit card required for this).
   still returns HTTP 200 with `results: []` and a `reason` +
   human-readable `message` field, rather than erroring — the frontend
   fails gracefully either way (see `../js/finder.js`).
+  - Despite the param name (`postcode`, kept for backward compatibility),
+    this now also accepts an **Ireland town/city name** in the same field
+    (e.g. `?postcode=Cork`) — see "Ireland support" below. `geocodeQuery()`
+    in `src/geocode.js` auto-detects which kind of input it's looking at
+    and scopes the D1 query to the matching `country` so UK and Ireland
+    results never mix in one response.
+
+### Ireland support (added 16 Aug 2026)
+
+Ireland is supported at **town/city precision only**, not exact Eircode —
+see `src/geocode.js`'s "Ireland support" section for the full reasoning.
+In short: free Eircode-capable geocoders (Nominatim/OSM) were found to have
+unreliable coverage, and this campaign's principle is "verified or don't
+show it," not "best guess." A real Eircode-shaped input gets a specific
+`reason: "eircode_not_supported"` response (message: try your town/city
+instead) rather than being silently mishandled. `IRELAND_TOWN_COORDS` in
+`src/geocode.js` is a small fixed table of real town/city centroids —
+extend it as real stockist branches turn up in towns not yet on the list.
+
+The `stockists` table gained a `country` column (`UK` | `IE`, default
+`UK`). **If your D1 database was created before this change**, run the
+one-off migration once:
+```
+wrangler d1 execute stop-meta-glasses-db --remote --file=./migrate-add-country.sql
+```
+A brand-new database doesn't need this — `schema.sql` already creates the
+column from the start.
 - `GET /api/stats` → `{ "visit": 12, "optician": 3, "mp": 1, "rayban": 2, "retailer": 4, "petition_click": 5, "petition_share": 0, "finder_search": 0, "stockist_selected": 0, "retailer_action_started": 0 }`
 - `POST /api/hit` with JSON body `{ "type": "optician" }` (type is one of
   `visit`, `optician`, `mp`, `rayban`, `retailer`, `petition_click`,

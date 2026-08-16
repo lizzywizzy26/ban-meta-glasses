@@ -1,4 +1,4 @@
-import { geocodePostcode } from './geocode.js';
+import { geocodeQuery } from './geocode.js';
 import { haversineMiles, boundingBox } from './distance.js';
 
 const RADIUS_STEPS_MILES = [10, 25, 50];
@@ -10,15 +10,21 @@ const MAX_RESULTS = 10;
 // core data principle: chain-level authorisation is not branch-level proof.
 const PUBLIC_VERIFICATION_STATUS = 'verified_branch';
 
-async function queryCandidates(db, box) {
+async function queryCandidates(db, box, country) {
+  // Scoped by country as well as the bounding box — a UK postcode search
+  // must never surface an Ireland branch (or vice versa) even if a bounding
+  // box technically overlaps near the border/coastline, since a "10 miles
+  // away" claim across the Irish Sea would be nonsense and the two
+  // geocoders aren't on a shared precision footing anyway.
   const { results } = await db
     .prepare(
       `SELECT * FROM stockists
        WHERE verification_status = ?
+         AND country = ?
          AND latitude BETWEEN ? AND ?
          AND longitude BETWEEN ? AND ?`
     )
-    .bind(PUBLIC_VERIFICATION_STATUS, box.minLat, box.maxLat, box.minLon, box.maxLon)
+    .bind(PUBLIC_VERIFICATION_STATUS, country, box.minLat, box.maxLat, box.minLon, box.maxLon)
     .all();
   return results;
 }
@@ -36,6 +42,7 @@ function shapeResult(row, distanceMiles) {
       address: [row.address_line_1, row.address_line_2].filter(Boolean).join(', '),
       city: row.city,
       postcode: row.postcode,
+      country: row.country,
       coordinates: {
         latitude: row.latitude,
         longitude: row.longitude,
@@ -59,20 +66,36 @@ function shapeResult(row, distanceMiles) {
 }
 
 export async function handleStockistsRequest(url, env) {
-  const rawPostcode = url.searchParams.get('postcode');
-  if (!rawPostcode) {
-    return { status: 400, body: { error: 'missing_postcode', message: "Enter a postcode to search." } };
+  // Param name kept as `postcode` for backward compatibility with the
+  // frontend and any existing links, even though it now also accepts an
+  // Ireland town/city name — see geocodeQuery() in geocode.js for how the
+  // two are told apart.
+  const rawQuery = url.searchParams.get('postcode');
+  if (!rawQuery) {
+    return { status: 400, body: { error: 'missing_postcode', message: "Enter a postcode (UK) or town/city (Ireland) to search." } };
   }
 
-  const geo = await geocodePostcode(rawPostcode, env);
+  const geo = await geocodeQuery(rawQuery, env);
+
+  if (geo.error === 'eircode_not_supported') {
+    return {
+      status: 200,
+      body: {
+        postcode: rawQuery,
+        results: [],
+        reason: 'eircode_not_supported',
+        message: "We can't yet search by exact Eircode — try your town or city name instead (e.g. \"Dublin\" or \"Cork\").",
+      },
+    };
+  }
   if (geo.error === 'invalid_format' || geo.error === 'not_found') {
     return {
       status: 200,
       body: {
-        postcode: rawPostcode,
+        postcode: rawQuery,
         results: [],
         reason: 'invalid_postcode',
-        message: "We couldn't recognise that postcode. Check it and try again.",
+        message: "We couldn't recognise that as a UK postcode or an Ireland town/city. Check it and try again.",
       },
     };
   }
@@ -82,7 +105,7 @@ export async function handleStockistsRequest(url, env) {
     return {
       status: 200,
       body: {
-        postcode: rawPostcode,
+        postcode: rawQuery,
         results: [],
         reason: 'lookup_unavailable',
         message: 'The postcode lookup is temporarily unavailable — please try again shortly, or use the national retailer/optician actions below in the meantime.',
@@ -96,7 +119,7 @@ export async function handleStockistsRequest(url, env) {
 
   for (const radiusMiles of RADIUS_STEPS_MILES) {
     const box = boundingBox(latitude, longitude, radiusMiles);
-    const candidates = await queryCandidates(env.DB, box);
+    const candidates = await queryCandidates(env.DB, box, geo.country);
     const withinRadius = candidates
       .map((row) => ({ row, distanceMiles: haversineMiles(latitude, longitude, row.latitude, row.longitude) }))
       .filter((c) => c.distanceMiles <= radiusMiles);
@@ -115,6 +138,7 @@ export async function handleStockistsRequest(url, env) {
     status: 200,
     body: {
       postcode: geo.normalized,
+      country: geo.country,
       radiusMiles: radiusUsed,
       results,
       reason: results.length === 0 ? 'no_results' : null,

@@ -37,13 +37,34 @@ writes `output/vision-express.json` (best-effort extracted records) plus
 extraction heuristics miss the real data — see the script's own comments
 for what to do if the page turns out to be JavaScript-rendered).
 
+**Ireland (added 16 Aug 2026):** `1-fetch-rayban-ireland.mjs` and
+`1-fetch-vision-express-ireland.mjs` follow the exact same pattern, reusing
+the confirmed-working UK parsers with a different source URL. Neither has
+been run against the live site yet (same network-sandbox reason as above,
+confirmed again for these two specific domains) — run them the same way as
+step 1 above and send back the output files.
+
 ## Step 2 — normalize, validate, assign verification, geocode
 
 ```
 node scripts/ingest/2-normalize-and-geocode.mjs <input.json> \
   --chain-id=vision-express --chain-name="Vision Express" --category=optician \
-  [--assume-first-party] [--mock-geocoder]
+  [--country=UK|IE] [--assume-first-party] [--mock-geocoder]
 ```
+
+**`--country`** defaults to `UK` (every source ingested so far), so existing
+commands don't need updating. Pass `--country=IE` for an Ireland source
+(e.g. `1-fetch-rayban-ireland.mjs`'s output). The Ireland path is
+meaningfully different, not just a label: it does **not** validate or
+geocode postcodes as UK ones (an Eircode doesn't match that shape), and it
+does **not** call any live Eircode/Ireland geocoding API. Instead it uses,
+in order: (1) coordinates the source itself provided (e.g. Ray-Ban's Yext
+platform), (2) a town-level centroid from the small fixed
+`IRELAND_TOWN_COORDS` table in `../../worker/src/geocode.js`, keyed on the
+record's city — clearly flagged as an approximation in that record's
+`notes` field — or (3) the record is skipped, never given an invented
+coordinate. See `data/stockists/RETAILER-MATRIX.md`'s "Ireland coverage"
+section for the full reasoning and current Ireland retailer status.
 
 **`--assume-first-party` is the safety gate.** Without it, every record is
 forced to `verification_status = 'candidate'`, no matter what the input

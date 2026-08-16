@@ -43,6 +43,15 @@ CREATE TABLE IF NOT EXISTS stockists (
   address_line_2 TEXT,
   city TEXT NOT NULL,
 
+  country TEXT NOT NULL DEFAULT 'UK',
+  -- UK | IE. Added 16 Aug 2026 for Ireland coverage — every query against
+  -- this table must filter on country as well as verification_status (see
+  -- src/stockists.js) so a UK search can never surface an Ireland branch or
+  -- vice versa. DEFAULT 'UK' exists only so ALTER TABLE ADD COLUMN on an
+  -- already-deployed database backfills existing (all-UK) rows correctly —
+  -- every INSERT going forward should set this explicitly, never rely on
+  -- the default.
+
   postcode TEXT NOT NULL,
   normalized_postcode TEXT NOT NULL,
 
@@ -106,3 +115,6 @@ ON stockists(category);
 
 CREATE INDEX IF NOT EXISTS idx_stockists_status
 ON stockists(verification_status);
+
+CREATE INDEX IF NOT EXISTS idx_stockists_country
+ON stockists(country);

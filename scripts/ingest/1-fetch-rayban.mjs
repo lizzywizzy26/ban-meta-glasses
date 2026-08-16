@@ -77,7 +77,12 @@ export function decodeYextPageProps(html) {
 
 // Targeted parser for the country-level directory page specifically: walks
 // the decoded document's directory tree for leaf entities (stores).
-export function parseYextDirectoryJson(html) {
+//
+// sourceUrl/siteOrigin are parameterized (defaulting to this file's UK
+// constants) so the exact same walk/decode logic can be reused for another
+// country on the same Yext platform (e.g. stores.ray-ban.com/ireland) without
+// duplicating this function — see 1-fetch-rayban-ireland.mjs.
+export function parseYextDirectoryJson(html, { sourceUrl = SOURCE_URL, siteOrigin = SITE_ORIGIN } = {}) {
   const data = decodeYextPageProps(html);
   const doc = data?.document;
   if (!doc || typeof doc !== 'object') return [];
@@ -99,8 +104,13 @@ export function parseYextDirectoryJson(html) {
   const records = [];
   for (const entity of walkLeafEntities(doc)) {
     const addr = entity.address || {};
+    // Yext's field is called postalCode regardless of country — for Ireland
+    // this may hold a real Eircode, an empty string, or be absent, depending
+    // on how each store's address was entered. Left as-is here (not UK-postcode
+    // validated) — 2-normalize-and-geocode.mjs decides per-country what to do
+    // with it; this parser's job is just to extract what the source actually
+    // has, not to assume a shape.
     const postcode = addr.postalCode || null;
-    if (!postcode) continue; // no usable location without a postcode
 
     const label = entity.geomodifier || addr.extraDescription || addr.sublocality || null;
     records.push({
@@ -108,14 +118,27 @@ export function parseYextDirectoryJson(html) {
       address: [addr.line1, addr.line2].filter(Boolean).join(', ') || null,
       city: addr.city || null,
       postcode,
+      // Yext stores coordinates on the entity itself — confirmed by decoding
+      // the real saved UK capture (fixtures/rayban-uk-directory.raw.html):
+      // every leaf entity has both yextDisplayCoordinate and
+      // geocodedCoordinate objects. Captured here so step 2 can use real
+      // source coordinates instead of depending on postcode-based geocoding
+      // — which matters for Ireland, where postcodes.io doesn't apply at all.
+      latitude: entity.yextDisplayCoordinate?.latitude ?? entity.geocodedCoordinate?.latitude ?? null,
+      longitude: entity.yextDisplayCoordinate?.longitude ?? entity.geocodedCoordinate?.longitude ?? null,
+      // Also confirmed present on the real capture (addr.countryCode, e.g.
+      // "GB") — carried through so step 2 can sanity-check the --country
+      // flag against what the source itself says, rather than trusting the
+      // flag blindly.
+      countryCode: addr.countryCode || null,
       phone: null, // confirmed absent from this source, see comment above
-      sourceUrl: SOURCE_URL,
+      sourceUrl,
       // Chain/brand identity only — see the file-level comment for why this
       // stays null pending the branch-page investigation script.
       metaEvidenceText: null,
       extractionMethod: 'targeted_yext_directory_json',
       needsReview: false,
-      branchPageUrl: entity.slug ? `${SITE_ORIGIN}/${entity.slug}` : SOURCE_URL,
+      branchPageUrl: entity.slug ? `${siteOrigin}/${entity.slug}` : sourceUrl,
     });
   }
   return records;

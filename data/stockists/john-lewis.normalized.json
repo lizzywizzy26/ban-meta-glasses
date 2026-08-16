@@ -26,7 +26,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-cheadle",
@@ -55,7 +56,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-white-city",
@@ -84,7 +86,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-leeds",
@@ -113,7 +116,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-chichester",
@@ -142,7 +146,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-solihull",
@@ -171,7 +176,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-cribbs-causeway",
@@ -200,7 +206,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-cardiff",
@@ -229,7 +236,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-milton-keynes",
@@ -258,7 +266,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-peter-jones",
@@ -287,7 +296,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-poole",
@@ -316,7 +326,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-edinburgh",
@@ -345,7 +356,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-trafford",
@@ -374,7 +386,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-bluewater",
@@ -403,7 +416,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-ipswich",
@@ -432,7 +446,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-newcastle",
@@ -461,7 +476,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-high-wycombe",
@@ -490,7 +506,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-glasgow",
@@ -519,7 +536,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-reading",
@@ -548,7 +566,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-welwyn",
@@ -577,7 +596,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-brent-cross",
@@ -606,7 +626,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-chelmsford",
@@ -635,7 +656,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-swindon-outlet",
@@ -664,7 +686,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-horsham",
@@ -693,7 +716,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-norwich",
@@ -722,7 +746,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-liverpool",
@@ -751,7 +776,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-oxford-street",
@@ -780,7 +806,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-southampton",
@@ -809,7 +836,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-leicester",
@@ -838,7 +866,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-exeter",
@@ -867,7 +896,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-nottingham",
@@ -896,7 +926,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-oxford",
@@ -925,7 +956,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-cambridge",
@@ -954,7 +986,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-stratford-city",
@@ -983,7 +1016,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-canary-wharf",
@@ -1012,7 +1046,8 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": null,
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   },
   {
     "id": "john-lewis-john-lewis-cheltenham",
@@ -1041,6 +1076,7 @@
     "source_label": "John Lewis's official Ray-Ban Meta directory",
     "verified_product_scope": "ray_ban_meta",
     "last_verified_at": "2026-08-15",
-    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source."
+    "notes": "Live stock snapshot merged across 2 SKUs (Wayfarer Gen 1, Skyler Gen 2) captured 15 Aug 2026 via John Lewis's own stock-data API, keyed by storeId. This is a point-in-time snapshot, not a permanent fact -- re-fetch periodically to stay accurate, unlike a one-time directory source.",
+    "country": "UK"
   }
 ]

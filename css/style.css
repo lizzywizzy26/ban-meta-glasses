@@ -303,6 +303,11 @@ label.field-label{
   display:block;
   margin-bottom:6px;
 }
+.field-hint{
+  font-size:13px;
+  color:var(--muted);
+  margin:8px 0 0;
+}
 input[type=text]{
   width:100%;
   padding:11px 14px;

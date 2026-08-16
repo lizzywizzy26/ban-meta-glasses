@@ -52,7 +52,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { normalizePostcode, geocodePostcode } from '../../worker/src/geocode.js';
+import { normalizePostcode, geocodePostcode, geocodeIrishTown } from '../../worker/src/geocode.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = join(__dirname, 'output');
@@ -68,6 +68,7 @@ function parseArgs(argv) {
     chainId: null,
     chainName: null,
     category: null,
+    country: 'UK', // default preserves every existing documented command (all UK sources so far)
   };
   for (const arg of rest) {
     if (arg === '--assume-first-party') flags.assumeFirstParty = true;
@@ -78,6 +79,7 @@ function parseArgs(argv) {
     else if (arg.startsWith('--chain-id=')) flags.chainId = arg.slice('--chain-id='.length);
     else if (arg.startsWith('--chain-name=')) flags.chainName = arg.slice('--chain-name='.length).replace(/^"|"$/g, '');
     else if (arg.startsWith('--category=')) flags.category = arg.slice('--category='.length);
+    else if (arg.startsWith('--country=')) flags.country = arg.slice('--country='.length).toUpperCase();
   }
   return { inputPath, ...flags };
 }
@@ -100,12 +102,17 @@ async function main() {
     chainId,
     chainName,
     category,
+    country,
   } = parseArgs(process.argv.slice(2));
 
   if (!inputPath || !chainId || !chainName || !category) {
     console.error(
-      'Usage: node 2-normalize-and-geocode.mjs <input.json> --chain-id=<id> --chain-name=<"Name"> --category=<optician|eyewear|electronics|department_store|carrier|other> [--assume-first-party] [--directory-is-product-specific] [--source-is-live-stock-checker] [--corroboration-note="..."] [--mock-geocoder]'
+      'Usage: node 2-normalize-and-geocode.mjs <input.json> --chain-id=<id> --chain-name=<"Name"> --category=<optician|eyewear|electronics|department_store|carrier|other> [--country=UK|IE] [--assume-first-party] [--directory-is-product-specific] [--source-is-live-stock-checker] [--corroboration-note="..."] [--mock-geocoder]'
     );
+    process.exit(1);
+  }
+  if (country !== 'UK' && country !== 'IE') {
+    console.error(`--country must be UK or IE (got "${country}").`);
     process.exit(1);
   }
 
@@ -139,45 +146,12 @@ async function main() {
   for (const rec of inputRecords) {
     report.processed++;
 
-    const normalizedPostcode = normalizePostcode(rec.postcode);
-    if (!normalizedPostcode) {
-      report.skippedNoPostcode++;
-      console.log(`SKIP (no valid postcode): ${rec.branchName || '(unnamed)'} — raw postcode: ${JSON.stringify(rec.postcode)}`);
-      continue;
-    }
-
-    // If the fetch step already captured real coordinates directly from
-    // the retailer's own system (e.g. John Lewis's stock API returns
-    // per-branch lat/long), use those instead of re-deriving from the
-    // postcode via postcodes.io. This is a genuine accuracy upgrade, not
-    // a shortcut — postcodes.io only resolves to a postcode-level
-    // centroid, while a retailer's own store database points at the
-    // actual building. It also means this source doesn't depend on
-    // postcodes.io being reachable at all. Only used when both values are
-    // finite numbers, so a malformed/missing source coordinate falls back
-    // to the normal postcode geocode rather than silently producing a
-    // bad location.
-    const hasSourceCoords = typeof rec.latitude === 'number' && typeof rec.longitude === 'number' && Number.isFinite(rec.latitude) && Number.isFinite(rec.longitude);
-
-    let geo;
-    if (hasSourceCoords) {
-      geo = { error: null, normalized: normalizedPostcode, coords: { latitude: rec.latitude, longitude: rec.longitude, source: 'source_provided' } };
-    } else {
-      geo = await geocodePostcode(normalizedPostcode, env);
-    }
-    if (geo.error) {
-      report.geocodeFailed++;
-      console.log(`SKIP (geocode failed: ${geo.error}): ${rec.branchName || '(unnamed)'} — ${normalizedPostcode}`);
-      continue;
-    }
-    report.geocoded++;
-
-    const hasMetaEvidence = Boolean(rec.metaEvidenceText && rec.metaEvidenceText.trim());
-
-    // city is NOT NULL in the D1 schema. Prefer an explicit rec.city if the
-    // fetch step supplied one; otherwise take the last comma-separated
-    // segment of the address as a best-effort guess — flag it for review
-    // either way, since this is a heuristic, not confirmed data.
+    // city is NOT NULL in the D1 schema, and for Ireland it also doubles as
+    // the lookup key into the town-centroid table below, so it's resolved
+    // first. Prefer an explicit rec.city if the fetch step supplied one;
+    // otherwise take the last comma-separated segment of the address as a
+    // best-effort guess — flag it for review either way, since this is a
+    // heuristic, not confirmed data.
     let city = rec.city || null;
     let cityIsGuessed = false;
     if (!city && rec.address) {
@@ -190,6 +164,81 @@ async function main() {
       console.log(`SKIP (no city could be determined): ${rec.branchName || '(unnamed)'}`);
       continue;
     }
+
+    // Some sources (e.g. Ray-Ban's Yext platform) label each entity with its
+    // own country. Where that's present, it's a real cross-check against
+    // --country — a mismatch means either the wrong flag was used for this
+    // run, or the source is listing a branch outside the country its own
+    // page claims to cover. Either way, skip rather than mislabel a
+    // branch's jurisdiction.
+    if (rec.countryCode) {
+      const expected = country === 'UK' ? 'GB' : 'IE';
+      if (rec.countryCode !== expected) {
+        console.log(`SKIP (source countryCode=${rec.countryCode}, expected ${expected} for --country=${country}): ${rec.branchName || '(unnamed)'}`);
+        continue;
+      }
+    }
+
+    // If the fetch step already captured real coordinates directly from the
+    // retailer's own system (e.g. John Lewis's stock API, or Ray-Ban's Yext
+    // platform), use those instead of re-deriving from the postcode. This is
+    // a genuine accuracy upgrade for UK sources (postcodes.io only resolves
+    // to a postcode-level centroid, not the actual building) and it's the
+    // ONLY coordinate source used for Ireland at all — see geocode.js's
+    // Ireland section for why postcode/Eircode-based geocoding isn't used
+    // here. Only used when both values are finite numbers, so a
+    // malformed/missing source coordinate falls back to the next method
+    // rather than silently producing a bad location.
+    const hasSourceCoords = typeof rec.latitude === 'number' && typeof rec.longitude === 'number' && Number.isFinite(rec.latitude) && Number.isFinite(rec.longitude);
+
+    let postcodeForStorage;
+    let geo;
+    let coordinateNote = null;
+
+    if (country === 'UK') {
+      const normalizedPostcode = normalizePostcode(rec.postcode);
+      if (!normalizedPostcode) {
+        report.skippedNoPostcode++;
+        console.log(`SKIP (no valid postcode): ${rec.branchName || '(unnamed)'} — raw postcode: ${JSON.stringify(rec.postcode)}`);
+        continue;
+      }
+      postcodeForStorage = normalizedPostcode;
+      geo = hasSourceCoords
+        ? { error: null, normalized: normalizedPostcode, coords: { latitude: rec.latitude, longitude: rec.longitude, source: 'source_provided' } }
+        : await geocodePostcode(normalizedPostcode, env);
+    } else {
+      // country === 'IE': deliberately NOT UK-postcode-validated (an
+      // Eircode doesn't match that shape) and deliberately NOT geocoded via
+      // a live Eircode/Nominatim lookup for this MVP — coverage for Ireland
+      // on the free options available was found to be unreliable, and this
+      // campaign's principle is "verified or don't show it," not "best
+      // guess." Whatever postcode/Eircode text the source gave is stored
+      // as-is (unvalidated, for display/reference only); the actual
+      // coordinate is source-provided data if available, else a
+      // town-centroid lookup keyed on `city`, else this record is skipped
+      // rather than invented.
+      postcodeForStorage = (rec.postcode && rec.postcode.trim()) || city;
+      if (hasSourceCoords) {
+        geo = { error: null, normalized: postcodeForStorage, coords: { latitude: rec.latitude, longitude: rec.longitude, source: 'source_provided' } };
+      } else {
+        const townGeo = geocodeIrishTown(city);
+        if (townGeo.error === null) {
+          geo = townGeo;
+          coordinateNote = `Coordinate is a town-level centroid for "${city}" (not this branch's exact address) — this source didn't provide real coordinates, and this MVP doesn't geocode Eircodes. Upgrade when a better Ireland geocoding source is available.`;
+        } else {
+          geo = { error: 'no_coordinate_source' };
+        }
+      }
+    }
+
+    if (geo.error) {
+      report.geocodeFailed++;
+      console.log(`SKIP (geocode failed: ${geo.error}): ${rec.branchName || '(unnamed)'} — ${postcodeForStorage}`);
+      continue;
+    }
+    report.geocoded++;
+
+    const hasMetaEvidence = Boolean(rec.metaEvidenceText && rec.metaEvidenceText.trim());
 
     let verificationStatus;
     let verificationMethod;
@@ -215,7 +264,7 @@ async function main() {
     report[reportKey] += 1;
 
     output.push({
-      id: `${chainId}-${slugify(rec.branchName || normalizedPostcode)}`,
+      id: `${chainId}-${slugify(rec.branchName || postcodeForStorage)}`,
       chain_id: chainId,
       chain_name: chainName,
       branch_name: rec.branchName || `${chainName} (unnamed branch)`,
@@ -223,8 +272,9 @@ async function main() {
       address_line_1: rec.address || '',
       address_line_2: null,
       city,
-      postcode: normalizedPostcode,
-      normalized_postcode: normalizedPostcode.replace(/\s+/g, ''),
+      country,
+      postcode: postcodeForStorage,
+      normalized_postcode: postcodeForStorage.toUpperCase().replace(/\s+/g, ''),
       latitude: geo.coords.latitude,
       longitude: geo.coords.longitude,
       phone_number: rec.phone || null,
@@ -248,6 +298,7 @@ async function main() {
         [
           rec.needsReview ? 'Extracted via low-confidence method — needs manual review before trusting.' : null,
           cityIsGuessed ? `City guessed from address text ("${city}") — verify before trusting.` : null,
+          coordinateNote,
           directoryIsProductSpecific
             ? 'Verified via directory-level judgment: this retailer presents this directory as its dedicated Ray-Ban Meta store finder, not a generic locator — not an individually-confirmed branch fact.'
             : null,
