@@ -91,6 +91,16 @@ CREATE TABLE IF NOT EXISTS stockists (
   --   checks) behind a specific batch. Requires deliberate human sign-off
   --   per source (see --directory-is-product-specific in
   --   scripts/ingest/2-normalize-and-geocode.mjs) — never a default.
+  -- first_party_structured_brand_list
+  --   The retailer's own per-branch page data includes a structured,
+  --   named field listing brands stocked at that specific branch (e.g.
+  --   Vision Express Ireland's `features.availableBrands` on each store's
+  --   own record), and "Ray-Ban Meta" appears in it by name for this
+  --   branch specifically. Discovered 16 Aug 2026 investigating the Vision
+  --   Express Ireland "Dublin-group" anomaly (see RETAILER-MATRIX.md) —
+  --   stronger than first_party_product_specific_directory because it's a
+  --   per-branch structured fact, not a judgment call about a whole page's
+  --   framing; comparable in strength to metaEvidenceText/first_party_branch_page.
   -- manual_confirmation
 
   source_url TEXT NOT NULL,

@@ -405,3 +405,60 @@ all three URLs above and decodes each one's `__NEXT_DATA__`/Apollo state the
 same way this finding was reached, printing a summary — same "run locally,
 send back the output" pattern as every other fetch script in this project;
 untested against the live site for the usual network-sandbox reason.
+
+### Update 16 Aug 2026: Cork/Galway confirmed at gold-standard evidence; a real site bug found; still not ingested
+
+The campaign owner fetched the three follow-up pages by saving them from a
+real browser (this session's network sandbox blocks fetching them directly
+— see below) and sent the HTML back. Findings from decoding them:
+
+**A stronger evidence source than the group page exists.** Each individual
+branch's own store-detail data (`store({"slug": "..."})` in the page's
+Apollo cache) includes a structured `features.availableBrands` field — a
+real list of named brands, e.g. `["Armani Exchange", ..., "Ray-Ban",
+"Ray-Ban Meta", ...]`. This is first-party, structured, per-branch evidence
+— stronger than "this branch appeared on a themed page," the same
+confidence tier as `metaEvidenceText` elsewhere in this project.
+Confirmed present, containing "Ray-Ban Meta" explicitly, for:
+- **Cork (Douglas Court)**, slug `cork-douglas-court`
+- **Galway**, slug `galway`
+
+**A genuine site bug was found, not a limitation of this project's
+methodology.** `visionexpress.ie/store-overview`'s own `listStoreGroups`
+query (called with zero arguments — no page-size limit, so this is treated
+as the complete list) returns exactly two `multiStoreGroups`: **"Dublin"**
+(slug `dublin`) and **"Ray-Ban Meta"** (slug `ray-ban-meta`) — a real,
+distinctly-named group that structurally IS meant to be the definitive
+national Meta-stockist list. By the same URL convention confirmed for
+Dublin (`/opticians/dublin` shows the Dublin group), the Ray-Ban Meta group
+should live at `/opticians/ray-ban-meta` — which is the exact URL already
+fetched and found to serve the Dublin group's data instead (see finding
+above). So the retailer's own intended definitive source exists in their
+system but the live page exposing it is misconfigured/broken as of this
+fetch — its actual member list remains unknown to us, not zero, not equal
+to Dublin's 6, genuinely unknown.
+
+**Full branch structure found**, via the same zero-argument
+`listStoreGroups` query: 5 single-store towns (Portlaoise, Naas, Maynooth,
+Galway, Cork — each exactly one branch) + the Dublin group (6 branches,
+already known) = **11 branches total**, per Vision Express Ireland's own
+directory as fetched. Note: earlier general web search this project did
+(not first-party) mentioned an Athlone branch and a second Cork branch
+("Merchants Quay") that do **not** appear in this official structure —
+flagged as an open discrepancy, not resolved either way; the retailer's own
+structured data is trusted over a search-engine summary here, but this
+isn't being treated as proof Athlone/a second Cork branch don't exist,
+only that they're unconfirmed by the strongest source checked so far.
+
+**Not yet checked at the `availableBrands` standard:** the 6 Dublin
+branches (currently only evidenced by appearing on the mislabeled
+Dublin-group page, a weaker/different evidence type than Cork/Galway's),
+and the 3 remaining single-store towns (Portlaoise, Naas, Maynooth — no
+data fetched for these at all yet).
+
+**Still not ingested.** `scripts/ingest/2-fetch-vision-express-ireland-branch-details.mjs`
+fetches the remaining 9 individual branch pages and checks each one's own
+`availableBrands` field the same way Cork/Galway were confirmed, so every
+branch in the final ingestion set is checked at the same evidence
+standard rather than mixing tiers. Untested against the live site (network
+sandbox) — same "run locally, send back the output" pattern.
