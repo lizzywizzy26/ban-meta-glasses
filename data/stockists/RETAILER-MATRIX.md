@@ -542,7 +542,18 @@ branch-by-branch through `features.availableBrands`, not through that
 page or any other themed/group directory, unless a future check finds the
 underlying bug has been fixed.
 
-## Selfridges UK — investigation in progress (16 Aug 2026), NOT verified
+## Selfridges UK — national retailer target: YES (confirmed); physical stores: HELD (16 Aug 2026)
+
+**See the "Selfridges — the distinction this section exists to prevent
+from being lost" section further down this document for the final,
+settled answer.** Summary: Selfridges belongs on the campaign's national
+retailer target list (settled, not open) on the strength of its own
+substantial online Ray-Ban Meta catalogue; none of its 4 physical
+locations are in the verified physical-store database (held, not ruled
+out — David Clulow's own product-specific stockist group doesn't include
+them, which is evidence but not proof of absence). The investigation
+narrative below predates that final framing; read it for the reasoning,
+not as the current status line.
 
 Started per campaign owner's request, applying the standing three-question
 test (is the branch real? is it specifically confirmed to stock the
@@ -831,3 +842,58 @@ postcode:**
 **Not yet actioned** — no ingestion of the 4 new branches, no change to
 Selfridges' status, no Harrods `host_retailer_name` update. Reported to
 the campaign owner for review before Boots begins, per instruction.
+
+## Update: 4 new David Clulow branches ingested, Harrods confirmed, Selfridges held (16 Aug 2026)
+
+Campaign owner reviewed and approved:
+
+- **Ingested 4 new David Clulow branches**, same verification basis as the
+  existing 40 (`verified_branch`, `first_party_product_specific_directory`,
+  same source page): London Battersea (SW11 8BJ), London Victoria Street
+  (SW1E 5JD), Loughton (IG10 1AH), David Clulow at John Lewis — Edinburgh
+  (EH1 3SP). Duplicate check against all 530 other records found one
+  postcode match: Edinburgh vs the existing John Lewis Edinburgh record —
+  confirmed same building (60 Leith Street) by address text, so given the
+  same `host_retailer_name = "John Lewis"` treatment as the other 13
+  concessions, not merged or removed.
+- **David Clulow's 40 → 44 branches.** Database-wide total now **534
+  records = 518 verified_branch + 16 authorised_chain** (was 530 = 514 +
+  16).
+- **Harrods Opticians updated**: `host_retailer_name = "Harrods"` set, now
+  that David Clulow's own correctly-scoped Ray-Ban Meta group confirms
+  this record genuinely belongs in the Meta stockist set, not just a
+  plausible-looking name match.
+
+### Selfridges — the distinction this section exists to prevent from being lost
+
+**Two separate questions, two separate answers, not to be collapsed into
+one in any future audit:**
+
+1. **Is Selfridges a national campaign retailer target?** **Yes — settled,
+   not open.** Selfridges sells a substantial, current Ray-Ban Meta
+   catalogue (21 products, confirmed 16 Aug 2026) through its own website.
+   That alone makes it a real national retailer of the product and a valid
+   campaign target, independent of who operationally fulfils the sale.
+   Belongs on the same list as Currys/Argos/John Lewis/Amazon/EE/O2/Three
+   (`index.html`'s national retailer action) — **not yet actually added to
+   that list/page**, which is a separate, smaller implementation task
+   (needs a Selfridges contact route researched, same as Three's "official
+   complaints page" link) — but the *decision* that it belongs there is
+   final, not pending investigation.
+2. **Are any of the 4 physical Selfridges locations in the verified
+   physical-store database?** **No — held, not ruled out.** David Clulow's
+   own correctly-scoped "Ray Ban Meta" group (44 stores, confirmed reliable
+   this session — see above) does not include any of the 4 Selfridges
+   concessions. That's real evidence, but absence from one first-party list
+   is not proof of absence at the physical location — it could reflect a
+   genuine gap in that specific product group's maintenance rather than the
+   concessions not stocking it. **Do not read this as "Selfridges doesn't
+   sell Ray-Ban Meta"** — it demonstrably does, at national/online level.
+   It specifically means: not enough branch-level evidence exists yet to
+   put any of the 4 physical concessions into `verified_branch`. Held,
+   pending either a direct check of each concession's own page/phone
+   confirmation, or new evidence.
+
+Not ingested: the 4 Selfridges physical locations. Not implemented: adding
+Selfridges to the frontend national retailer list (flagged as a follow-up
+task, not forgotten).
