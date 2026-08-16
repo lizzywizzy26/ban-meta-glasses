@@ -119,6 +119,20 @@ swaps in a small fixed lookup table instead, for testing in environments
 without outbound network access. **Never set `MOCK_GEOCODER` in the real
 deployed Worker's vars** — it must only ever be used for local dev/testing.
 
+## Tests
+
+`src/geocode.test.mjs` covers the postcode/Eircode/Irish-town detection
+logic in `geocode.js` — zero dependencies, uses Node's built-in test
+runner (Node 18+):
+```
+node --test src/geocode.test.mjs
+```
+Includes a regression test for a real bug found during the 16 Aug 2026
+deployment audit: a UK postcode typed without a space (e.g. `SW1A1AA`)
+could be misidentified as an Irish Eircode and rejected, because the
+Eircode shape check ran before the UK postcode check. Fixed by checking
+the UK postcode shape first — an unambiguous match there now always wins.
+
 ## Limits to know about
 
 - Cloudflare D1 free tier: 5M rows read/day, 100k rows written/day, 5GB

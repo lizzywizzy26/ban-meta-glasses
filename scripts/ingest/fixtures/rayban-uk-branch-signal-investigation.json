@@ -1,0 +1,1466 @@
+{
+  "investigatedAt": "2026-08-15T08:07:35.624Z",
+  "sampleSize": 7,
+  "isCompleteSet": true,
+  "results": [
+    {
+      "url": "https://stores.ray-ban.com/united-kingdom/west-sussex/crawley/airside-departures-north-terminal",
+      "decodeSucceeded": true,
+      "mentionsFound": [
+        {
+          "term": "smart glasses",
+          "context": "yeglasses\",\"height\":960,\"url\":\"https://a.mktgcdn.com/p/dMrtsBejR7q_eKkPTYakj-2x9oJMsNopR9jnD3iPWE0/960x960.jpg\",\"width\":960}},{\"description\":\"Ray-Ban Smart Glasses\",\"image\":{\"height\":809,\"url\":\"https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg\",\"width\":809}},{\"descripti"
+        },
+        {
+          "term": "smart glasses",
+          "context": "d your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\\\-Ban eyewear.\\n\\n\\n**Ray\\\\-Ban Smart Glasses:** In partnership with Meta, discover our first generation of smart sunglasses and eyeglasses that keeps you connected. So you can keep"
+        }
+      ],
+      "customFieldKeys": [
+        "c_AboutSectionWithPhotos",
+        "c_CustomLabSection",
+        "c_HereYouCanFindSection",
+        "c_LensesSection",
+        "c_SchedulingSection",
+        "c_googleMapsListing",
+        "c_locationPageMetaDescription",
+        "c_locationPageMetaTitle",
+        "c_locationPhoto",
+        "c_rayBanNewsletter",
+        "c_rayBanHouse"
+      ],
+      "customFieldPreview": {
+        "c_AboutSectionWithPhotos": {
+          "aboutBodyText": "Placed in one of the London's airport which connect the city with the rest of the world, Ray\\-Ban Gatwick North Lower offers a brand elevated experience and a traveler dedicated product offer.",
+          "heroImageGallery": [
+            {
+              "image": {
+                "height": 1024,
+                "url": "https://a.mktgcdn.com/p/AkPwVBMdGejiF_1AyUXAVTS09tFv-ylHuvaAHS14v2c/768x1024.jpg",
+                "width": 768
+              }
+            },
+            {
+              "image": {
+                "height": 768,
+                "url": "https://a.mktgcdn.com/p/VodkGttOYl0zNbT4qc7LTn5RBkaTl19PECFSX7mjDCc/1024x768.jpg",
+                "width": 1024
+              }
+            },
+            {
+              "image": {
+                "height": 1024,
+                "url": "https://a.mktgcdn.com/p/JkA_neoGfjV7f85eJe1OtUC-CCWk4Gjarlsirw0ApTQ/768x1024.jpg",
+                "width": 768
+              }
+            },
+            {
+              "image": {
+                "height": 1024,
+                "url": "https://a.mktgcdn.com/p/MYsJZAQNr5qkqcSn1__bBoAjZArGkp_cf-9eB0hnCBE/768x1024.jpg",
+                "width": 768
+              }
+            }
+          ]
+        },
+        "c_CustomLabSection": {
+          "customLabDescription": "Get your next pair of premium sunglasses or eyeglasses at your local Ray-Ban store. Our knowledgeable team will help you find a perfect match for your personal style – and vision needs. Experience the Ray-Ban custom design service and personalize your frame and lenses. Plan your visit or drop in any time.",
+          "customLabTitle": "Ray-Ban Custom Lab",
+          "showCustomLab?": true
+        },
+        "c_HereYouCanFindSection": {
+          "hycfGallery": [
+            {
+              "description": "Sunglasses",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/wMtXGZVogboMsrIG1JD8sVz8pmb_BqY-ggMeHgYoimQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Eyeglasses",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/F5N48z7DSsuOGVbJe7iVtOduJluuUa-3GuC98ihMXFQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Kids",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/tPV-8OgullH12Mwwdfpo_hcvEPfe1kmRix96W9-w7po/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Ray-Ban Authentic",
+              "image": {
+                "alternateText": "Hand holding Ray-Ban eyeglasses",
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/dMrtsBejR7q_eKkPTYakj-2x9oJMsNopR9jnD3iPWE0/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Ray-Ban Smart Glasses",
+              "image": {
+                "height": 809,
+                "url": "https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg",
+                "width": 809
+              }
+            },
+            {
+              "description": "Ferrari Scuderia Collection",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/A8grsW0k5yWq8zvdWipPa4o_B0BJrL3YlbnI-gN6tUQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Titanium Collection",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/TOYqA_Uv3F_WGxHWJkIdDlRQP0EIdu8PdhAn2HcVQ3s/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Custom Lab",
+              "image": {
+                "alternateText": "Ray-Ban Custom Lab Logo",
+                "height": 686,
+                "url": "https://a.mktgcdn.com/p/IRSwYW8xA5f8ElPHsXft7NXQBbXq-O0vWOuA9mKTaO8/686x686.png",
+                "width": 686
+              }
+            },
+            {
+              "description": "Eye Test",
+              "image": {
+                "height": 256,
+                "url": "https://a.mktgcdn.com/p/1owTB8-YiT9Jlf0BzBEdZ6EwxW_w4F8lHOjuQ74rzn0/256x256.png",
+                "width": 256
+              }
+            }
+          ],
+          "hycfHeader": "Here You Can Find"
+        },
+        "c_LensesSection": {
+          "lensesTileText": [
+            {
+              "heading": "Ray-Ban Signature",
+              "subheading": "**Signed, Sealed, delivered**  \nYour personalized Ray\\-Ban eyewear from the Ray\\-Ban Gatwick North Lower store is engraved with our iconic signature on the right lens and the RB initials on the left."
+            },
+            {
+              "heading": "Lens Shaping",
+              "subheading": "**Perfect Fit**  \nWith almost a century of experience manufacturing eyewear, every Ray\\-Ban lens from the Gatwick North Lower store is designed to fit its frame \\- and you \\- perfectly."
+            },
+            {
+              "heading": "Blue-Light Filter",
+              "subheading": "**Screen\\-ready**  \nWe spend an average of 11 hours a day looking at screens \\- that's 4,000+ hours a year! Our premium Blue Light Filter reduces exposure to blue light from digital devices.Find the Smart Blue Filter lens with Premium UV AR: 17% Protection in AMD \\[415\\-455nm\\] at the Ray\\-Ban Gatwick North Lower store."
+            },
+            {
+              "heading": "UV Protection",
+              "subheading": "**Hello Sunshine**  \nRay\\-Ban was born from lenses designed to protect US military pilots from the sun more than 80 years ago. UV protection is in our DNA, and in your prescription eyewear at the Ray\\-Ban Gatwick North Lower store."
+            },
+            {
+              "heading": "High Definition Vision",
+              "subheading": "**Broaden your perspective**  \nRay\\-Ban's innovative Digital Surface Technology is engineered to take your vision to the next level. Crystal clear, with an extra wide field of vision. Find it at the Ray\\-Ban Gatwick North Lower store."
+            },
+            {
+              "heading": "Advanced Anti-Reflective",
+              "subheading": "**Premium as Standard**  \nNo matter what lense you choose from the Ray\\-Ban Gatwick North Lower store, it will be finished with a premium anti\\- reflective coating to reduce glare."
+            }
+          ],
+          "sectionHeading": {
+            "heading": "Ray-Ban Authentic Prescription",
+            "subheading": "FOR AN AUTHENTIC LOOK CHOOSE RAY\\-BAN PRESCRIPTION LENSES"
+          }
+        },
+        "c_SchedulingSection": {
+          "in-storeServicePhoto": {
+            "image": {
+              "height": 2333,
+              "url": "https://a.mktgcdn.com/p/lNsDgIJ6Nd2Jay4jVn1WBzHGPWu5IHIFm3v1PT8Al_4/2333x2333.jpg",
+              "width": 2333
+            }
+          },
+          "learnMoreButton": {
+            "label": "Book an Appointment Now",
+            "link": "https://www.ray-ban.com/uk/booking?storeNumber=A561",
+            "linkType": "URL"
+          },
+          "pop-upHeadingText": "DISCOVER OUR IN-STORE SERVICES",
+          "sectionBodyText": "**Eye Test:** Schedule an appointment with our in\\-store opticians to get your eyes checked. Our certified staff is here to help get you fitted for eyeglasses, contact lenses, and other vision\\-correcting devices.\n\n\n**Personal Shopping Service:** Our sunglasses, eyeglasses, kids eyewear and style experts are here to personalize your shopping experience. We will meet with you personally to understand your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\-Ban eyewear.\n\n\n**Ray\\-Ban Smart Glasses:** In partnership with Meta, discover our first generation of smart sunglasses and eyeglasses that keeps you connected. So you can keep your eyes on the world around you."
+        },
+        "c_googleMapsListing": "https://maps.google.com/maps?cid=15307240196807419",
+        "c_locationPageMetaDescription": "Ray-Ban Airside Departures, North Terminal Crawley, West Sussex, United Kingdom | Shop designer eyewear, including glasses, sunglasses, frames and lenses  for men, women, and kids in Crawley, West Sussex, United Kingdom.",
+        "c_locationPageMetaTitle": "Ray-Ban Airside Departures, North Terminal Crawley, West Sussex, United Kingdom | Eyeglasses, Sunglasses, Eye Exam, Frames, Lenses",
+        "c_locationPhoto": {
+          "image": {
+            "height": 768,
+            "url": "https://a.mktgcdn.com/p/VodkGttOYl0zNbT4qc7LTn5RBkaTl19PECFSX7mjDCc/1024x768.jpg",
+            "width": 1024
+          }
+        },
+        "c_rayBanNewsletter": {
+          "newsletterDescription": "Subscribe to Ray-Ban The Ones for all the latest news, esclusive perks and a special reward.",
+          "newsletterImage": {
+            "height": 1956,
+            "url": "https://a.mktgcdn.com/p/5uFGZyx3SxEvbPqy9MryOH6knyerKb7I9AGpplItk_U/1956x1956.jpg",
+            "width": 1956
+          },
+          "newsletterSignUpLink": "https://www.ray-ban.com/usa/c/the-ones/#cm-placement-main_placement_7",
+          "newsletterTitle": "ENJOY THE ONES. BECOME ONE OF US"
+        },
+        "c_rayBanHouse": false
+      },
+      "httpStatus": 200
+    },
+    {
+      "url": "https://stores.ray-ban.com/united-kingdom/greater-london/london/15-james-st",
+      "decodeSucceeded": true,
+      "mentionsFound": [
+        {
+          "term": "smart glasses",
+          "context": "yeglasses\",\"height\":960,\"url\":\"https://a.mktgcdn.com/p/dMrtsBejR7q_eKkPTYakj-2x9oJMsNopR9jnD3iPWE0/960x960.jpg\",\"width\":960}},{\"description\":\"Ray-Ban Smart Glasses\",\"image\":{\"height\":809,\"url\":\"https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg\",\"width\":809}},{\"descripti"
+        },
+        {
+          "term": "smart glasses",
+          "context": "d your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\\\-Ban eyewear.\\n\\n\\n**Ray\\\\-Ban Smart Glasses:** In partnership with Meta, discover our first generation of smart sunglasses and eyeglasses that keeps you connected. So you can keep"
+        }
+      ],
+      "customFieldKeys": [
+        "c_AboutSectionWithPhotos",
+        "c_CustomLabSection",
+        "c_HereYouCanFindSection",
+        "c_LensesSection",
+        "c_SchedulingSection",
+        "c_locationPageMetaDescription",
+        "c_locationPageMetaTitle",
+        "c_locationPhoto",
+        "c_rayBanNewsletter",
+        "c_rayBanHouse"
+      ],
+      "customFieldPreview": {
+        "c_AboutSectionWithPhotos": {
+          "aboutBodyText": "Covent Garden is one of the most loved and visited places in central London. Particularly lively district with a long history, where you can breathe a typically English atmosphere. Ray\\-Ban fits into the neighborhood by offering a store to discover, which explodes its full potential downstairs.",
+          "heroImageGallery": [
+            {
+              "image": {
+                "height": 1667,
+                "url": "https://a.mktgcdn.com/p/-LwYUtM8QQOZhaMKicnwe7d0gMW71wnOoQzYIjiUPGc/1667x1667.jpg",
+                "width": 1667
+              }
+            },
+            {
+              "image": {
+                "height": 1667,
+                "url": "https://a.mktgcdn.com/p/Rqs0W73KSWCBbL4_1NtjLllJKmcmXXmgs4ZUoau848Y/1667x1667.jpg",
+                "width": 1667
+              }
+            },
+            {
+              "image": {
+                "height": 1667,
+                "url": "https://a.mktgcdn.com/p/mtdcUtpYuSZiRrvvM2RwCtwZLN-jR9Z0U3b5lkIQC5Y/1667x1667.jpg",
+                "width": 1667
+              }
+            },
+            {
+              "image": {
+                "height": 1667,
+                "url": "https://a.mktgcdn.com/p/hFd-MTkIZrR6yv2AGbz1cwo0yv_qOGBuM4pjKZzcdSg/1667x1667.jpg",
+                "width": 1667
+              }
+            },
+            {
+              "image": {
+                "height": 1667,
+                "url": "https://a.mktgcdn.com/p/TbsOcz1NRe2qbGgHuu25i8Fp0SKncdjJ9LFMtCVo_KQ/1667x1667.jpg",
+                "width": 1667
+              }
+            },
+            {
+              "image": {
+                "height": 1667,
+                "url": "https://a.mktgcdn.com/p/qf6rIH-h2V31ATOMQr8Hl9yCyUIpLFCmZOUFp9FzhQQ/1667x1667.jpg",
+                "width": 1667
+              }
+            },
+            {
+              "image": {
+                "height": 1667,
+                "url": "https://a.mktgcdn.com/p/tx7vsTHk_okW-d4LZ7i_YbDao9Zlvm6YCFUYHnpGvAA/1667x1667.jpg",
+                "width": 1667
+              }
+            }
+          ]
+        },
+        "c_CustomLabSection": {
+          "customLabDescription": "Get your next pair of premium sunglasses or eyeglasses at your local Ray-Ban store. Our knowledgeable team will help you find a perfect match for your personal style – and vision needs. Experience the Ray-Ban custom design service and personalize your frame and lenses. Plan your visit or drop in any time.",
+          "customLabTitle": "Ray-Ban Custom Lab",
+          "showCustomLab?": true
+        },
+        "c_HereYouCanFindSection": {
+          "hycfGallery": [
+            {
+              "description": "Sunglasses",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/wMtXGZVogboMsrIG1JD8sVz8pmb_BqY-ggMeHgYoimQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Eyeglasses",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/F5N48z7DSsuOGVbJe7iVtOduJluuUa-3GuC98ihMXFQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Kids",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/tPV-8OgullH12Mwwdfpo_hcvEPfe1kmRix96W9-w7po/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Ray-Ban Authentic",
+              "image": {
+                "alternateText": "Hand holding Ray-Ban eyeglasses",
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/dMrtsBejR7q_eKkPTYakj-2x9oJMsNopR9jnD3iPWE0/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Ray-Ban Smart Glasses",
+              "image": {
+                "height": 809,
+                "url": "https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg",
+                "width": 809
+              }
+            },
+            {
+              "description": "Ferrari Scuderia Collection",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/A8grsW0k5yWq8zvdWipPa4o_B0BJrL3YlbnI-gN6tUQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Titanium Collection",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/TOYqA_Uv3F_WGxHWJkIdDlRQP0EIdu8PdhAn2HcVQ3s/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Custom Lab",
+              "image": {
+                "alternateText": "Ray-Ban Custom Lab Logo",
+                "height": 686,
+                "url": "https://a.mktgcdn.com/p/IRSwYW8xA5f8ElPHsXft7NXQBbXq-O0vWOuA9mKTaO8/686x686.png",
+                "width": 686
+              }
+            },
+            {
+              "description": "Eye Test",
+              "image": {
+                "alternateText": "Ray-Ban Eye Test chart",
+                "height": 256,
+                "url": "https://a.mktgcdn.com/p/1owTB8-YiT9Jlf0BzBEdZ6EwxW_w4F8lHOjuQ74rzn0/256x256.png",
+                "width": 256
+              }
+            }
+          ],
+          "hycfHeader": "Here You Can Find"
+        },
+        "c_LensesSection": {
+          "lensesTileText": [
+            {
+              "heading": "Ray-Ban Signature",
+              "subheading": "**Signed, Sealed, delivered**  \nYour personalized Ray\\-Ban eyewear from the Ray\\-Ban Covent Garden store is engraved with our iconic signature on the right lens and the RB initials on the left."
+            },
+            {
+              "heading": "Lens Shaping",
+              "subheading": "**Perfect Fit**  \nWith almost a century of experience manufacturing eyewear, every Ray\\-Ban lens from the Covent Garden store is designed to fit its frame \\- and you \\- perfectly."
+            },
+            {
+              "heading": "Blue-Light Filter",
+              "subheading": "**Screen\\-ready**  \nWe spend an average of 11 hours a day looking at screens \\- that's 4,000+ hours a year! Our premium Blue Light Filter reduces exposure to blue light from digital devices.Find the Smart Blue Filter lens with Premium UV AR: 17% Protection in AMD \\[415\\-455nm\\] at the Ray\\-Ban Covent Garden store."
+            },
+            {
+              "heading": "UV Protection",
+              "subheading": "**Hello Sunshine**  \nRay\\-Ban was born from lenses designed to protect US military pilots from the sun more than 80 years ago. UV protection is in our DNA, and in your prescription eyewear at the Ray\\-Ban Covent Garden store."
+            },
+            {
+              "heading": "High Definition Vision",
+              "subheading": "**Broaden your perspective**  \nRay\\-Ban's innovative Digital Surface Technology is engineered to take your vision to the next level. Crystal clear, with an extra wide field of vision. Find it at the Ray\\-Ban Covent Garden store."
+            },
+            {
+              "heading": "Advanced Anti-Reflective",
+              "subheading": "**Premium as Standard**  \nNo matter what lense you choose from the Ray\\-Ban Covent Garden store, it will be finished with a premium anti\\- reflective coating to reduce glare."
+            }
+          ],
+          "sectionHeading": {
+            "heading": "Ray-Ban Authentic Prescription",
+            "subheading": "FOR AN AUTHENTIC LOOK CHOOSE RAY\\-BAN PRESCRIPTION LENSES"
+          }
+        },
+        "c_SchedulingSection": {
+          "in-storeServicePhoto": {
+            "image": {
+              "height": 2333,
+              "url": "https://a.mktgcdn.com/p/lNsDgIJ6Nd2Jay4jVn1WBzHGPWu5IHIFm3v1PT8Al_4/2333x2333.jpg",
+              "width": 2333
+            }
+          },
+          "learnMoreButton": {
+            "label": "Book an Appointment Now",
+            "link": "https://www.ray-ban.com/uk/booking?storeNumber=C933",
+            "linkType": "URL"
+          },
+          "pop-upHeadingText": "DISCOVER OUR IN-STORE SERVICES",
+          "sectionBodyText": "**Eye Test:** Schedule an appointment with our in\\-store opticians to get your eyes checked. Our certified staff is here to help get you fitted for eyeglasses, contact lenses, and other vision\\-correcting devices.\n\n\n**Personal Shopping Service:** Our sunglasses, eyeglasses, kids eyewear and style experts are here to personalize your shopping experience. We will meet with you personally to understand your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\-Ban eyewear.\n\n\n**Ray\\-Ban Smart Glasses:** In partnership with Meta, discover our first generation of smart sunglasses and eyeglasses that keeps you connected. So you can keep your eyes on the world around you."
+        },
+        "c_locationPageMetaDescription": "Ray-Ban 15 James St London, Greater London, United Kingdom | Shop designer eyewear, including glasses, sunglasses, frames and lenses  for men, women, and kids in London, Greater London, United Kingdom.",
+        "c_locationPageMetaTitle": "Ray-Ban 15 James St London, Greater London, United Kingdom | Eyeglasses, Sunglasses, Eye Exam, Frames, Lenses",
+        "c_locationPhoto": {
+          "image": {
+            "height": 3456,
+            "url": "https://a.mktgcdn.com/p/SgdUYPYYaAWtv6W4UiVC0irRvNQcOrKJgAO14rAPQes/5184x3456.jpg",
+            "width": 5184
+          }
+        },
+        "c_rayBanNewsletter": {
+          "newsletterDescription": "Subscribe to Ray-Ban The Ones for all the latest news, esclusive perks and a special reward.",
+          "newsletterImage": {
+            "height": 1956,
+            "url": "https://a.mktgcdn.com/p/5uFGZyx3SxEvbPqy9MryOH6knyerKb7I9AGpplItk_U/1956x1956.jpg",
+            "width": 1956
+          },
+          "newsletterSignUpLink": "https://www.ray-ban.com/usa/c/the-ones/#cm-placement-main_placement_7",
+          "newsletterTitle": "ENJOY THE ONES. BECOME ONE OF US"
+        },
+        "c_rayBanHouse": false
+      },
+      "httpStatus": 200
+    },
+    {
+      "url": "https://stores.ray-ban.com/united-kingdom/scotland/glasgow/buchanan-street",
+      "decodeSucceeded": true,
+      "mentionsFound": [
+        {
+          "term": "smart glasses",
+          "context": "yeglasses\",\"height\":960,\"url\":\"https://a.mktgcdn.com/p/dMrtsBejR7q_eKkPTYakj-2x9oJMsNopR9jnD3iPWE0/960x960.jpg\",\"width\":960}},{\"description\":\"Ray-Ban Smart Glasses\",\"image\":{\"height\":809,\"url\":\"https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg\",\"width\":809}},{\"descripti"
+        },
+        {
+          "term": "smart glasses",
+          "context": "d your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\\\-Ban eyewear.\\n\\n\\n**Ray\\\\-Ban Smart Glasses:** In partnership with Meta, discover our first generation of smart sunglasses and eyeglasses that keeps you connected. So you can keep"
+        }
+      ],
+      "customFieldKeys": [
+        "c_AboutSectionWithPhotos",
+        "c_CustomLabSection",
+        "c_HereYouCanFindSection",
+        "c_LensesSection",
+        "c_SchedulingSection",
+        "c_locationPageMetaDescription",
+        "c_locationPageMetaTitle",
+        "c_rayBanNewsletter",
+        "c_rayBanHouse"
+      ],
+      "customFieldPreview": {
+        "c_AboutSectionWithPhotos": {
+          "aboutBodyText": "Timeless style, authenticity and freedom of expression are the core values of Ray\\-Ban Glasgow, a leader in sun and prescription eyewear for generations. Since the introduction of the iconic Aviator model created for the aviators of the United States Army, Ray\\-Ban has been at the forefront of cultural change, becoming a symbol of self\\-expression, worn by celebrities and public figures all around the world. The lifestyle brand joined the Luxottica Group in 1999 after which Ray\\-Ban accelerated its growth and redefined its distribution. Ray\\-Ban Glasgow has offered premium eyewear, including frames and lenses since year of store opening."
+        },
+        "c_CustomLabSection": {
+          "customLabDescription": "Get your next pair of premium sunglasses or eyeglasses at your local Ray-Ban store. Our knowledgeable team will help you find a perfect match for your personal style – and vision needs. Experience the Ray-Ban custom design service and personalize your frame and lenses. Plan your visit or drop in any time.",
+          "customLabTitle": "Ray-Ban Custom Lab",
+          "showCustomLab?": true
+        },
+        "c_HereYouCanFindSection": {
+          "hycfGallery": [
+            {
+              "description": "Sunglasses",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/wMtXGZVogboMsrIG1JD8sVz8pmb_BqY-ggMeHgYoimQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Eyeglasses",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/F5N48z7DSsuOGVbJe7iVtOduJluuUa-3GuC98ihMXFQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Kids",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/tPV-8OgullH12Mwwdfpo_hcvEPfe1kmRix96W9-w7po/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Ray-Ban Authentic",
+              "image": {
+                "alternateText": "Hand holding Ray-Ban eyeglasses",
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/dMrtsBejR7q_eKkPTYakj-2x9oJMsNopR9jnD3iPWE0/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Ray-Ban Smart Glasses",
+              "image": {
+                "height": 809,
+                "url": "https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg",
+                "width": 809
+              }
+            },
+            {
+              "description": "Ferrari Scuderia Collection",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/A8grsW0k5yWq8zvdWipPa4o_B0BJrL3YlbnI-gN6tUQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Titanium Collection",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/TOYqA_Uv3F_WGxHWJkIdDlRQP0EIdu8PdhAn2HcVQ3s/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Custom Lab",
+              "image": {
+                "alternateText": "Ray-Ban Custom Lab Logo",
+                "height": 686,
+                "url": "https://a.mktgcdn.com/p/IRSwYW8xA5f8ElPHsXft7NXQBbXq-O0vWOuA9mKTaO8/686x686.png",
+                "width": 686
+              }
+            },
+            {
+              "description": "Eye Test",
+              "image": {
+                "alternateText": "Ray-Ban Eye Test chart",
+                "height": 256,
+                "url": "https://a.mktgcdn.com/p/1owTB8-YiT9Jlf0BzBEdZ6EwxW_w4F8lHOjuQ74rzn0/256x256.png",
+                "width": 256
+              }
+            }
+          ],
+          "hycfHeader": "Here You Can Find"
+        },
+        "c_LensesSection": {
+          "lensesTileText": [
+            {
+              "heading": "Ray-Ban Signature",
+              "subheading": "**Signed, Sealed, delivered**  \nYour personalized Ray\\-Ban eyewear from the Ray\\-Ban Glasgow store is engraved with our iconic signature on the right lens and the RB initials on the left."
+            },
+            {
+              "heading": "Lens Shaping",
+              "subheading": "**Perfect Fit**  \nWith almost a century of experience manufacturing eyewear, every Ray\\-Ban lens from the Glasgow store is designed to fit its frame \\- and you \\- perfectly."
+            },
+            {
+              "heading": "Blue-Light Filter",
+              "subheading": "**Screen\\-ready**  \nWe spend an average of 11 hours a day looking at screens \\- that's 4,000+ hours a year! Our premium Blue Light Filter reduces exposure to blue light from digital devices.Find the Smart Blue Filter lens with Premium UV AR: 17% Protection in AMD \\[415\\-455nm\\] at the Ray\\-Ban Glasgow store."
+            },
+            {
+              "heading": "UV Protection",
+              "subheading": "**Hello Sunshine**  \nRay\\-Ban was born from lenses designed to protect US military pilots from the sun more than 80 years ago. UV protection is in our DNA, and in your prescription eyewear at the Ray\\-Ban Glasgow store."
+            },
+            {
+              "heading": "High Definition Vision",
+              "subheading": "**Broaden your perspective**  \nRay\\-Ban's innovative Digital Surface Technology is engineered to take your vision to the next level. Crystal clear, with an extra wide field of vision. Find it at the Ray\\-Ban Glasgow store."
+            },
+            {
+              "heading": "Advanced Anti-Reflective",
+              "subheading": "**Premium as Standard**  \nNo matter what lense you choose from the Ray\\-Ban Glasgow store, it will be finished with a premium anti\\- reflective coating to reduce glare."
+            }
+          ],
+          "sectionHeading": {
+            "heading": "Ray-Ban Authentic Prescription",
+            "subheading": "FOR AN AUTHENTIC LOOK CHOOSE RAY\\-BAN PRESCRIPTION LENSES"
+          }
+        },
+        "c_SchedulingSection": {
+          "in-storeServicePhoto": {
+            "image": {
+              "height": 2333,
+              "url": "https://a.mktgcdn.com/p/lNsDgIJ6Nd2Jay4jVn1WBzHGPWu5IHIFm3v1PT8Al_4/2333x2333.jpg",
+              "width": 2333
+            }
+          },
+          "learnMoreButton": {
+            "label": "Book an Appointment Now",
+            "link": "https://www.ray-ban.com/uk/booking?storeNumber=E881",
+            "linkType": "URL"
+          },
+          "pop-upHeadingText": "DISCOVER OUR IN-STORE SERVICES",
+          "sectionBodyText": "**Eye Test:** Schedule an appointment with our in\\-store opticians to get your eyes checked. Our certified staff is here to help get you fitted for eyeglasses, contact lenses, and other vision\\-correcting devices.\n\n\n**Personal Shopping Service:** Our sunglasses, eyeglasses, kids eyewear and style experts are here to personalize your shopping experience. We will meet with you personally to understand your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\-Ban eyewear.\n\n\n**Ray\\-Ban Smart Glasses:** In partnership with Meta, discover our first generation of smart sunglasses and eyeglasses that keeps you connected. So you can keep your eyes on the world around you."
+        },
+        "c_locationPageMetaDescription": "Ray-Ban Buchanan Street Glasgow, Scotland, United Kingdom | Shop designer eyewear, including glasses, sunglasses, frames and lenses  for men, women, and kids in Glasgow, Scotland, United Kingdom.",
+        "c_locationPageMetaTitle": "Ray-Ban Buchanan Street Glasgow, Scotland, United Kingdom | Eyeglasses, Sunglasses, Eye Exam, Frames, Lenses",
+        "c_rayBanNewsletter": {
+          "newsletterDescription": "Subscribe to Ray-Ban The Ones for all the latest news, esclusive perks and a special reward.",
+          "newsletterImage": {
+            "height": 1956,
+            "url": "https://a.mktgcdn.com/p/5uFGZyx3SxEvbPqy9MryOH6knyerKb7I9AGpplItk_U/1956x1956.jpg",
+            "width": 1956
+          },
+          "newsletterSignUpLink": "https://www.ray-ban.com/usa/c/the-ones/#cm-placement-main_placement_7",
+          "newsletterTitle": "ENJOY THE ONES. BECOME ONE OF US"
+        },
+        "c_rayBanHouse": false
+      },
+      "httpStatus": 200
+    },
+    {
+      "url": "https://stores.ray-ban.com/united-kingdom/london/45-carnaby-st",
+      "decodeSucceeded": true,
+      "mentionsFound": [
+        {
+          "term": "smart glasses",
+          "context": "yeglasses\",\"height\":960,\"url\":\"https://a.mktgcdn.com/p/dMrtsBejR7q_eKkPTYakj-2x9oJMsNopR9jnD3iPWE0/960x960.jpg\",\"width\":960}},{\"description\":\"Ray-Ban Smart Glasses\",\"image\":{\"height\":809,\"url\":\"https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg\",\"width\":809}},{\"descripti"
+        },
+        {
+          "term": "smart glasses",
+          "context": "d your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\\\-Ban eyewear.\\n\\n\\n**Ray\\\\-Ban Smart Glasses:** In partnership with Meta, discover our first generation of smart sunglasses and eyeglasses that keeps you connected. So you can keep"
+        }
+      ],
+      "customFieldKeys": [
+        "c_AboutSectionWithPhotos",
+        "c_CustomLabSection",
+        "c_HereYouCanFindSection",
+        "c_LensesSection",
+        "c_SchedulingSection",
+        "c_alertBannerBackgroundColor",
+        "c_alertBannerShow",
+        "c_googleMapsListing",
+        "c_locationPageMetaDescription",
+        "c_locationPageMetaTitle",
+        "c_locationPhoto",
+        "c_rayBanNewsletter",
+        "c_rayBanHouse"
+      ],
+      "customFieldPreview": {
+        "c_AboutSectionWithPhotos": {
+          "aboutBodyText": "At the core of London's West End, Carnaby Street is globally known among young and tourists as one of the main shopping destinations in London. Ray\\-Ban Carnaby Street fits into this dinamic and young context offering all the latest additions in the Ray\\-Ban collection, as well as Prescription Lenses, dedicated limited editions and pre\\-releases.",
+          "heroImageGallery": [
+            {
+              "image": {
+                "height": 778,
+                "url": "https://a.mktgcdn.com/p/NLREK-Bvxop7wia1k8ZoxdWmjodq194NUPP3mQ-kW1M/1167x778.jpg",
+                "width": 1167
+              }
+            },
+            {
+              "image": {
+                "height": 829,
+                "url": "https://a.mktgcdn.com/p/QADejmvAmFHUjbx6DuI8hHd68lVTsY6HuDkuFofE67A/1244x829.jpg",
+                "width": 1244
+              }
+            },
+            {
+              "image": {
+                "height": 829,
+                "url": "https://a.mktgcdn.com/p/RkicvIFNCYXBNZaXp_YSMRAdyQ5EGzLutYsTV7S3QbM/1244x829.jpg",
+                "width": 1244
+              }
+            },
+            {
+              "image": {
+                "height": 829,
+                "url": "https://a.mktgcdn.com/p/yM01ygSbIXC4eKPSgIZAx9CnVMMY9bQ-XAfGWtrOAMo/1244x829.jpg",
+                "width": 1244
+              }
+            },
+            {
+              "image": {
+                "height": 829,
+                "url": "https://a.mktgcdn.com/p/Qj0GYhCh-cP9779319UcGOQC4QxwDtTZGRUFupsZ5VY/1244x829.jpg",
+                "width": 1244
+              }
+            },
+            {
+              "image": {
+                "height": 829,
+                "url": "https://a.mktgcdn.com/p/HowHuTOHpgqbcsgvCzLB9g6hHM4Yhdjn1nsZFUrrVJU/1244x829.jpg",
+                "width": 1244
+              }
+            },
+            {
+              "image": {
+                "height": 829,
+                "url": "https://a.mktgcdn.com/p/U0gyqT62LHYCLEMC-YJoetYyTa-G2e_5JgFfkv3ABAA/1244x829.jpg",
+                "width": 1244
+              }
+            },
+            {
+              "image": {
+                "height": 788,
+                "url": "https://a.mktgcdn.com/p/ux4EIDy6ayaPdOhB_e5gTYhhjvYxHkzCVLV5Gr3K6dQ/1182x788.jpg",
+                "width": 1182
+              }
+            },
+            {
+              "image": {
+                "height": 829,
+                "url": "https://a.mktgcdn.com/p/b6z4B6hempN2cgi3D0dq4I3Kj4foLYNSRAwHi4UbO8w/1244x829.jpg",
+                "width": 1244
+              }
+            }
+          ]
+        },
+        "c_CustomLabSection": {
+          "customLabDescription": "Get your next pair of premium sunglasses or eyeglasses at your local Ray-Ban store. Our knowledgeable team will help you find a perfect match for your personal style – and vision needs. Experience the Ray-Ban custom design service and personalize your frame and lenses. Plan your visit or drop in any time.",
+          "customLabTitle": "Ray-Ban Custom Lab",
+          "showCustomLab?": true
+        },
+        "c_HereYouCanFindSection": {
+          "hycfGallery": [
+            {
+              "description": "Sunglasses",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/wMtXGZVogboMsrIG1JD8sVz8pmb_BqY-ggMeHgYoimQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Eyeglasses",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/F5N48z7DSsuOGVbJe7iVtOduJluuUa-3GuC98ihMXFQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Kids",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/tPV-8OgullH12Mwwdfpo_hcvEPfe1kmRix96W9-w7po/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Ray-Ban Authentic",
+              "image": {
+                "alternateText": "Hand holding Ray-Ban eyeglasses",
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/dMrtsBejR7q_eKkPTYakj-2x9oJMsNopR9jnD3iPWE0/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Ray-Ban Smart Glasses",
+              "image": {
+                "height": 809,
+                "url": "https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg",
+                "width": 809
+              }
+            },
+            {
+              "description": "Ferrari Scuderia Collection",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/A8grsW0k5yWq8zvdWipPa4o_B0BJrL3YlbnI-gN6tUQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Titanium Collection",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/TOYqA_Uv3F_WGxHWJkIdDlRQP0EIdu8PdhAn2HcVQ3s/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Custom Lab",
+              "image": {
+                "alternateText": "Ray-Ban Custom Lab Logo",
+                "height": 686,
+                "url": "https://a.mktgcdn.com/p/IRSwYW8xA5f8ElPHsXft7NXQBbXq-O0vWOuA9mKTaO8/686x686.png",
+                "width": 686
+              }
+            },
+            {
+              "description": "Eye Test",
+              "image": {
+                "alternateText": "Ray-Ban Eye Test chart",
+                "height": 256,
+                "url": "https://a.mktgcdn.com/p/1owTB8-YiT9Jlf0BzBEdZ6EwxW_w4F8lHOjuQ74rzn0/256x256.png",
+                "width": 256
+              }
+            }
+          ],
+          "hycfHeader": "Here You Can Find"
+        },
+        "c_LensesSection": {
+          "lensesTileText": [
+            {
+              "heading": "Ray-Ban Signature",
+              "subheading": "**Signed, Sealed, delivered**  \nYour personalized Ray\\-Ban eyewear from the Ray\\-Ban Carnaby Street store is engraved with our iconic signature on the right lens and the RB initials on the left."
+            },
+            {
+              "heading": "Lens Shaping",
+              "subheading": "**Perfect Fit**  \nWith almost a century of experience manufacturing eyewear, every Ray\\-Ban lens from the Carnaby Street store is designed to fit its frame \\- and you \\- perfectly."
+            },
+            {
+              "heading": "Blue-Light Filter",
+              "subheading": "**Screen\\-ready**  \nWe spend an average of 11 hours a day looking at screens \\- that's 4,000+ hours a year! Our premium Blue Light Filter reduces exposure to blue light from digital devices.Find the Smart Blue Filter lens with Premium UV AR: 17% Protection in AMD \\[415\\-455nm\\] at the Ray\\-Ban Carnaby Street store."
+            },
+            {
+              "heading": "UV Protection",
+              "subheading": "**Hello Sunshine**  \nRay\\-Ban was born from lenses designed to protect US military pilots from the sun more than 80 years ago. UV protection is in our DNA, and in your prescription eyewear at the Ray\\-Ban Carnaby Street store."
+            },
+            {
+              "heading": "High Definition Vision",
+              "subheading": "**Broaden your perspective**  \nRay\\-Ban's innovative Digital Surface Technology is engineered to take your vision to the next level. Crystal clear, with an extra wide field of vision. Find it at the Ray\\-Ban Carnaby Street store."
+            },
+            {
+              "heading": "Advanced Anti-Reflective",
+              "subheading": "**Premium as Standard**  \nNo matter what lense you choose from the Ray\\-Ban Carnaby Street store, it will be finished with a premium anti\\- reflective coating to reduce glare."
+            }
+          ],
+          "sectionHeading": {
+            "heading": "Ray-Ban Authentic Prescription",
+            "subheading": "FOR AN AUTHENTIC LOOK CHOOSE RAY\\-BAN PRESCRIPTION LENSES"
+          }
+        },
+        "c_SchedulingSection": {
+          "in-storeServicePhoto": {
+            "image": {
+              "height": 2333,
+              "url": "https://a.mktgcdn.com/p/lNsDgIJ6Nd2Jay4jVn1WBzHGPWu5IHIFm3v1PT8Al_4/2333x2333.jpg",
+              "width": 2333
+            }
+          },
+          "learnMoreButton": {
+            "label": "Book an Appointment Now",
+            "link": "https://www.ray-ban.com/uk/booking?storeNumber=9324",
+            "linkType": "URL"
+          },
+          "pop-upHeadingText": "DISCOVER OUR IN-STORE SERVICES",
+          "sectionBodyText": "**Eye Test:** Schedule an appointment with our in\\-store opticians to get your eyes checked. Our certified staff is here to help get you fitted for eyeglasses, contact lenses, and other vision\\-correcting devices.\n\n\n**Personal Shopping Service:** Our sunglasses, eyeglasses, kids eyewear and style experts are here to personalize your shopping experience. We will meet with you personally to understand your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\-Ban eyewear.\n\n\n**Ray\\-Ban Smart Glasses:** In partnership with Meta, discover our first generation of smart sunglasses and eyeglasses that keeps you connected. So you can keep your eyes on the world around you."
+        },
+        "c_alertBannerBackgroundColor": "#EA302B",
+        "c_alertBannerShow": true,
+        "c_googleMapsListing": "https://maps.google.com/maps?cid=16316200045619201771",
+        "c_locationPageMetaDescription": "Ray-Ban 45 Carnaby St London, , United Kingdom | Shop designer eyewear, including glasses, sunglasses, frames and lenses  for men, women, and kids in London, , United Kingdom.",
+        "c_locationPageMetaTitle": "Ray-Ban 45 Carnaby St London, , United Kingdom | Eyeglasses, Sunglasses, Eye Exam, Frames, Lenses",
+        "c_locationPhoto": {
+          "image": {
+            "height": 778,
+            "url": "https://a.mktgcdn.com/p/NLREK-Bvxop7wia1k8ZoxdWmjodq194NUPP3mQ-kW1M/1167x778.jpg",
+            "width": 1167
+          }
+        },
+        "c_rayBanNewsletter": {
+          "newsletterDescription": "Subscribe to Ray-Ban The Ones for all the latest news, esclusive perks and a special reward.",
+          "newsletterImage": {
+            "height": 1956,
+            "url": "https://a.mktgcdn.com/p/5uFGZyx3SxEvbPqy9MryOH6knyerKb7I9AGpplItk_U/1956x1956.jpg",
+            "width": 1956
+          },
+          "newsletterSignUpLink": "https://www.ray-ban.com/usa/c/the-ones/#cm-placement-main_placement_7",
+          "newsletterTitle": "ENJOY THE ONES. BECOME ONE OF US"
+        },
+        "c_rayBanHouse": false
+      },
+      "httpStatus": 200
+    },
+    {
+      "url": "https://stores.ray-ban.com/united-kingdom/london/circus-rd",
+      "decodeSucceeded": true,
+      "mentionsFound": [
+        {
+          "term": "smart glasses",
+          "context": "\",\"image\":{\"height\":960,\"url\":\"https://a.mktgcdn.com/p/dMrtsBejR7q_eKkPTYakj-2x9oJMsNopR9jnD3iPWE0/960x960.jpg\",\"width\":960}},{\"description\":\"Ray-Ban Smart Glasses\",\"image\":{\"height\":809,\"url\":\"https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg\",\"width\":809}},{\"descripti"
+        },
+        {
+          "term": "smart glasses",
+          "context": "d your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\\\-Ban eyewear.\\n\\n\\n**Ray\\\\-Ban Smart Glasses:** In partnership with Meta, discover our first generation of smart sunglasses and eyeglasses that keeps you connected. So you can keep"
+        }
+      ],
+      "customFieldKeys": [
+        "c_AboutSectionWithPhotos",
+        "c_CustomLabSection",
+        "c_HereYouCanFindSection",
+        "c_LensesSection",
+        "c_SchedulingSection",
+        "c_alertBannerCTAText",
+        "c_alertBannerShow",
+        "c_locationPageMetaDescription",
+        "c_locationPageMetaTitle",
+        "c_locationPhoto",
+        "c_rayBanNewsletter",
+        "c_rayBanHouse"
+      ],
+      "customFieldPreview": {
+        "c_AboutSectionWithPhotos": {
+          "aboutBodyText": "Timeless style, authenticity and freedom of expression are at the core values of Ray\\-Ban Battersea Station, a leader in sun and prescription eyewear for generations. Since the introduction of the iconic Aviator model created for the aviators of the United States Army, Ray\\-Ban has been at the forefront of cultural change, becoming a symbol of self\\-expression worn by celebrities and public figures all around the world. Ray\\-Ban Battersea Station offers a premium eyewear, including frames and lenses.",
+          "heroImageGallery": [
+            {
+              "image": {
+                "height": 3456,
+                "url": "https://a.mktgcdn.com/p/SWXFTQLP1hJOIIUJmdg9gOw1cR8I0jkLmRvs7Hjpy6c/5184x3456.jpg",
+                "width": 5184
+              }
+            },
+            {
+              "image": {
+                "height": 3456,
+                "url": "https://a.mktgcdn.com/p/kHfLONtE9od7ppLqPuQZnnkjKMBwCYGqyxRnL0aNivs/5184x3456.jpg",
+                "width": 5184
+              }
+            },
+            {
+              "image": {
+                "height": 3456,
+                "url": "https://a.mktgcdn.com/p/LvAnF3bgZ0gSnmgbA0oLbZ9IJ17BacIrKqWE6SyxJyE/5184x3456.jpg",
+                "width": 5184
+              }
+            },
+            {
+              "image": {
+                "height": 3043,
+                "url": "https://a.mktgcdn.com/p/kNT1GJREhdRWI_TbII1Ih4-B67XjsHAyYc6Y0l4WTqI/4565x3043.jpg",
+                "width": 4565
+              }
+            }
+          ]
+        },
+        "c_CustomLabSection": {
+          "customLabDescription": "Get your next pair of premium sunglasses or eyeglasses at your local Ray-Ban store. Our knowledgeable team will help you find a perfect match for your personal style – and vision needs. Experience the Ray-Ban custom design service and personalize your frame and lenses. Plan your visit or drop in any time.",
+          "customLabTitle": "Ray-Ban Custom Lab",
+          "showCustomLab?": true
+        },
+        "c_HereYouCanFindSection": {
+          "hycfGallery": [
+            {
+              "description": "Sunglasses",
+              "image": {
+                "alternateText": "Hand holding Ray-Ban eyeglasses",
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/wMtXGZVogboMsrIG1JD8sVz8pmb_BqY-ggMeHgYoimQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Eyeglasses",
+              "image": {
+                "alternateText": "Ray-Ban Eye Test chart",
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/F5N48z7DSsuOGVbJe7iVtOduJluuUa-3GuC98ihMXFQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Kids",
+              "image": {
+                "alternateText": "Ray-Ban Custom Lab Logo",
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/tPV-8OgullH12Mwwdfpo_hcvEPfe1kmRix96W9-w7po/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Ray-Ban Authentic",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/dMrtsBejR7q_eKkPTYakj-2x9oJMsNopR9jnD3iPWE0/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Ray-Ban Smart Glasses",
+              "image": {
+                "height": 809,
+                "url": "https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg",
+                "width": 809
+              }
+            },
+            {
+              "description": "Scuderia Ferrari Collection",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/A8grsW0k5yWq8zvdWipPa4o_B0BJrL3YlbnI-gN6tUQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Titanium Collection",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/TOYqA_Uv3F_WGxHWJkIdDlRQP0EIdu8PdhAn2HcVQ3s/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Custom Lab",
+              "image": {
+                "height": 686,
+                "url": "https://a.mktgcdn.com/p/IRSwYW8xA5f8ElPHsXft7NXQBbXq-O0vWOuA9mKTaO8/686x686.png",
+                "width": 686
+              }
+            },
+            {
+              "description": "Eye Test",
+              "image": {
+                "height": 256,
+                "url": "https://a.mktgcdn.com/p/1owTB8-YiT9Jlf0BzBEdZ6EwxW_w4F8lHOjuQ74rzn0/256x256.png",
+                "width": 256
+              }
+            }
+          ],
+          "hycfHeader": "Here You Can Find"
+        },
+        "c_LensesSection": {
+          "lensesTileText": [
+            {
+              "heading": "Ray-Ban Signature",
+              "subheading": "**Signed, Sealed, delivered**  \nYour personalized Ray\\-Ban eyewear from the Ray\\-Ban Battersea Station store is engraved with our iconic signature on the right lens and the RB initials on the left."
+            },
+            {
+              "heading": "Lens Shaping",
+              "subheading": "**Perfect Fit**  \nWith almost a century of experience manufacturing eyewear, every Ray\\-Ban lens from the Battersea Station store is designed to fit its frame \\- and you \\- perfectly."
+            },
+            {
+              "heading": "Blue-Light Filter",
+              "subheading": "**Screen\\-ready**  \nWe spend an average of 11 hours a day looking at screens \\- that's 4,000+ hours a year! Our premium Blue Light Filter reduces exposure to blue light from digital devices.Find the Smart Blue Filter lens with Premium UV AR: 17% Protection in AMD \\[415\\-455nm\\] at the Ray\\-Ban Battersea Station store."
+            },
+            {
+              "heading": "UV Protection",
+              "subheading": "**Hello Sunshine**  \nRay\\-Ban was born from lenses designed to protect US military pilots from the sun more than 80 years ago. UV protection is in our DNA, and in your prescription eyewear at the Ray\\-Ban Battersea Station store."
+            },
+            {
+              "heading": "High Definition Vision",
+              "subheading": "**Broaden your perspective**  \nRay\\-Ban's innovative Digital Surface Technology is engineered to take your vision to the next level. Crystal clear, with an extra wide field of vision. Find it at the Ray\\-Ban Battersea Station store."
+            },
+            {
+              "heading": "Advanced Anti-Reflective",
+              "subheading": "**Premium as Standard**  \nNo matter what lense you choose from the Ray\\-Ban Battersea Station store, it will be finished with a premium anti\\- reflective coating to reduce glare."
+            }
+          ],
+          "sectionHeading": {
+            "heading": "Ray-Ban Authentic Prescription",
+            "subheading": "FOR AN AUTHENTIC LOOK CHOOSE RAY\\-BAN PRESCRIPTION LENSES"
+          }
+        },
+        "c_SchedulingSection": {
+          "in-storeServicePhoto": {
+            "image": {
+              "height": 2333,
+              "url": "https://a.mktgcdn.com/p/lNsDgIJ6Nd2Jay4jVn1WBzHGPWu5IHIFm3v1PT8Al_4/2333x2333.jpg",
+              "width": 2333
+            }
+          },
+          "learnMoreButton": {
+            "label": "Book an Appointment Now",
+            "link": "https://www.ray-ban.com/uk/booking?storeNumber=F367",
+            "linkType": "URL"
+          },
+          "pop-upHeadingText": "DISCOVER OUR IN-STORE SERVICES",
+          "sectionBodyText": "**Eye Test:** Schedule an appointment with our in\\-store opticians to get your eyes checked. Our certified staff is here to help get you fitted for eyeglasses, contact lenses, and other vision\\-correcting devices.\n\n\n**Personal Shopping Service:** Our sunglasses, eyeglasses, kids eyewear and style experts are here to personalize your shopping experience. We will meet with you personally to understand your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\-Ban eyewear.\n\n\n**Ray\\-Ban Smart Glasses:** In partnership with Meta, discover our first generation of smart sunglasses and eyeglasses that keeps you connected. So you can keep your eyes on the world around you."
+        },
+        "c_alertBannerCTAText": "test",
+        "c_alertBannerShow": true,
+        "c_locationPageMetaDescription": "Ray-Ban Circus Rd London, , United Kingdom | Shop designer eyewear, including glasses, sunglasses, frames and lenses  for men, women, and kids in London, , United Kingdom.",
+        "c_locationPageMetaTitle": "Ray-Ban Circus Rd London, , United Kingdom | Eyeglasses, Sunglasses, Eye Exam, Frames, Lenses",
+        "c_locationPhoto": {
+          "image": {
+            "height": 3456,
+            "url": "https://a.mktgcdn.com/p/SWXFTQLP1hJOIIUJmdg9gOw1cR8I0jkLmRvs7Hjpy6c/5184x3456.jpg",
+            "width": 5184
+          }
+        },
+        "c_rayBanNewsletter": {
+          "newsletterDescription": "Subscribe to Ray-Ban The Ones for all the latest news, esclusive perks and a special reward.",
+          "newsletterImage": {
+            "height": 1956,
+            "url": "https://a.mktgcdn.com/p/5uFGZyx3SxEvbPqy9MryOH6knyerKb7I9AGpplItk_U/1956x1956.jpg",
+            "width": 1956
+          },
+          "newsletterSignUpLink": "https://www.ray-ban.com/usa/c/the-ones/#cm-placement-main_placement_7",
+          "newsletterTitle": "ENJOY THE ONES. BECOME ONE OF US"
+        },
+        "c_rayBanHouse": false
+      },
+      "httpStatus": 200
+    },
+    {
+      "url": "https://stores.ray-ban.com/united-kingdom/london/unit-e6-prince-charles-dr",
+      "decodeSucceeded": true,
+      "mentionsFound": [
+        {
+          "term": "smart glasses",
+          "context": "\",\"image\":{\"height\":960,\"url\":\"https://a.mktgcdn.com/p/ZoG1MoNZ0V3qG3tkmso24ifnMMmznFuMliY04LbEFR8/960x960.jpg\",\"width\":960}},{\"description\":\"RAY-BAN SMART GLASSES\",\"image\":{\"height\":809,\"url\":\"https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg\",\"width\":809}},{\"descripti"
+        },
+        {
+          "term": "smart glasses",
+          "context": "d your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\\\-Ban eyewear.\\n\\n\\n**Ray\\\\-Ban Smart Glasses:** In partnership with Meta, discover our first generation of smart sunglasses and eyeglasses that keeps you connected. So you can keep"
+        }
+      ],
+      "customFieldKeys": [
+        "c_AboutSectionWithPhotos",
+        "c_CustomLabSection",
+        "c_HereYouCanFindSection",
+        "c_LensesSection",
+        "c_SchedulingSection",
+        "c_googleMapsListing",
+        "c_locationPageMetaDescription",
+        "c_locationPageMetaTitle",
+        "c_locationPhoto",
+        "c_rayBanNewsletter",
+        "c_rayBanHouse"
+      ],
+      "customFieldPreview": {
+        "c_AboutSectionWithPhotos": {
+          "aboutBodyText": "Timeless style, authenticity and freedom of expression are at the core values of Ray\\-Ban Brent Cross, a leader in sun and prescription eyewear for generations. Since the introduction of the iconic Aviator model created for the aviators of the United States Army, Ray\\-Ban has been at the forefront of cultural change, becoming a symbol of self\\-expression worn by celebrities and public figures all around the world. Ray\\-Ban Brent Cross offers a premium eyewear, including frames and lenses since "
+        },
+        "c_CustomLabSection": {
+          "customLabDescription": "Get your next pair of premium sunglasses or eyeglasses at your local Ray\\-Ban store. Our knowledgeable team will help you find a perfect match for your personal style – and vision needs. Experience the Ray\\-Ban custom design service and personalize your frame and lenses. Plan your visit or drop in any time.",
+          "customLabTitle": "Ray-Ban Custom Lab",
+          "showCustomLab?": true
+        },
+        "c_HereYouCanFindSection": {
+          "hycfGallery": [
+            {
+              "description": "SUNGLASSES",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/wMtXGZVogboMsrIG1JD8sVz8pmb_BqY-ggMeHgYoimQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "EYEGLASSES",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/F5N48z7DSsuOGVbJe7iVtOduJluuUa-3GuC98ihMXFQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "KIDS",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/tPV-8OgullH12Mwwdfpo_hcvEPfe1kmRix96W9-w7po/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "RAY-BAN AUTHENTIC",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/ZoG1MoNZ0V3qG3tkmso24ifnMMmznFuMliY04LbEFR8/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "RAY-BAN SMART GLASSES",
+              "image": {
+                "height": 809,
+                "url": "https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg",
+                "width": 809
+              }
+            },
+            {
+              "description": "FERRARI SCUDERIA COLLECTION",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/A8grsW0k5yWq8zvdWipPa4o_B0BJrL3YlbnI-gN6tUQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "TITANIUM COLLECTION",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/bv51NdlPSvIm7L7fMulsbynuoELmcXO5B74IYQZ4hSI/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "CUSTOM LAB",
+              "image": {
+                "height": 686,
+                "url": "https://a.mktgcdn.com/p/cpMu7Jk7Ehh4tQM3ShULTyKci0oHDnFcDOOrBG0B-p8/686x686.png",
+                "width": 686
+              }
+            },
+            {
+              "description": "EYE EXAM",
+              "image": {
+                "height": 256,
+                "url": "https://a.mktgcdn.com/p/1owTB8-YiT9Jlf0BzBEdZ6EwxW_w4F8lHOjuQ74rzn0/256x256.png",
+                "width": 256
+              }
+            }
+          ]
+        },
+        "c_LensesSection": {
+          "lensesTileText": [
+            {
+              "heading": "Ray-Ban Signature",
+              "subheading": "**Signed, Sealed, delivered**  \nYour personalized Ray\\-Ban eyewear from the Brent Cross Ray\\-Ban store is engraved with our iconic signature on the right lens and the RB initials on the left."
+            },
+            {
+              "heading": "Lens Shaping",
+              "subheading": "**Perfect Fit**  \nWith almost a century of experience manufacturing eyewear, every Ray\\-Ban lens from the Brent Cross store is designed to fit its frame \\- and you \\- perfectly."
+            },
+            {
+              "heading": "Blue-Light Filter",
+              "subheading": "**Screen\\-ready**  \nWe spend an average of 11 hours a day looking at screens \\- that's 4,000+ hours a year! Our premium Blue Light Filter reduces exposure to blue light from digital devices. Find the Smart Blue Filter lens with Premium UV AR: 17% Protection in AMD \\[415\\-455nm\\] at the Brent Cross Ray\\-Ban store."
+            },
+            {
+              "heading": "UV Protection",
+              "subheading": "**Hello Sunshine**  \nRay\\-Ban was born from lenses designed to protect US military pilots from the sun more than 80 years ago. UV protection is in our DNA, and in your prescription eyewear at the Brent Cross Ray\\-Ban store."
+            },
+            {
+              "heading": "High Definition Vision",
+              "subheading": "**Broaden your perspective**  \nRay\\-Ban's innovative Digital Surface Technology is engineered to take your vision to the next level. Crystal clear, with an extra wide field of vision. Find it at the Brent Cross Ray\\-Ban store."
+            },
+            {
+              "heading": "Advanced Anti-Reflective",
+              "subheading": "**Premium as Standard**  \nNo matter what lense you choose from the Brent Cross Ray\\-Ban store, it will be finished with a premium anti\\- reflective coating to reduce glare."
+            }
+          ],
+          "sectionHeading": {
+            "heading": "DISCOVER OUR INSTORE SERVICES",
+            "subheading": "FOR AN AUTHENTIC LOOK CHOOSE RAY\\-BAN PRESCRIPTION LENSES"
+          }
+        },
+        "c_SchedulingSection": {
+          "in-storeServicePhoto": {
+            "image": {
+              "height": 2333,
+              "url": "https://a.mktgcdn.com/p/uJe7bjmTOujH4sLgxmocpZIhr7v_tWvT5hdjobuOtrc/3500x2333.jpg",
+              "width": 3500
+            }
+          },
+          "learnMoreButton": {
+            "label": "Book an Appointment Now",
+            "link": "https://www.ray-ban.com/usa/booking?storeNumber=P256",
+            "linkType": "OTHER"
+          },
+          "pop-upHeadingText": "DISCOVER OUR INSTORE SERVICES",
+          "sectionBodyText": "**Eye Test:** Schedule an appointment with our in\\-store opticians to get your eyes checked. Our certified staff is here to help get you fitted for eyeglasses, contact lenses, and other vision\\-correcting devices.\n\n\n**Personal Shopping Service:** We will meet with you personally to understand your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\-Ban eyewear.\n\n\n**Ray\\-Ban Smart Glasses:** In partnership with Meta, discover our first generation of smart sunglasses and eyeglasses that keeps you connected. So you can keep your eyes on the world around you."
+        },
+        "c_googleMapsListing": "https://maps.google.com/maps?cid=754526626704075247",
+        "c_locationPageMetaDescription": "Ray-Ban Unit E6, Prince Charles Dr London, , United Kingdom | Shop designer eyewear, including glasses, sunglasses, frames and lenses  for men, women, and kids in London, , United Kingdom.",
+        "c_locationPageMetaTitle": "Ray-Ban Unit E6, Prince Charles Dr London, , United Kingdom | Eyeglasses, Sunglasses, Eye Exam, Frames, Lenses",
+        "c_locationPhoto": {
+          "image": {
+            "height": 3270,
+            "url": "https://a.mktgcdn.com/p/3OcVo2h_K9t7ZCMdyLi2LgSww5wjQd4aRgz_7zNXr1c/4904x3270.jpg",
+            "width": 4904
+          }
+        },
+        "c_rayBanNewsletter": {
+          "newsletterDescription": "Subscribe to Ray-Ban The Ones for all the latest news, esclusive perks and a special reward.​",
+          "newsletterImage": {
+            "height": 1956,
+            "url": "https://a.mktgcdn.com/p/5uFGZyx3SxEvbPqy9MryOH6knyerKb7I9AGpplItk_U/1956x1956.jpg",
+            "width": 1956
+          },
+          "newsletterSignUpLink": "https://www.ray-ban.com/usa/c/the-ones/#cm-placement-main_placement_7",
+          "newsletterTitle": "ENJOY THE ONES. BECOME ONE OF US"
+        },
+        "c_rayBanHouse": false
+      },
+      "httpStatus": 200
+    },
+    {
+      "url": "https://stores.ray-ban.com/united-kingdom/london/stratford-westfield-upper",
+      "decodeSucceeded": true,
+      "mentionsFound": [],
+      "customFieldKeys": [
+        "c_CustomLabSection",
+        "c_HereYouCanFindSection",
+        "c_LensesSection",
+        "c_SchedulingSection",
+        "c_googleMapsListing",
+        "c_locationPageMetaDescription",
+        "c_locationPageMetaTitle",
+        "c_newArrivals",
+        "c_rayBanNewsletter",
+        "c_rayBanHouse"
+      ],
+      "customFieldPreview": {
+        "c_CustomLabSection": {
+          "customLabDescription": "Get your next pair of premium sunglasses or eyeglasses at your local Ray-Ban store. Our knowledgeable team will help you find a perfect match for your personal style – and vision needs. Experience the Ray-Ban custom design service and personalize your frame and lenses. Plan your visit or drop in any time.",
+          "customLabTitle": "Ray-Ban Custom Lab",
+          "showCustomLab?": true
+        },
+        "c_HereYouCanFindSection": {
+          "hycfGallery": [
+            {
+              "description": "Sunglasses",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/wMtXGZVogboMsrIG1JD8sVz8pmb_BqY-ggMeHgYoimQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Eyeglasses",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/F5N48z7DSsuOGVbJe7iVtOduJluuUa-3GuC98ihMXFQ/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Kids",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/tPV-8OgullH12Mwwdfpo_hcvEPfe1kmRix96W9-w7po/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Ray-Ban Authentic",
+              "image": {
+                "alternateText": "Hand holding Ray-Ban eyeglasses",
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/dMrtsBejR7q_eKkPTYakj-2x9oJMsNopR9jnD3iPWE0/960x960.jpg",
+                "width": 960
+              }
+            },
+            {
+              "description": "Eye Test",
+              "image": {
+                "alternateText": "Ray-Ban Eye Test chart",
+                "height": 256,
+                "url": "https://a.mktgcdn.com/p/1owTB8-YiT9Jlf0BzBEdZ6EwxW_w4F8lHOjuQ74rzn0/256x256.png",
+                "width": 256
+              }
+            },
+            {
+              "description": "Custom Lab",
+              "image": {
+                "alternateText": "Ray-Ban Custom Lab Logo",
+                "height": 686,
+                "url": "https://a.mktgcdn.com/p/IRSwYW8xA5f8ElPHsXft7NXQBbXq-O0vWOuA9mKTaO8/686x686.png",
+                "width": 686
+              }
+            },
+            {
+              "description": "Ray-Ban Stories",
+              "image": {
+                "height": 809,
+                "url": "https://a.mktgcdn.com/p/vMk2mMorf6NJK-KMPhDgi2NZxncVH5dHUKvoSzsLPzc/809x809.jpg",
+                "width": 809
+              }
+            },
+            {
+              "description": "Titanium Collection",
+              "image": {
+                "height": 960,
+                "url": "https://a.mktgcdn.com/p/TOYqA_Uv3F_WGxHWJkIdDlRQP0EIdu8PdhAn2HcVQ3s/960x960.jpg",
+                "width": 960
+              }
+            }
+          ],
+          "hycfHeader": "Here You Can Find"
+        },
+        "c_LensesSection": {
+          "lensesTileText": [
+            {
+              "heading": "Ray-Ban Signature",
+              "subheading": "**Signed, Sealed, delivered**  \nYour personalized Ray\\-Ban eyewear from the Ray\\-Ban  store is engraved with our iconic signature on the right lens and the RB initials on the left."
+            },
+            {
+              "heading": "Lens Shaping",
+              "subheading": "**Perfect Fit**  \nWith almost a century of experience manufacturing eyewear, every Ray\\-Ban lens from the  store is designed to fit its frame \\- and you \\- perfectly."
+            },
+            {
+              "heading": "Blue-Light Filter",
+              "subheading": "**Screen\\-ready**  \nWe spend an average of 11 hours a day looking at screens \\- that's 4,000+ hours a year! Our premium Blue Light Filter reduces exposure to blue light from digital devices.Find the Smart Blue Filter lens with Premium UV AR: 17% Protection in AMD \\[415\\-455nm\\] at the Ray\\-Ban  store."
+            },
+            {
+              "heading": "UV Protection",
+              "subheading": "**Hello Sunshine**  \nRay\\-Ban was born from lenses designed to protect US military pilots from the sun more than 80 years ago. UV protection is in our DNA, and in your prescription eyewear at the Ray\\-Ban  store."
+            },
+            {
+              "heading": "High Definition Vision",
+              "subheading": "**Broaden your perspective**  \nRay\\-Ban's innovative Digital Surface Technology is engineered to take your vision to the next level. Crystal clear, with an extra wide field of vision. Find it at the Ray\\-Ban  store."
+            },
+            {
+              "heading": "Advanced Anti-Reflective",
+              "subheading": "**Premium as Standard**  \nNo matter what lense you choose from the Ray\\-Ban  store, it will be finished with a premium anti\\- reflective coating to reduce glare."
+            }
+          ],
+          "sectionHeading": {
+            "heading": "Ray-Ban Authentic Prescription",
+            "subheading": "FOR AN AUTHENTIC LOOK CHOOSE RAY\\-BAN PRESCRIPTION LENSES"
+          }
+        },
+        "c_SchedulingSection": {
+          "in-storeServicePhoto": {
+            "image": {
+              "height": 2333,
+              "url": "https://a.mktgcdn.com/p/lNsDgIJ6Nd2Jay4jVn1WBzHGPWu5IHIFm3v1PT8Al_4/2333x2333.jpg",
+              "width": 2333
+            }
+          },
+          "learnMoreButton": {
+            "label": "Book an Appointment Now",
+            "link": "https://www.ray-ban.com/usa/booking?storeNumber=P350",
+            "linkType": "URL"
+          },
+          "pop-upHeadingText": "DISCOVER OUR IN-STORE SERVICES",
+          "sectionBodyText": "**Choose from one of our great experiences below:**\n\n\n\n**Eye Test:** Schedule an appointment with our in\\-store opticians to get your eyes checked. Our certified staff is here to help get you fitted for eyeglasses, contact lenses, and other vision\\-correcting devices.\n\n\n\n**Personal Shopping Service:** We will meet with you personally to understand your needs and help you selecting the exact product you were looking for, so you will walk out with the perfect Ray\\-Ban eyewear."
+        },
+        "c_googleMapsListing": "https://maps.google.com/maps?cid=521402826658163627",
+        "c_locationPageMetaDescription": "Ray-Ban STRATFORD WESTFIELD UPPER LONDON, , United Kingdom | Shop designer eyewear, including glasses, sunglasses, frames and lenses  for men, women, and kids in LONDON, , United Kingdom.",
+        "c_locationPageMetaTitle": "Ray-Ban STRATFORD WESTFIELD UPPER LONDON, , United Kingdom | Eyeglasses, Sunglasses, Eye Exam, Frames, Lenses",
+        "c_newArrivals": {
+          "newArrivalPhoto": {
+            "image": {
+              "height": 960,
+              "url": "https://a.mktgcdn.com/p/R5wEVFAYAJCPJBL6Ywhbko5uZ8HWRlf0iW7Hulh6hgc/960x960.jpg",
+              "width": 960
+            }
+          },
+          "newArrivalsHeading&Subheading": {
+            "heading": "Ray-Ban Exclusives",
+            "subheading": "No inhibitions. No showing off.  \nJust you living in the moment with gloriously framed eyes.  \nFind your Ray\\-Ban style and you're more than ready to get in the game.  \nYou're ON"
+          }
+        },
+        "c_rayBanNewsletter": {
+          "newsletterDescription": "Subscribe to Ray-Ban The Ones for all the latest news, esclusive perks and a special reward.",
+          "newsletterImage": {
+            "height": 1956,
+            "url": "https://a.mktgcdn.com/p/5uFGZyx3SxEvbPqy9MryOH6knyerKb7I9AGpplItk_U/1956x1956.jpg",
+            "width": 1956
+          },
+          "newsletterSignUpLink": "https://www.ray-ban.com/usa/c/the-ones/#cm-placement-main_placement_7",
+          "newsletterTitle": "ENJOY THE ONES. BECOME ONE OF US"
+        },
+        "c_rayBanHouse": false
+      },
+      "httpStatus": 200
+    }
+  ]
+}

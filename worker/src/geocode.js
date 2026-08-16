@@ -187,20 +187,27 @@ export async function geocodeQuery(rawQuery, env = {}) {
   }
   const compact = rawQuery.trim();
 
+  // UK postcode shape is checked FIRST, and wins outright if it matches.
+  // Regression fixed 16 Aug 2026: EIRCODE_SHAPE_RE's second character slot
+  // allows "W" (for the real Dublin routing key D6W), which also matches
+  // the second letter of ordinary UK outward codes like "SW" or "NW" —
+  // e.g. "SW1A1AA" (no space) was being misidentified and rejected as an
+  // Eircode before ever reaching the UK postcode check. POSTCODE_RE is a
+  // precise, well-established format we actually have a real geocoder
+  // for, so an unambiguous match there must take priority over the
+  // Eircode shape heuristic, which only exists to produce a friendlier
+  // error message for input that isn't a valid UK postcode at all. See
+  // geocode.test.mjs for the regression test.
+  if (normalizePostcode(compact)) {
+    const ukAttempt = await geocodePostcode(compact, env);
+    return { ...ukAttempt, country: 'UK' };
+  }
+
   if (EIRCODE_SHAPE_RE.test(compact.replace(/\s+/g, ' '))) {
     // Looks like an Eircode specifically — give a precise, honest message
     // rather than the generic "not recognised" (see stockists.js), since
     // this is a real, common input shape we deliberately don't support yet.
     return { error: 'eircode_not_supported', normalized: null, coords: null, country: 'IE' };
-  }
-
-  const ukAttempt = await geocodePostcode(compact, env);
-  if (ukAttempt.error !== 'invalid_format') {
-    // Either a genuine UK postcode result, or a UK-postcode-shaped input
-    // that failed to resolve (not_found / geocoder_unavailable) — both are
-    // meaningfully "this looked like a UK postcode," so don't also try it
-    // as an Irish town.
-    return { ...ukAttempt, country: 'UK' };
   }
 
   const ieAttempt = geocodeIrishTown(compact);
