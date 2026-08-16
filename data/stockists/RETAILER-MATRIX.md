@@ -790,3 +790,44 @@ separate decision:** the existing "Harrods Opticians" David Clulow record
 is very likely the same Harrods concession independently confirmed via
 WebSearch this audit (`davidclulow.com/stores/london/london-harrods`) —
 same `host_retailer_name` treatment would apply, not yet applied.
+
+## David Clulow's own `/stores/ray-ban-meta` page — decoded, real result (16 Aug 2026)
+
+Campaign owner sent the browser-saved page directly. Same `page:
+/templates/store-group` Next.js template as Vision Express Ireland's
+broken Dublin-group page — so, per the standing methodology rule, checked
+what it's actually querying before trusting the URL/title **again**, not
+assumed safe just because David Clulow already appears in this database.
+
+**This time it's correctly scoped**, unlike the Vision Express Ireland
+case: `stores({"groupName":"Ray Ban Meta"})` — a group literally named to
+match the page's own framing, not a mismatched location group. **44 real
+stores returned.**
+
+**Cross-checked against the existing 40-branch David Clulow dataset by
+postcode:**
+- **All 40 existing branches appear in this group** — zero absent. Nothing
+  currently `verified_branch` in our dataset is contradicted by David
+  Clulow's own product-specific list.
+- **4 genuinely new branches found, not in our dataset at all:**
+  - David Clulow Opticians — London, Battersea (SW11 8BJ)
+  - David Clulow Opticians — London, Victoria Street (SW1E 5JD)
+  - David Clulow Opticians — Loughton (IG10 1AH)
+  - David Clulow Opticians at John Lewis — Edinburgh (EH1 3SP)
+  Not yet ingested — reporting only, per instruction not to proceed
+  without review.
+- **Harrods Opticians (SW1X 7XL) is present** — confirms the existing
+  Harrods record genuinely is a Ray-Ban Meta stockist by this project's
+  normal standard, not just a plausible guess.
+- **None of the 4 Selfridges locations appear anywhere in this 44-store
+  list** — Oxford Street, Manchester Exchange Square, Manchester Trafford
+  Centre, Birmingham Bullring are all absent. This is real, first-party
+  evidence *against* Selfridges' David Clulow concessions currently
+  stocking Ray-Ban Meta — not proof of absence (a page/data gap is
+  possible), but the strongest signal available so far, and a genuinely
+  cautionary one given the earlier hope that this page might resolve
+  Selfridges favourably. Recorded plainly, not spun either way.
+
+**Not yet actioned** — no ingestion of the 4 new branches, no change to
+Selfridges' status, no Harrods `host_retailer_name` update. Reported to
+the campaign owner for review before Boots begins, per instruction.
