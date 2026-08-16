@@ -86,7 +86,20 @@ const SKU_QUERIES = [
   { productCode: '85900144', skuId: '114260874', label: 'Wayfarer (Gen 1), Shiny Black, Clear' },
   { productCode: '85900137', skuId: '114260867', label: 'Skyler (Gen 2), Shiny Black' },
 ];
-const API_KEY = 'AIzaSyDKwq7dHObeBImz7nMKWu_gUTw5CKY9a2M';
+// REDACTED 16 Aug 2026 (pre-deployment security audit): a real, working
+// API key was committed here (this file's own comments confirm it came
+// from a live DevTools capture of johnlewis.com — a client-side key their
+// own frontend sends with every request, not something obtained
+// improperly). Even a key that's already visible to any visitor of
+// johnlewis.com shouldn't be re-published prominently in a public GitHub
+// repo — that's what triggers automated secret-scanning alerts and is
+// just bad practice regardless of the key's origin. Get a fresh one the
+// same way the original was captured: open a Ray-Ban Meta product page on
+// johnlewis.com, click "Check in-store stock", find the request to
+// api.johnlewis.com/stock/store-data in DevTools' Network tab, and copy
+// the `key` query param from it. Paste it in below (only in your own
+// local copy — never commit it).
+const API_KEY = 'PASTE_YOUR_OWN_CAPTURED_KEY_HERE';
 const SOURCE_URL = 'https://www.johnlewis.com/ray-ban-meta-wayfarer-glasses/shiny-black-clear-lens/p112066492';
 
 // Merges records from multiple SKU queries into one row per physical
@@ -209,6 +222,10 @@ async function fetchOneSku({ productCode, skuId }) {
 }
 
 async function main() {
+  if (API_KEY === 'PASTE_YOUR_OWN_CAPTURED_KEY_HERE') {
+    console.error('API_KEY is still the placeholder — see the comment above it for how to capture a real one.');
+    process.exit(1);
+  }
   await mkdir(OUTPUT_DIR, { recursive: true });
 
   const recordLists = [];
