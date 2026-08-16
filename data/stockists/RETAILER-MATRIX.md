@@ -333,7 +333,7 @@ Currys.ie (out of scope until these two are working).
 | Retailer | Sells Ray-Ban Meta in Ireland? | Status |
 |---|---|---|
 | **Ray-Ban Ireland** (`stores.ray-ban.com/ireland`) | ✅ Confirmed | **Fetched and verified 16 Aug 2026: 1 real record — Ray-Ban's own-brand boutique on Grafton Street, Dublin.** Confirmed genuine, not a parser/discovery gap: the real raw HTML's decoded Yext payload declares `document.dm_baseEntityCount = "1"` — the source's own stated total for this directory, matching exactly what the recursive walk found. Same evidence pattern that confirmed the UK's count of 7 (`dm_baseEntityCount = "7"` there). As with the UK, this is Ray-Ban's own-brand boutique locator, not a stockist directory — a small number is expected, not suspicious, since Ray-Ban sells in Ireland mainly through opticians/retailers (Vision Express etc.), not its own shops |
-| **Vision Express Ireland** (`visionexpress.ie/opticians/ray-ban-meta`) | ✅ Confirmed (6 Dublin branches directly confirmed; national picture still open) | **NOT YET INGESTED — investigation in progress, do not treat 6 as the national total.** See "Vision Express Ireland: the Dublin-group finding" below for the full resolved writeup |
+| **Vision Express Ireland** | ✅ Confirmed | **Ingested 16 Aug 2026: 8 branches, `verified_branch`, `first_party_structured_brand_list`.** Do NOT use `visionexpress.ie/opticians/ray-ban-meta` as a source of truth for this retailer — it's broken (serves the "Dublin" store group, not the "Ray-Ban Meta" group its URL implies) and was proven inaccurate for at least one of its own listed branches. See "Vision Express Ireland: the Dublin-group finding" below for the full writeup |
 | **Currys Ireland** (`currys.ie`) | ✅ Confirmed (online + "order & collect") | **Explicitly out of scope for now** per campaign owner's instruction — not investigated further |
 
 ### What changed to support Ireland
@@ -360,7 +360,7 @@ Currys.ie (out of scope until these two are working).
   found to have unreliable coverage, and this campaign's principle is
   "verified or don't show it," not "best guess."
 
-## Vision Express Ireland: the Dublin-group finding (16 Aug 2026) — NOT YET INGESTED
+## Vision Express Ireland: the Dublin-group finding (16 Aug 2026) — INGESTED, 8 branches
 
 **Key technical fact — must not be lost or re-summarised loosely in future
 edits: the 6-record result from `visionexpress.ie/opticians/ray-ban-meta`
@@ -520,4 +520,24 @@ branches.** The Athlone/second-Cork-branch discrepancy flagged above
 remains open and unresolved — not included in this count either way.
 
 **Recommended ingestion set: the 8 branches above**, `verification_method =
-first_party_structured_brand_list`. Still not ingested — awaiting review.
+first_party_structured_brand_list`.
+
+### Ingested (16 Aug 2026)
+
+Approved and ingested — `data/stockists/vision-express-ireland.normalized.json`,
+8 records, all `verified_branch` / `first_party_structured_brand_list` /
+`country = IE`. Portlaoise, Balbriggan, and Maynooth deliberately excluded
+(confirmed absent from their own `availableBrands`). No duplicates against
+the existing UK datasets (checked by ID and normalized postcode — Irish
+Eircodes and UK postcodes can't collide, but checked anyway). All 8 used
+source-provided coordinates (Vision Express Ireland's own `lat`/`lon`
+fields), not the `IRELAND_TOWN_COORDS` fallback.
+
+**Standing rule for this retailer, to prevent regression:** never use
+`visionexpress.ie/opticians/ray-ban-meta` as a source of truth again — it
+is confirmed broken (serves the unrelated "Dublin" store group) and was
+shown to be wrong about at least one of its own listed branches
+(Balbriggan). Any future refresh of this retailer's data must go
+branch-by-branch through `features.availableBrands`, not through that
+page or any other themed/group directory, unless a future check finds the
+underlying bug has been fixed.

@@ -48,6 +48,16 @@
 // stock count, not text found on a directory page. Doesn't change whether
 // anything qualifies as verified_branch, only how it's labelled once it
 // does.
+//
+// --source-is-structured-brand-list is the same kind of labelling-only
+// flag, for the evidence type discovered investigating Vision Express
+// Ireland's "Dublin-group" anomaly (see RETAILER-MATRIX.md and
+// worker/schema.sql's first_party_structured_brand_list comment): a named
+// brand appearing in a structured, per-branch field on the retailer's own
+// store-detail data (e.g. `features.availableBrands`), not text found on a
+// directory/group page. Preferred over first_party_stockist_directory
+// whenever both evidence types are available for the same source — see
+// the evidence-ranking rule in scripts/ingest/README.md.
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
@@ -64,6 +74,7 @@ function parseArgs(argv) {
     mockGeocoder: false,
     directoryIsProductSpecific: false,
     sourceIsLiveStockChecker: false,
+    sourceIsStructuredBrandList: false,
     corroborationNote: null,
     chainId: null,
     chainName: null,
@@ -75,6 +86,7 @@ function parseArgs(argv) {
     else if (arg === '--mock-geocoder') flags.mockGeocoder = true;
     else if (arg === '--directory-is-product-specific') flags.directoryIsProductSpecific = true;
     else if (arg === '--source-is-live-stock-checker') flags.sourceIsLiveStockChecker = true;
+    else if (arg === '--source-is-structured-brand-list') flags.sourceIsStructuredBrandList = true;
     else if (arg.startsWith('--corroboration-note=')) flags.corroborationNote = arg.slice('--corroboration-note='.length).replace(/^"|"$/g, '');
     else if (arg.startsWith('--chain-id=')) flags.chainId = arg.slice('--chain-id='.length);
     else if (arg.startsWith('--chain-name=')) flags.chainName = arg.slice('--chain-name='.length).replace(/^"|"$/g, '');
@@ -98,6 +110,7 @@ async function main() {
     mockGeocoder,
     directoryIsProductSpecific,
     sourceIsLiveStockChecker,
+    sourceIsStructuredBrandList,
     corroborationNote,
     chainId,
     chainName,
@@ -107,7 +120,7 @@ async function main() {
 
   if (!inputPath || !chainId || !chainName || !category) {
     console.error(
-      'Usage: node 2-normalize-and-geocode.mjs <input.json> --chain-id=<id> --chain-name=<"Name"> --category=<optician|eyewear|electronics|department_store|carrier|other> [--country=UK|IE] [--assume-first-party] [--directory-is-product-specific] [--source-is-live-stock-checker] [--corroboration-note="..."] [--mock-geocoder]'
+      'Usage: node 2-normalize-and-geocode.mjs <input.json> --chain-id=<id> --chain-name=<"Name"> --category=<optician|eyewear|electronics|department_store|carrier|other> [--country=UK|IE] [--assume-first-party] [--directory-is-product-specific] [--source-is-live-stock-checker] [--source-is-structured-brand-list] [--corroboration-note="..."] [--mock-geocoder]'
     );
     process.exit(1);
   }
@@ -251,7 +264,11 @@ async function main() {
       verificationMethod = 'first_party_product_specific_directory';
     } else if (hasMetaEvidence) {
       verificationStatus = 'verified_branch';
-      verificationMethod = sourceIsLiveStockChecker ? 'first_party_stock_checker' : 'first_party_stockist_directory';
+      verificationMethod = sourceIsStructuredBrandList
+        ? 'first_party_structured_brand_list'
+        : sourceIsLiveStockChecker
+          ? 'first_party_stock_checker'
+          : 'first_party_stockist_directory';
     } else {
       // Real first-party source, but no branch-specific Meta signal found —
       // this is exactly the "chain sells it somewhere, this branch unconfirmed"
