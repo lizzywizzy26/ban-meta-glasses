@@ -99,6 +99,36 @@ const SKU_QUERIES = [
 // api.johnlewis.com/stock/store-data in DevTools' Network tab, and copy
 // the `key` query param from it. Paste it in below (only in your own
 // local copy — never commit it).
+//
+// HISTORICAL EXPOSURE — assessed 16 Aug 2026, key kept redacted rather
+// than rewriting git history: the real key committed in earlier commits
+// (b6fc524, a7d267e, b906851 — before the 2369fb0 redaction) is still
+// readable in this repo's git history, not just its current working
+// tree. Assessed risk of that as low, for reasons specific to this key,
+// not as a general excuse to leave secrets in history:
+//   - The key's shape (`AIzaSy...`, 39 chars) is Google's own format for
+//     a client-side Google Cloud/Firebase API key (most likely backing
+//     the store locator's map). Google explicitly designs these to be
+//     exposed in browser requests — its own documentation says browser
+//     API keys "are not fully secret" and that the correct control is
+//     server-side restriction (HTTP referrer + API allowlisting in
+//     Google Cloud Console), not secrecy. That's a control entirely on
+//     John Lewis's Google Cloud project, outside this campaign's reach.
+//   - This repo didn't create the exposure. Every visitor's browser
+//     Network tab already receives this exact key from johnlewis.com
+//     with no login required (confirmed above: it worked from a fresh
+//     Incognito window). Committing it publicly for ~1 day added, at
+//     most, marginal discoverability (e.g. to a bot trawling GitHub for
+//     hardcoded keys) on top of exposure that already existed
+//     independent of anything this project did.
+//   - Not something this project can rotate or revoke: that requires
+//     access to John Lewis's own Google Cloud/Firebase project, which
+//     the campaign owner has no access to and no basis for requesting.
+// Net assessment: no meaningful additional risk beyond what John Lewis's
+// own site already exposes to any visitor. Redaction (already done)
+// is the correct and sufficient remedy; rewriting git history for a
+// same-day, low-sensitivity, non-rotatable third-party client key isn't
+// warranted and hasn't been done.
 const API_KEY = 'PASTE_YOUR_OWN_CAPTURED_KEY_HERE';
 const SOURCE_URL = 'https://www.johnlewis.com/ray-ban-meta-wayfarer-glasses/shiny-black-clear-lens/p112066492';
 

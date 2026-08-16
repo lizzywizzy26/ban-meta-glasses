@@ -40,6 +40,16 @@ const MOCK_COORDS = {
   'B1 1AA': { latitude: 52.4814, longitude: -1.8998 }, // Birmingham city centre
   'BS1 1AA': { latitude: 51.4536, longitude: -2.5911 }, // Bristol city centre
   'LS1 1AA': { latitude: 53.7975, longitude: -1.5453 }, // Leeds city centre
+  // Lerwick, Shetland — a real, valid postcode used deliberately to trigger
+  // the genuine zero-results state in local testing (16 Aug 2026 QA
+  // follow-up). Checked against the full 534-record committed dataset: the
+  // nearest real verified stockist (Vision Express, Inverurie) is ~203
+  // miles away, well beyond the widest search radius the API tries (50
+  // miles — see RADIUS_STEPS_MILES in stockists.js), so this reliably
+  // exercises "valid postcode, nothing found nearby" rather than an error
+  // path. Not a comment on Shetland retail availability — just a
+  // convenient, honest, genuinely-far coordinate for the test suite.
+  'ZE1 0AA': { latitude: 60.1541, longitude: -1.1489 }, // Lerwick, Shetland
 };
 
 async function mockGeocode(normalizedPostcode) {
