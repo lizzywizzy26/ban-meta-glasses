@@ -36,7 +36,7 @@ function sqlString(value) {
 }
 
 const COLUMNS = [
-  'id', 'chain_id', 'chain_name', 'branch_name', 'category',
+  'id', 'chain_id', 'chain_name', 'branch_name', 'host_retailer_name', 'category',
   'address_line_1', 'address_line_2', 'city', 'country', 'postcode', 'normalized_postcode',
   'latitude', 'longitude', 'phone_number',
   'contact_type', 'contact_value', 'contact_url', 'booking_url', 'stock_checker_url',

@@ -285,6 +285,12 @@ async function main() {
       chain_id: chainId,
       chain_name: chainName,
       branch_name: rec.branchName || `${chainName} (unnamed branch)`,
+      // Concession support (added for David Clulow's Selfridges locations,
+      // see RETAILER-MATRIX.md) — only set when the fetch step's input
+      // record explicitly names a host venue distinct from the operator
+      // (chainName). Left null for the overwhelming majority of records,
+      // which aren't concessions.
+      host_retailer_name: rec.hostRetailerName || null,
       category,
       address_line_1: rec.address || '',
       address_line_2: null,

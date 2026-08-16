@@ -38,6 +38,7 @@ function shapeResult(row, distanceMiles) {
       category: row.category,
     },
     branchName: row.branch_name,
+    hostRetailerName: row.host_retailer_name || null,
     location: {
       address: [row.address_line_1, row.address_line_2].filter(Boolean).join(', '),
       city: row.city,

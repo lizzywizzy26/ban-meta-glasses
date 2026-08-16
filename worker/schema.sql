@@ -36,6 +36,19 @@ CREATE TABLE IF NOT EXISTS stockists (
   chain_name TEXT NOT NULL,
   branch_name TEXT NOT NULL,
 
+  host_retailer_name TEXT,
+  -- Set only for a concession: this branch's OPERATOR/seller is
+  -- chain_id/chain_name (e.g. David Clulow), but it physically trades
+  -- inside another named retailer's building (e.g. "Selfridges"). NULL for
+  -- every standalone branch (which is most of them). Added 16 Aug 2026 for
+  -- David Clulow's concessions inside Selfridges — deliberately NOT a new
+  -- chain_id, so the operator's identity/verification history stays in one
+  -- place rather than being duplicated under a second, fake "Selfridges"
+  -- chain. Exists so the finder/frontend can still surface the host venue
+  -- distinctly (e.g. "David Clulow at Selfridges — Oxford Street") without
+  -- baking it unstructured into branch_name the way earlier concession
+  -- sources (e.g. "Vision Express Opticians at Tesco") did.
+
   category TEXT NOT NULL,
   -- optician | eyewear | electronics | department_store | carrier | other
 

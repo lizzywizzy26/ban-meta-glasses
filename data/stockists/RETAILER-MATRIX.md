@@ -670,3 +670,66 @@ domain (confirmed via direct curl test) — needs the same browser-save
 approach.
 
 **Still not ingested.**
+
+### Update: reconciled against the existing 40-branch David Clulow dataset, schema change made (16 Aug 2026)
+
+Checked all 4 Selfridges/David Clulow locations against the existing
+40-branch David Clulow dataset by address/postcode as well as name (not
+name alone, so a differently-named record wouldn't be missed):
+
+1. **All 4 are absent — none are duplicates, all 4 would be genuinely new
+   physical locations.** The existing dataset has zero Manchester or
+   Birmingham branches at all (its 22 cities are London-and-southeast/
+   Midlands-leaning — Bath, Brighton, Cambridge, Cardiff, Glasgow, Leeds,
+   Nottingham, Oxford, etc., but no Manchester, no Birmingham). One
+   near-miss worth naming so it isn't confused for a match: "David Clulow
+   Opticians at John Lewis — Oxford Street," 300 Oxford Street, W1C 1DX —
+   a real existing branch, but it's John Lewis's Oxford Street store, a
+   different building/postcode from Selfridges' 400 Oxford Street, W1A 1AB.
+   Not the same concession.
+2. **Confirmed: would be 4 new physical locations**, not double-counting.
+3. **Meta-stocking evidence per location, currently: none at branch level
+   for any of the 4.** What exists is chain/relationship-level only —
+   Selfridges' own product pages show `department.name = "David Clulow"`
+   for Ray-Ban Meta products, but that's a Selfridges-catalogue-wide fact,
+   not evidence tied to any one of the 4 physical concessions specifically
+   (could be true at all 4, some, or hypothetically even just one, with the
+   online catalogue reflecting the wholesale/operational relationship
+   rather than per-branch physical stock). Per this project's core
+   principle, this stays below `verified_branch` until each location's own
+   page is checked — same standard as everywhere else. **No HTML has been
+   requested for this reason yet** — there was nothing stronger to ask for
+   until this reconciliation was done.
+4. **Schema change made: `host_retailer_name` column added** to
+   `stockists` (nullable, additive — see `worker/schema.sql` and
+   `worker/migrate-add-host-retailer.sql` for an already-deployed
+   database). Deliberately NOT a new `chain_id` — these would be recorded
+   as David Clulow branches (`chain_id: david-clulow`, unchanged operator
+   identity/verification history) with `host_retailer_name = "Selfridges"`
+   set only on these 4 rows. This is the smallest schema change that
+   avoids duplicating a physical location under two different fake
+   "chains," while still letting the finder surface the host venue
+   distinctly (e.g. "David Clulow at Selfridges — Oxford Street") rather
+   than only as unstructured text inside `branch_name` (the older, weaker
+   pattern already used for "Vision Express Opticians at Tesco").
+5. **Recommendation — two separate, non-conflicting placements:**
+   - **Physical-store finder (this database):** as David Clulow branches
+     with `host_retailer_name = "Selfridges"`, once (and only once) each
+     location's own Meta-stocking evidence is actually obtained — not
+     before.
+   - **Campaign national retailer target list** (Section F / the site's
+     "message a national retailer" action — see `index.html`, currently
+     Currys/Argos/John Lewis/Amazon/EE/O2/Three): add **Selfridges** there
+     too, on the same basis Three was added — real, evidenced commercial
+     relevance (a substantial 21-product Ray-Ban Meta catalogue, plus the
+     David Clulow operational link) even though it isn't eligible for
+     branch-level `verified_branch` results itself. A supporter messaging
+     "Selfridges" about what they saw in-store is a reasonable, distinct
+     action from messaging David Clulow head office — the two aren't a
+     substitute for each other.
+
+**Next step, only once the campaign owner is ready:** fetch David Clulow's
+own branch pages for the 4 Selfridges locations (London confirmed at
+`davidclulow.com/stores/london/london-selfridges`; the other 3 URLs not
+yet found) — this is the only way to get real per-branch Meta evidence.
+Not requested yet, per this reconciliation being the priority first.
