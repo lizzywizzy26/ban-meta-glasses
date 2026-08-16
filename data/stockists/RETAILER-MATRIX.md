@@ -408,6 +408,21 @@ untested against the live site for the usual network-sandbox reason.
 
 ### Update 16 Aug 2026: Cork/Galway confirmed at gold-standard evidence; a real site bug found; still not ingested
 
+**Three facts to preserve, in short:**
+- Vision Express Ireland's own system has a dedicated **"Ray-Ban Meta" store
+  group** (confirmed via `store-overview`'s `listStoreGroups`) — a genuine,
+  distinctly-named group, structurally intended as the definitive national
+  Meta-stockist list.
+- The public route that should expose it, `/opticians/ray-ban-meta`, is
+  **currently broken** — it serves the "Dublin" group's data instead (see
+  the finding above). Its real membership is unknown, not zero, not "same
+  as Dublin."
+- **Branch-level `features.availableBrands` is therefore the stronger,
+  preferred evidence source** for this retailer — structured, first-party,
+  and specific to that one branch, unlike inclusion on a themed directory
+  page (which this incident showed can be wrong about what it's even
+  querying).
+
 The campaign owner fetched the three follow-up pages by saving them from a
 real browser (this session's network sandbox blocks fetching them directly
 — see below) and sent the HTML back. Findings from decoding them:

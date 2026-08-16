@@ -47,6 +47,19 @@ generic location-scoped widget, not a product-availability query, and
 provably not a national result set. Don't infer completeness or product
 relevance from a page's framing; check what it's actually querying.
 
+**Standing evidence-ranking rule, established from the same investigation:**
+when a retailer's own data offers more than one type of evidence for
+"does this branch stock the product," prefer the more specific one.
+Concretely for Vision Express Ireland: prefer branch-level structured
+`features.availableBrands` evidence (a named field on that one branch's own
+record) over themed-directory inclusion (appearing as a result on a page
+titled/framed around the product) whenever both are available — the former
+survived the Dublin-group bug being wrong, the latter was the bug. This
+isn't Vision-Express-specific in principle: wherever a source offers a
+structured, branch-specific field alongside a page-level inclusion signal,
+use the structured field and treat the page-level one as secondary/
+corroborating at best.
+
 ## Why this exists as scripts a human runs, not something automatic
 
 This project's Worker calls `postcodes.io` live, in production, on
