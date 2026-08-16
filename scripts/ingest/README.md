@@ -11,6 +11,42 @@ right now without needing real data.
 3-generate-sql.mjs                UPSERT (as generated SQL) + REFRESH REPORT
 ```
 
+## Core verification principles
+
+Three separate questions, three separate confidence judgements — established
+16 Aug 2026 after the Vision Express Ireland "Dublin-group" investigation
+(see `data/stockists/RETAILER-MATRIX.md`), but applying to every source in
+this pipeline, past and future, not just that one:
+
+1. **Is the branch real?** — does this physical location genuinely exist,
+   with a real address?
+2. **Is that specific branch confirmed to stock the product?** — does the
+   retailer's own first-party data say so for *this* branch, not just for
+   the chain in general?
+3. **Is the discovered set complete?** — have we actually found every
+   branch that meets question 2, or only the ones a particular page/query
+   happened to surface?
+
+A "yes" to question 1 is never enough on its own to answer question 2 (that
+distinction is exactly why `verified_branch` requires branch-specific
+`metaEvidenceText` or an explicit `--directory-is-product-specific` human
+judgment call, not just a first-party address). And a "yes" to question 2
+for some branches is never enough to answer question 3 — a page returning
+6 results is not proof there are only 6, or proof those 6 are all of them
+nationally.
+
+**Specific rule this pipeline learned the hard way:** a product-specific
+page containing a store locator does not automatically prove that every
+store returned by the embedded locator stocks that product, nor that the
+locator's results are complete. The locator's underlying query/data must be
+inspected before making either inference — e.g. Vision Express Ireland's
+`/opticians/ray-ban-meta` page *looks* like a dedicated Ray-Ban Meta
+stockist finder from its URL and title, but decoding its actual GraphQL
+query showed it was hardcoded to `stores({"groupName":"Dublin"})` — a
+generic location-scoped widget, not a product-availability query, and
+provably not a national result set. Don't infer completeness or product
+relevance from a page's framing; check what it's actually querying.
+
 ## Why this exists as scripts a human runs, not something automatic
 
 This project's Worker calls `postcodes.io` live, in production, on
