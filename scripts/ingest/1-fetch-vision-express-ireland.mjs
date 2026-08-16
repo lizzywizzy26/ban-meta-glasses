@@ -13,29 +13,21 @@
 //        scripts/ingest/output/vision-express-ireland.json
 //      (and scripts/ingest/output/vision-express-ireland.raw.html too, just in case)
 //
-// NOT YET RUN AGAINST THE LIVE SITE (16 Aug 2026): this environment's
-// network sandbox blocks direct fetches to retailer websites, so unlike the
-// UK script (confirmed working against a real capture), this one is
-// UNTESTED. Two things are genuinely uncertain until a real run happens:
-//
-// 1. The exact URL. The confirmed UK listing page is
-//    visionexpress.com/opticians/ray-ban-meta. Web search this session
-//    found visionexpress.ie has dedicated Ray-Ban Meta pages at
-//    /brands/ray-ban-meta and /ai-glasses/ray-ban, but did NOT confirm which
-//    (if any) is the actual store-listing page in the UK's markup pattern —
-//    so this script tries a short list of candidate URLs in order and uses
-//    whichever one the targeted parser actually finds store markup on.
-// 2. Whether Vision Express Ireland's page exposes real coordinates the way
-//    Ray-Ban's Yext platform does. The UK Vision Express page does NOT
-//    (confirmed — no lat/long in its markup, only address text), so this
-//    parser doesn't try to extract any. If that's also true for Ireland,
-//    2-normalize-and-geocode.mjs will place these branches at their
-//    town-centroid coordinate (see geocode.js), not their exact address,
-//    and will say so plainly in each record's notes field.
-//
-// If every candidate URL returns 0 records, send back whichever
-// *.raw.html file corresponds to the URL that looked most promising (check
-// the console output) so the parser can be corrected against real markup.
+// CONFIRMED WORKING against the real live site (16 Aug 2026, run by the
+// campaign owner): the /opticians/ray-ban-meta candidate URL (same pattern
+// as the UK) returned 6 real records, all in Dublin; the other two
+// candidates returned 0, confirming /opticians/ray-ban-meta is the right
+// page. Parser correctness verified against the real raw HTML: exactly 6
+// store-tile elements exist in the page, matching all 6 extracted records —
+// nothing was missed. As expected from the UK page's behaviour, no
+// coordinates are embedded in this markup, so 2-normalize-and-geocode.mjs
+// places these at a town-centroid coordinate, flagged in each record's
+// `notes` field. One open question, NOT yet resolved: all 6 results being
+// in Dublin doesn't match earlier research finding real Vision Express
+// Ireland branches in Cork/Galway/Athlone — see
+// data/stockists/RETAILER-MATRIX.md's "Ireland coverage" section for the
+// full writeup on why this might be a genuine curated list rather than a
+// gap, and what would settle it.
 
 import { writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';

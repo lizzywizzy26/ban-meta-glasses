@@ -13,15 +13,13 @@
 //        scripts/ingest/output/rayban-ireland.json
 //      (and scripts/ingest/output/rayban-ireland.raw.html too, just in case)
 //
-// NOT YET RUN AGAINST THE LIVE SITE (16 Aug 2026): this environment's
-// network sandbox blocks direct fetches to retailer websites, so this script
-// is adapted from the confirmed-working UK version but UNTESTED against the
-// real Ireland page. It reuses the exact same decode/parse logic that was
-// confirmed correct against a real saved UK capture (same Yext "Pages"
-// platform — stores.ray-ban.com/ireland instead of /united-kingdom), so it
-// should work unchanged, but only a real run confirms that. If it prints
-// "Found 0 candidate record(s)", send back rayban-ireland.raw.html so the
-// parser can be checked against what the Ireland page actually contains.
+// CONFIRMED WORKING against the real live site (16 Aug 2026, run by the
+// campaign owner): 1 real record — Ray-Ban's own-brand boutique on Grafton
+// Street, Dublin. Verified genuine, not a discovery gap: the decoded Yext
+// payload's own `document.dm_baseEntityCount` field says "1", matching the
+// walk exactly — same evidence pattern that confirmed the UK's count of 7.
+// See data/stockists/RETAILER-MATRIX.md's "Ireland coverage" section for
+// the full verification writeup.
 //
 // One thing to watch for that's genuinely different from the UK case: each
 // entity's address.countryCode is captured and logged below — if it comes
