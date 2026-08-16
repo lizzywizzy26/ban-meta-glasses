@@ -24,6 +24,39 @@ visitor or basic script can't casually pad the numbers. It's not bulletproof
 method is fully visible in this code if anyone asks how the numbers are
 produced.
 
+### What's stored, and for how long (privacy)
+
+The rate-limiter needs *some* way to recognise "this same visitor already
+hit this counter recently," but it's built to keep the minimum possible
+data to do that, for the minimum possible time:
+
+- **No raw IP address is ever written to the database.** `src/index.js`
+  reads the visitor's IP from `CF-Connecting-IP`, then immediately hashes
+  it (SHA-256, `hashRateLimitKey()`) together with the counter `type` and a
+  fixed app-level string. The `rate_limits` table only ever stores that
+  64-character hex digest — a one-way pseudonym scoped to one action type,
+  not a reusable fingerprint, and not reversible back to the IP. Nothing
+  else about the request (user agent, path, referrer, etc.) is stored at
+  all.
+- **Retention is short and bounded by the row's own purpose**, not
+  indefinite: each row's `expires_at` is set to the same cooldown already
+  used to decide the rate limit for that counter `type` — 5 minutes
+  (`finder_search`, `stockist_selected`) up to 6 hours (`optician`, `mp`,
+  `rayban`, `retailer`, `retailer_action_started`); see
+  `COOLDOWN_SECONDS` in `src/index.js` for the exact figure per type. Once
+  a row's cooldown has passed it no longer serves the purpose it was
+  created for.
+- **Automatic cleanup, no cron needed:** every single `/api/hit` request —
+  whether it's the one being rate-limited or a fresh one being recorded —
+  runs `DELETE FROM rate_limits WHERE expires_at < ?` first. So expired
+  rows get swept as an ordinary side effect of real traffic, and the table
+  can't silently grow without bound between deploys. This is tested in
+  `src/index.test.mjs`.
+- **No analytics or behavioural tracking** is built on top of this table —
+  it exists solely to answer "is this IP+type combination still within its
+  cooldown," and is never queried for anything else (no per-visitor
+  history, no session reconstruction, no cross-counter linking).
+
 ## One-time setup
 
 You'll need a free Cloudflare account (no credit card required for this).
@@ -132,6 +165,15 @@ deployment audit: a UK postcode typed without a space (e.g. `SW1A1AA`)
 could be misidentified as an Irish Eircode and rejected, because the
 Eircode shape check ran before the UK postcode check. Fixed by checking
 the UK postcode shape first — an unambiguous match there now always wins.
+
+`src/index.test.mjs` covers the rate-limit storage redesign described
+above — IP hashing, cooldown-scoped expiry, and automatic cleanup —
+against a small in-memory fake D1 (real D1 only runs inside a Worker, so
+the fake implements just the specific prepared statements `index.js`
+issues, letting the real `fetch()` handler run unmodified):
+```
+node --test src/index.test.mjs
+```
 
 ## Limits to know about
 

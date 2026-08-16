@@ -56,6 +56,23 @@ function json(data, status, extraHeaders) {
   });
 }
 
+// Data minimisation for rate-limiting (added 16 Aug 2026, pre-launch privacy
+// fix): the raw visitor IP is never written to D1. It's hashed (SHA-256,
+// with a fixed app-level string mixed in — not a true secret in an
+// open-source repo, but enough that the stored value isn't a bare
+// SHA256(ip) a casual reader could rainbow-table against a precomputed
+// IPv4 hash list) together with the counter `type`, so the stored key is a
+// one-way pseudonym scoped to that one action type, not a reusable
+// fingerprint across the whole rate_limits table. Exported so the test
+// file can verify its properties directly.
+const RATE_LIMIT_PEPPER = 'stop-meta-glasses-rate-limit-v1';
+
+export async function hashRateLimitKey(type, ip) {
+  const data = new TextEncoder().encode(`${RATE_LIMIT_PEPPER}:${type}:${ip}`);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -94,8 +111,19 @@ export default {
       }
 
       const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
-      const rlKey = `${type}:${ip}`;
+      const rlKey = await hashRateLimitKey(type, ip);
       const now = Math.floor(Date.now() / 1000);
+
+      // Automatic cleanup: every hit (limited or not) sweeps out rows whose
+      // cooldown has already passed, so the table can never accumulate
+      // indefinitely — a row's real-world lifetime is bounded by its own
+      // cooldown (5 min–6 hours depending on type, see COOLDOWN_SECONDS),
+      // not "until someone remembers to clear it." No separate cron/
+      // scheduled trigger needed: as long as the site gets any traffic at
+      // all, expired rows get swept promptly; the accumulation risk is
+      // otherwise bounded by real traffic volume, which is what's actually
+      // driving new rows to exist in the first place.
+      const cleanup = env.DB.prepare('DELETE FROM rate_limits WHERE expires_at < ?').bind(now);
 
       const existing = await env.DB.prepare('SELECT expires_at FROM rate_limits WHERE rl_key = ?')
         .bind(rlKey)
@@ -104,9 +132,11 @@ export default {
       let limited = false;
       if (existing && existing.expires_at > now) {
         limited = true;
+        await cleanup.run();
       } else {
         const cooldown = COOLDOWN_SECONDS[type] || 3600;
         await env.DB.batch([
+          cleanup,
           env.DB.prepare('UPDATE counters SET value = value + 1 WHERE name = ?').bind(type),
           env.DB.prepare(
             'INSERT INTO rate_limits (rl_key, expires_at) VALUES (?, ?) ON CONFLICT(rl_key) DO UPDATE SET expires_at = excluded.expires_at'
