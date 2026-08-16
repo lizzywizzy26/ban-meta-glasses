@@ -615,3 +615,58 @@ colour) — no store, availability, or fulfilment field of any kind. Store-
 level data, if Selfridges exposes it at all, isn't on the category listing
 — confirmed by direct inspection, not assumed. Needs an individual product
 page next.
+
+### Update: 3 product pages decoded — the real answer is "it's a David Clulow concession" (16 Aug 2026)
+
+The campaign owner sent 3 individual product pages (RW4012 Wayfarer
+Polarised, RW4012 Wayfarer, RW4014 Skyler Cat-Eye), all currently in stock
+(`"outOfStock":false` on all three). None expose any click-and-collect,
+reserve, or store-availability field — confirmed by direct inspection of
+each page's full embedded data (Selfridges' Next.js App Router "React
+Server Component streaming" format, reassembled from `self.__next_f.push`
+chunks), not assumed from absence of a keyword match alone.
+
+**But all three carry the same real signal, consistently:**
+```json
+"department":{"id":"779","name":"David Clulow"}
+```
+
+Selfridges doesn't run its own eyewear operation — Ray-Ban Meta (and
+designer eyewear generally) at Selfridges is fulfilled through a **David
+Clulow concession**, confirmed independently via WebSearch: David Clulow
+operates a "sunglass shop-in-shop" / full optical centre inside Selfridges,
+with its own dedicated branch page —
+`davidclulow.com/stores/london/london-selfridges`. This is genuinely a
+different, stronger evidence trail than anything on Selfridges' own site.
+
+**Answering question 5 (completeness) — David Clulow concessions exist at
+all 4 Selfridges locations**, independently confirmed via WebSearch for
+each:
+- London, Oxford Street — `davidclulow.com/stores/london/london-selfridges`
+- Manchester, Exchange Square — "David Clulow Within Selfridges," 0161 838 0659
+- Manchester, Trafford Centre — David Clulow, Department 851
+- Birmingham, Bullring — David Clulow, Department 851, 0121 600 6839
+
+This matches the known 4-store Selfridges universe exactly — a clean,
+closed, fully-accounted-for set, not a partial finding.
+
+**Open question for the campaign owner, not decided here:** these 4
+locations are David Clulow branches operating inside Selfridges buildings,
+not independent Selfridges retail operations. Two reasonable options:
+(a) record them as new David Clulow branches (`chain_id: david-clulow`,
+noting the Selfridges location in the branch name/notes) rather than
+inventing a separate "Selfridges" chain for what is, retail-operationally,
+the same eyewear retailer already in this database — or (b) keep them as
+a distinct "Selfridges" entry for messaging-purposes reasons (a supporter
+contacting "Selfridges" about a concession they saw there is a different
+action than contacting David Clulow head office). Not resolved — a
+judgment call for the campaign owner.
+
+**Not yet done:** fetching David Clulow's own branch pages for these 4
+Selfridges locations to get the same strength of per-branch evidence
+already used for the rest of the David Clulow dataset. This session's
+network sandbox blocks `davidclulow.com` the same as every other retailer
+domain (confirmed via direct curl test) — needs the same browser-save
+approach.
+
+**Still not ingested.**
