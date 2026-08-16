@@ -594,3 +594,24 @@ any other first-party per-branch signal:
 
 **Do not ingest.** No Selfridges data of any kind has been added to
 `data/stockists/` yet.
+
+### Update: category page decoded (16 Aug 2026)
+
+The campaign owner sent `selfridges.com/GB/en/cat/ray-ban-meta/` (browser-
+saved). Selfridges' site is Next.js App Router using React Server
+Component streaming (`self.__next_f.push(...)` chunks), a different, more
+complex embedded-data format than Vision Express's Pages Router
+`__NEXT_DATA__` blob — reassembled by concatenating the chunks in order.
+
+**Confirms question 1 unambiguously:** Selfridges currently lists **21
+distinct Ray-Ban Meta products** ("new season" Wayfarer/Headliner/Skyler
+styles, £379–£459), a real, current, substantial online catalogue — not a
+single discontinued listing.
+
+**Does not help with questions 2/3 (which physical stores, is the set
+complete):** each product object on this category page carries only
+catalogue fields (name, price, images, `productId`, department/division,
+colour) — no store, availability, or fulfilment field of any kind. Store-
+level data, if Selfridges exposes it at all, isn't on the category listing
+— confirmed by direct inspection, not assumed. Needs an individual product
+page next.
