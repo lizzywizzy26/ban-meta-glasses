@@ -477,3 +477,47 @@ fetches the remaining 9 individual branch pages and checks each one's own
 branch in the final ingestion set is checked at the same evidence
 standard rather than mixing tiers. Untested against the live site (network
 sandbox) — same "run locally, send back the output" pattern.
+
+### Update 16 Aug 2026 (later same day): all 11 branches checked — complete result
+
+The campaign owner fetched all 9 remaining branch pages via browser-save and
+sent them back. All 11 known Vision Express Ireland branches are now
+checked at the same `features.availableBrands` standard, with zero
+ambiguous or missing-data cases — every branch had a populated, structured
+`availableBrands` array.
+
+**Confirmed stocking Ray-Ban Meta (8 branches) — recommended `verified_branch`,
+`first_party_structured_brand_list`:**
+| Branch | Postcode | Notes |
+|---|---|---|
+| Cork (Douglas Court) | T12 P867 | |
+| Galway | H91 TF88 | |
+| Dublin — Blanchardstown | D15 X230 | |
+| Dublin — Henry Street | D01 P642 | Also stocks Oakley Meta |
+| Dublin — Tallaght | D24 V6KN | |
+| Dublin — Liffey Valley | D22 PX72 | |
+| Dublin — Clarehall | D17 TF84 | |
+| Naas | W91 R2EF | |
+
+**Confirmed NOT stocking Ray-Ban Meta (3 branches) — excluded, not ingested:**
+| Branch | Postcode |
+|---|---|
+| Portlaoise | R32 TC3R |
+| Dublin — Balbriggan | K32 CK84 |
+| Maynooth | W23 W6X3 |
+
+**A concrete demonstration of why the evidence-ranking rule matters:**
+Balbriggan was one of the original 6 results on the broken "Dublin group"
+page — but its own `availableBrands` explicitly does NOT include Ray-Ban
+Meta. The themed-directory page wasn't just wrongly-scoped (querying
+Dublin instead of the real Ray-Ban Meta group), it was also inaccurate for
+one of its own listed members. This is exactly why branch-level
+`availableBrands` is the preferred standard, not just a theoretical
+improvement — see the ranking rule in `scripts/ingest/README.md`.
+
+**Total confirmed Vision Express Ireland Meta stockists: 8 of 11 known
+branches.** The Athlone/second-Cork-branch discrepancy flagged above
+remains open and unresolved — not included in this count either way.
+
+**Recommended ingestion set: the 8 branches above**, `verification_method =
+first_party_structured_brand_list`. Still not ingested — awaiting review.
