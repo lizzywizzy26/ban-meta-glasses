@@ -22,7 +22,7 @@ this is a planning document, not a data source.
 |---|---|---|---|---|---|
 | **Vision Express** | ✅ Confirmed | Directory-level only, no per-branch tag | Static (done) | — | 438 branches committed as `verified_branch` via `first_party_product_specific_directory` (campaign owner's decision) |
 | **David Clulow** | ✅ Confirmed | Directory-level only, no per-branch tag | Static (done) | — | 40 branches committed as `verified_branch` via `first_party_product_specific_directory`, corroborated by campaign owner's phone spot-check (15 Aug 2026) — see decision below |
-| **Ray-Ban (own store locator)** | ✅ Confirmed (it's their product) | 6/7 stores verified_branch (real per-branch page evidence), Stratford Westfield authorised_chain — see decision below | Static (done — targeted parser + branch-signal merge confirmed) | High | `1-fetch-rayban.mjs` parses a real, small (7-entity) UK directory: Gatwick Airport, Covent Garden, Glasgow Buchanan St, Carnaby St, Battersea Power Station, Brent Cross, Stratford Westfield. These are Ray-Ban's own-brand boutiques, not a stockist list of other shops |
+| **Ray-Ban (own store locator)** | ✅ Confirmed (it's their product) | **Ingested 16 Aug 2026.** 6/7 stores verified_branch (real per-branch page evidence), Stratford Westfield authorised_chain — see decision below | Static (done — targeted parser + branch-signal merge confirmed) | High | `1-fetch-rayban.mjs` parses a real, small (7-entity) UK directory: Gatwick Airport, Covent Garden, Glasgow Buchanan St, Carnaby St, Battersea Power Station, Brent Cross, Stratford Westfield. These are Ray-Ban's own-brand boutiques, not a stockist list of other shops |
 | **Sunglass Hut UK** | ✅ Confirmed (dedicated product page exists) | Blocked — Akamai bot-management block on the store-locations path, confirmed via `errors.edgesuite.net` reference in the 403 body | Static, but actively blocked (Akamai) | High | `1-fetch-sunglasshut.mjs` now runs a 3-step diagnostic (cookies, fuller headers, robots.txt/sitemap discovery); `1b-fetch-sunglasshut-browser.mjs` is a Playwright real-browser fallback if that's still blocked — see finding below |
 | **Currys** | ✅ Confirmed (multiple product listings, Gen 1 + Gen 2) | **Parked 15 Aug 2026 — partially solved, not automatable as-is.** Real collection availability confirmed in the live UI (see below), but no clean standalone store-list endpoint was found after two targeted DevTools passes | **Dynamic — investigated, blocked** | High | No official public API; a third-party scraper ecosystem exists around this generally, but this project's own capture attempts didn't land on a reproducible request — see the parking note below for exactly what was tried |
 | **Argos** | ✅ Confirmed (multiple product listings) | Yes — per-product postcode stock checker, arguably the most mature version of this pattern in UK retail | **Dynamic (needs DevTools)** | High | Same as Currys: no official public API, but a large third-party scraper ecosystem (Apify, GitHub projects, paid stock-checker APIs) confirms the underlying live per-store data is real and accessible |
@@ -733,3 +733,60 @@ own branch pages for the 4 Selfridges locations (London confirmed at
 `davidclulow.com/stores/london/london-selfridges`; the other 3 URLs not
 yet found) — this is the only way to get real per-branch Meta evidence.
 Not requested yet, per this reconciliation being the priority first.
+
+## Ray-Ban UK + Ireland — ingested (16 Aug 2026)
+
+Both were fully decided in prior sessions but never actually run through
+the ingestion pipeline (found during the 16 Aug retailer audit — see
+`RETAILER-AUDIT-16-AUG-2026.md`). Ingested this session using the real
+already-captured data (UK: `scripts/ingest/fixtures/rayban-uk-directory.raw.html`;
+Ireland: the real browser-saved capture) — no new fetching needed.
+
+**Count reconciliation** (the audit's "7 more" framing was ambiguous,
+flagged by the campaign owner): this is **8 new records total**, not 7 —
+7 from the UK dataset (6 `verified_branch` + 1 `authorised_chain`) + 1
+from the Ireland dataset (`verified_branch`). "7" was correct only as a
+count of new `verified_branch` rows specifically (6 UK + 1 IE), not total
+records. Underlying data was correct; the wording wasn't.
+
+- **UK: 6 verified_branch + 1 authorised_chain.** Re-verified against the
+  real branch-signal investigation output before ingesting (not just
+  documentation memory) — confirmed exactly 6 of 7 store pages carry the
+  "in partnership with Meta" content block, Stratford Westfield has zero
+  mentions. `data/stockists/ray-ban.normalized.json`.
+- **Ireland: 1 verified_branch** (Grafton Street, Dublin) —
+  `data/stockists/ray-ban-ireland.normalized.json`. One evidentiary note
+  recorded in this record's own `notes` field for transparency: unlike the
+  6 UK verified stores, this single Irish branch's own page was not
+  individually checked for the same content-block signal (there being only
+  one store total, that per-branch differentiation check wasn't
+  performed) — classified verified_branch on brand-identity plus confirmed
+  directory completeness instead. Flagged, not hidden, in case stricter
+  parity with the UK standard is wanted later.
+- **Duplicate check:** 2 postcode collisions found (Brent Cross, Stratford)
+  against existing Vision Express UK records — confirmed same pattern
+  already documented in `DUPLICATE-CHECK.md` (shared shopping-centre
+  postcode, different unit numbers, genuinely different shops), not
+  duplicates.
+- **New database total: 530 records = 514 verified_branch + 16
+  authorised_chain** (was 522 = 507 + 15).
+
+## David Clulow × John Lewis — concession relationship documented (16 Aug 2026)
+
+Campaign owner approved keeping all 13 same-building locations as separate
+physical-store records, on the basis of the existing evidence (3 of the 13
+show different Ray-Ban Meta stock status between the David Clulow and John
+Lewis records for the same building — real evidence of separate points of
+sale, not the same stock double-counted). Per instruction, this is
+documented, not left implicit: all 13 David Clulow "at John Lewis" records
+now carry `host_retailer_name = "John Lewis"` (the same field built for
+Selfridges) plus an explanatory note on each record itself, so the
+concession relationship is visible in the data, not just in this
+narrative document. `chain_id` stays `david-clulow` — no merging, no new
+fake chain.
+
+**Not yet done, flagged as a natural fast-follow, not actioned without a
+separate decision:** the existing "Harrods Opticians" David Clulow record
+is very likely the same Harrods concession independently confirmed via
+WebSearch this audit (`davidclulow.com/stores/london/london-harrods`) —
+same `host_retailer_name` treatment would apply, not yet applied.

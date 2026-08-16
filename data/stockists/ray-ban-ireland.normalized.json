@@ -1,0 +1,33 @@
+[
+  {
+    "id": "ray-ban-ireland-ray-ban-grafton-street",
+    "chain_id": "ray-ban-ireland",
+    "chain_name": "Ray-Ban",
+    "branch_name": "Ray-Ban – Grafton Street",
+    "host_retailer_name": null,
+    "category": "eyewear",
+    "address_line_1": "Grafton Street",
+    "address_line_2": null,
+    "city": "Dublin",
+    "country": "IE",
+    "postcode": "D02 VF65",
+    "normalized_postcode": "D02VF65",
+    "latitude": 53.3413553,
+    "longitude": -6.2602441,
+    "phone_number": null,
+    "contact_type": "branch_page",
+    "contact_value": null,
+    "contact_url": "https://stores.ray-ban.com/ireland/dublin/dublin/grafton-street",
+    "booking_url": null,
+    "stock_checker_url": null,
+    "prescription_available": null,
+    "demo_units_available": null,
+    "verification_status": "verified_branch",
+    "verification_method": "first_party_stockist_directory",
+    "source_url": "https://stores.ray-ban.com/ireland",
+    "source_label": "Ray-Ban's official Ray-Ban Meta directory",
+    "verified_product_scope": "ray_ban_meta",
+    "last_verified_at": "2026-08-16",
+    "notes": "Confirmed 16 Aug 2026 via dm_baseEntityCount=1 matching the directory total exactly - not a parser/discovery limitation. See RETAILER-MATRIX.md's Ireland coverage section."
+  }
+]
