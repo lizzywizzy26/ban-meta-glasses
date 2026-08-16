@@ -541,3 +541,56 @@ shown to be wrong about at least one of its own listed branches
 branch-by-branch through `features.availableBrands`, not through that
 page or any other themed/group directory, unless a future check finds the
 underlying bug has been fixed.
+
+## Selfridges UK — investigation in progress (16 Aug 2026), NOT verified
+
+Started per campaign owner's request, applying the standing three-question
+test (is the branch real? is it specifically confirmed to stock the
+product? is the discovered set complete?) as a distinct methodology check,
+not assumed.
+
+**Confirmed so far (WebSearch only — this session's network sandbox blocks
+direct fetches to `selfridges.com`, same as every other retailer domain
+this project has hit):**
+- Selfridges sells Ray-Ban Meta online — multiple individual product pages
+  exist (e.g. the RW4008 Wayfarer), categorised under both a "Sunglasses"
+  and a separate "Technology"/"Home Tech" category, suggesting Selfridges
+  treats it as consumer tech, not just eyewear.
+- Selfridges UK has exactly **4 physical stores**, a small, well-documented,
+  closed set: London (Oxford Street, flagship), Birmingham (Bullring),
+  Manchester (Trafford Centre), Manchester (Exchange Square). This makes
+  "is the discovered set complete" much more tractable here than for a
+  500+ branch chain like Vision Express — the universe of possible
+  locations is already externally well-established, not something that
+  needs discovering from scratch.
+- Selfridges' own FAQ states they do **not** offer real-time online stock
+  checks for physical stores, but that Click & Collect is available at
+  "all four" stores generically for eligible products — this is a
+  fulfillment/delivery statement (product shipped to a store for pickup),
+  not evidence that a specific store holds/displays physical stock. Per
+  this project's core principle, **not being treated as branch-specific
+  Meta evidence** — same distinction already applied to EE's
+  delivery-to-store model.
+- One notable unconfirmed lead: a Retail Gazette piece referencing "Meta
+  plots Oxford Street debut" — possibly a physical Meta/Ray-Ban presence
+  at or near Selfridges Oxford Street specifically. Not yet verified as
+  being inside Selfridges itself, or connected to Selfridges' own retail
+  operation, or on Selfridges' own first-party pages.
+
+**Not yet established:** which (if any) of the 4 physical stores actually
+stock/display/sell Ray-Ban Meta in person, at this project's normal
+first-party branch-specific evidence bar. WebSearch summaries are not
+sufficient evidence for `verified_branch` — same standard applied
+everywhere else in this database.
+
+**Next step:** fetch Selfridges' own product-page data directly (this
+session can't — see network note above). Candidate URLs to check for
+embedded Click & Collect/store-availability data, structured store IDs, or
+any other first-party per-branch signal:
+- `https://www.selfridges.com/GB/en/product/ray-ban-ray-ban-meta-rw4008-wayfarer-acetate-glasses_R04233303/`
+- `https://www.selfridges.com/GB/en/cat/ray-ban-meta/home-tech/technology/`
+- `https://www.selfridges.com/GB/en/cat/ray-ban-meta/womens/accessories/sunglasses/`
+- `https://www.selfridges.com/GB/en/info/dispatch-delivery/click-and-collect/`
+
+**Do not ingest.** No Selfridges data of any kind has been added to
+`data/stockists/` yet.
