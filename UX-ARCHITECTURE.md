@@ -360,6 +360,25 @@ history.
 None of this is implemented yet. To be reviewed and actioned alongside
 the landing-page information architecture, before either is built.
 
+### Technical readiness check (17 Aug 2026) — no code changed
+
+Inspected the current code against what the mailto architecture above
+will need, without changing any live behaviour:
+
+| Requirement | Status |
+|---|---|
+| Branch name inserted into email | **Ready.** `finder.js`'s `displayName(chainName, branchName)` already builds the right display name; `buildMessageTemplate()` already takes it as a parameter. Just needs the locked Email 2 text substituted in. |
+| `mailto:` recipient + subject + body | **Partially ready, needs consolidating.** Two different builders exist: `finder.js`'s `mailtoUrl(text, recipient)` supports a recipient; `main.js`'s separate `mailtoFromTemplate()` (used by optician/Ray-Ban/retailer sections) does not — it never sets a recipient at all. These should become one shared function. |
+| Chain-level contact email/contact URL | **Missing — needs adding, but small.** The database is branch-level only (`contact_type`/`contact_value`/`contact_url` per row, mostly `branch_page` URLs — evidence, not a campaigning contact route). There's no `chains` table. Given the explicit instruction not to research hundreds of branch emails, this doesn't need a schema/database change — a small client-side lookup keyed by `chain.slug` (already returned by the API on every result, confirmed in `worker/src/stockists.js`) covering the ~6 known chains is enough, populated from the contact map already in this file. |
+| Separate evidence URL vs. contact route | **Ready.** `renderCard()`'s "See source" button (linking `verification.sourceUrl`) is already separate from the "Ask this retailer to stop" button that opens the message panel — the separation this UX principle asks for already exists structurally, it just needs the message panel's own secondary button fixed (see the `Visit branch page` bug in `SITE-AUDIT-17-AUG-2026.md`). |
+| The four locked email templates | **Not started.** `outreach/EMAIL-TEMPLATES.md`/`.docx` hold the canonical text now (see that folder); nothing in the live code references it yet — all five email-producing surfaces (Sections B/D/E/F plus the finder's dynamic panel) currently contain older copy. |
+| National-retailer action (Email 3) | **Copy swap + per-retailer mailto**, same shape as the local-optician fix — Section F already lists the right retailers, just via generic contact-page links, not mailto. |
+| MP action (Email 4) | **One open gap:** Email 4 ends with a `{postcode}` placeholder, but nothing on the current page collects a postcode for this section specifically (the finder's postcode field, Section A, is a different part of the page and not wired to Section D at all). Needs a decision: reuse the finder's postcode if already entered, or add a small postcode field to the MP section itself. |
+| Venue action (Email 1) | **Whole new section needed.** No ORGANISATIONS/venue section exists on the site in any form yet — nothing to patch, this is new build. |
+
+None of this required changing any live file — read-only inspection
+against the requirements above.
+
 ## Source
 
 Concept developed by the campaign owner using a custom GPT, shared and
