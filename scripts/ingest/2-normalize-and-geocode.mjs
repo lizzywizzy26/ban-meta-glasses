@@ -319,7 +319,9 @@ async function main() {
       last_verified_at: (raw.fetchedAt || new Date().toISOString()).slice(0, 10),
       notes:
         [
-          rec.needsReview ? 'Extracted via low-confidence method — needs manual review before trusting.' : null,
+          rec.needsReview
+            ? rec.reviewNote || 'Extracted via low-confidence method — needs manual review before trusting.'
+            : null,
           cityIsGuessed ? `City guessed from address text ("${city}") — verify before trusting.` : null,
           coordinateNote,
           directoryIsProductSpecific

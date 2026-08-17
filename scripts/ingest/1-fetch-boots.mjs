@@ -47,19 +47,37 @@
 // (this script deliberately does not geocode itself, matching every other
 // fetch script in this pipeline).
 //
-// KNOWN ANOMALIES (checked by hand, 17 Aug 2026): for 3 of the 205 rows,
-// the store's DISPLAY NAME names a different town than its own postcode/
-// URL slug does: "Ealing" (postcode E15 1NG, which is Stratford, not
-// Ealing/W5), "Mill Hill" (postcode SK11 6LT, which is Macclesfield, not
-// Mill Hill/NW7), and "Whetstone" (postcode NW6 4JD, which is Kilburn, not
-// Whetstone/N20). These 3 records are flagged with needsReview=true and a
-// note — the postcode/slug (Boots' own structured URL data) is trusted
-// over the display name for these, but they're worth a specific human
-// glance before treating as settled. Two further rows (Bracknell/
-// Newcastle) have a differing STREET/landmark reference but a
-// geographically consistent postcode for the stated town (The Lexicon
-// really is in Bracknell; Eldon Square really is in Newcastle) — not
-// flagged, since the town itself checks out.
+// KNOWN CONFLICTS between the Smart Eyewear list's display name and the
+// individual store page it links to (checked by hand, 17 Aug 2026; see
+// CONFLICT_RESOLUTIONS and UNRESOLVED_CONFLICTS below) — per the campaign
+// owner's explicit rule: the linked individual store page is canonical for
+// branch identity/name/address/postcode, NEVER the list's display label,
+// whenever the two disagree. The list's label is preserved only in
+// `evidenceListLabel` (audit/internal use), never in `branchName`/
+// `address`/`city` — those fields always carry the corrected identity for
+// a resolved conflict, so an erroneous label can never reach a user.
+//
+// 3 CONFIRMED and resolved (campaign owner supplied the correction
+// directly, 17 Aug 2026): "Ealing" (postcode E15 1NG — actually Stratford,
+// not Ealing/W5), "Mill Hill" (postcode SK11 6LT — actually Macclesfield,
+// not Mill Hill/NW7), "Whetstone" (postcode NW6 4JD — actually Kilburn,
+// not Whetstone/N20). See CONFLICT_RESOLUTIONS for the exact corrected
+// identity used for each.
+//
+// 1 UNRESOLVED, held out of the ingestable set rather than guessed:
+// "Newcastle Upon Tyne - Hotspur Way" (postcode NE1 7XE, slug says
+// "Newcastle Eldon Square") — NE1 is genuinely central Newcastle either
+// way, so unlike the 3 above this isn't a different-town conflict, but
+// "Hotspur Way" and "Eldon Square" aren't confirmed to be the same unit
+// either. Per the "flag rather than guess" rule, this one is excluded
+// from the proposed set pending the campaign owner's input, not
+// auto-corrected to either name.
+//
+// Two further rows (Bracknell/Milton Keynes-style cases generally) have a
+// differing STREET/landmark reference but a geographically consistent
+// postcode for the stated town (e.g. The Lexicon really is in Bracknell) —
+// not treated as conflicts, since the town itself checks out and retail
+// developments are legitimately known by more than one name over time.
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
@@ -70,26 +88,35 @@ const OUTPUT_DIR = join(__dirname, 'output');
 const FIXTURE_PATH = join(__dirname, 'fixtures', 'boots-smart-eyewear-stores-list.raw.html');
 const SOURCE_URL = 'https://www.bootsopticians.com/brands/smart-eyewear/smart-eyewear-stores-list/';
 
-// Town names known (by direct postcode-district cross-check, 17 Aug 2026)
-// to disagree with their row's actual postcode/URL slug. See file header.
-// `correctCity` is the town the postcode/slug actually indicates — used
-// for the city field instead of trusting the (apparently wrong) display
-// name, since city drives which town-centroid/search-radius logic the
-// rest of the pipeline uses.
-const TOWN_MISMATCH_FLAGS = {
+// Confirmed conflicts (campaign owner's explicit correction, 17 Aug 2026):
+// the list's display name is replaced entirely by the linked store page's
+// real identity (proxied via its URL slug, since the page itself is
+// unreachable from this environment) — branchName/address/city ALWAYS come
+// from `correctIdentity`/`correctCity` below for these, never from the
+// list label. The erroneous label is kept only in `evidenceListLabel`.
+const CONFLICT_RESOLUTIONS = {
   Ealing: {
-    correctCity: 'Stratford',
-    note: 'Display name says "Ealing" but this row\'s postcode (E15 1NG) and URL slug both indicate Stratford, not Ealing (which would be a W5 postcode). Trusting the postcode/slug; worth a direct check before treating as settled.',
+    correctIdentity: 'London - Stratford - The Broadway',
+    correctCity: 'London',
+    note: 'Smart Eyewear list labelled this row "Ealing," but the linked individual store page (per its URL) is actually London - Stratford - The Broadway (postcode E15 1NG; Ealing would be W5). Campaign owner confirmed 17 Aug 2026: use the store page identity, never the list label.',
   },
   'Mill Hill': {
+    correctIdentity: 'Macclesfield - 46 Mill Street',
     correctCity: 'Macclesfield',
-    note: 'Display name says "Mill Hill" but this row\'s postcode (SK11 6LT) and URL slug both indicate Macclesfield, not Mill Hill (which would be an NW postcode). Trusting the postcode/slug; worth a direct check before treating as settled.',
+    note: 'Smart Eyewear list labelled this row "Mill Hill," but the linked individual store page (per its URL) is actually Macclesfield - 46 Mill Street (postcode SK11 6LT; Mill Hill would be an NW postcode). Campaign owner confirmed 17 Aug 2026: use the store page identity, never the list label.',
   },
   Whetstone: {
-    correctCity: 'Kilburn',
-    note: 'Display name says "Whetstone" but this row\'s postcode (NW6 4JD) and URL slug both indicate Kilburn, not Whetstone (which would be an N20 postcode). Trusting the postcode/slug; worth a direct check before treating as settled.',
+    correctIdentity: 'London - Kilburn',
+    correctCity: 'London',
+    note: 'Smart Eyewear list labelled this row "Whetstone," but the linked individual store page (per its URL) is actually London - Kilburn (postcode NW6 4JD; Whetstone would be N20). Campaign owner confirmed 17 Aug 2026: use the store page identity, never the list label.',
   },
 };
+
+// Unresolved: held out of the ingestable set entirely (see main()) rather
+// than guessed at, per "stop and flag it for review rather than guessing."
+const UNRESOLVED_CONFLICT_LABELS = new Set(['Newcastle Upon Tyne - Hotspur Way']);
+const UNRESOLVED_CONFLICT_NOTE =
+  'List label says "Newcastle Upon Tyne - Hotspur Way," but the linked store page URL says "Newcastle Eldon Square." NE1 is genuinely central Newcastle either way (not a different-town conflict like the 3 resolved ones), but "Hotspur Way" and "Eldon Square" are not confirmed to be the same unit. Held out of the proposed ingestion set pending a direct answer, not auto-corrected to either name.';
 
 // Exported so this same extraction logic can be tested against an
 // already-saved copy of the page without needing the real fixture file.
@@ -129,27 +156,45 @@ export function parseBootsStoreList(html, sourceUrl) {
       .trim()
       .replace(/\b\w/g, (c) => c.toUpperCase());
 
-    // City is the leading segment of the display name (e.g. "Aberdeen"
-    // from "Aberdeen - Bon Accord Centre") — this is what the rest of the
-    // pipeline needs explicitly (see 2-normalize-and-geocode.mjs: it only
-    // falls back to guessing a city from a comma in `address`, which this
-    // source's addresses don't have).
-    let city = branchName.split(' - ')[0].split(',')[0].trim();
+    // Held out entirely — not auto-corrected, not shown with its
+    // unconfirmed label either. See UNRESOLVED_CONFLICT_NOTE.
+    if (UNRESOLVED_CONFLICT_LABELS.has(branchName)) {
+      records.push({
+        excluded: true,
+        evidenceListLabel: branchName,
+        postcode,
+        branchPageUrl: url,
+        reviewNote: UNRESOLVED_CONFLICT_NOTE,
+      });
+      continue;
+    }
+
+    const resolution = CONFLICT_RESOLUTIONS[branchName];
+
+    // Canonical identity: the RESOLVED linked-store-page identity for a
+    // known conflict, otherwise the list's own display name (validated
+    // reliable for every row except the specific conflicts listed above).
+    // The list label is NEVER used for a resolved conflict's branchName/
+    // address/city — only preserved separately in evidenceListLabel for
+    // audit purposes.
+    const canonicalIdentity = resolution ? resolution.correctIdentity : branchName;
+    const city = resolution ? resolution.correctCity : branchName.split(' - ')[0].split(',')[0].trim();
 
     const record = {
-      branchName: `Boots Opticians - ${branchName}`,
-      address: locationDesc || branchName,
+      branchName: `Boots Opticians - ${canonicalIdentity}`,
+      address: resolution ? canonicalIdentity.split(' - ').slice(1).join(' - ') || canonicalIdentity : locationDesc || branchName,
       city,
       postcode,
       phone: null,
       sourceUrl,
-      storePageUrl: url,
+      branchPageUrl: url,
       metaEvidenceText: `"Ray-Ban Meta" column marked "Y" for this store on Boots' official Smart Eyewear Stores List (${sourceUrl}).`,
     };
-    if (TOWN_MISMATCH_FLAGS[branchName]) {
-      record.city = TOWN_MISMATCH_FLAGS[branchName].correctCity;
+    if (resolution) {
+      // Audit-only — never surfaced as branchName/address/city.
+      record.evidenceListLabel = branchName;
       record.needsReview = true;
-      record.reviewNote = TOWN_MISMATCH_FLAGS[branchName].note;
+      record.reviewNote = resolution.note;
     }
     records.push(record);
   }
@@ -161,19 +206,25 @@ async function main() {
   console.log(`Reading preserved capture: ${FIXTURE_PATH}`);
   const html = await readFile(FIXTURE_PATH, 'utf-8');
 
-  const records = parseBootsStoreList(html, SOURCE_URL);
-  console.log(`Extracted ${records.length} Ray-Ban Meta = Y records.`);
+  const allRecords = parseBootsStoreList(html, SOURCE_URL);
+  const excluded = allRecords.filter((r) => r.excluded);
+  const records = allRecords.filter((r) => !r.excluded);
 
-  const flagged = records.filter((r) => r.needsReview);
-  if (flagged.length) {
-    console.log(`\n${flagged.length} record(s) flagged for review (town-name/postcode mismatch):`);
-    for (const r of flagged) console.log(`  - ${r.branchName}: ${r.reviewNote}`);
+  console.log(`Extracted ${allRecords.length} Ray-Ban Meta = Y rows total.`);
+  console.log(`  ${records.length} in the ingestable set.`);
+  console.log(`  ${excluded.length} held out (unresolved list-vs-store-page conflict, not guessed):`);
+  for (const r of excluded) console.log(`    - "${r.evidenceListLabel}": ${r.reviewNote}`);
+
+  const resolved = records.filter((r) => r.needsReview);
+  if (resolved.length) {
+    console.log(`\n${resolved.length} record(s) had a resolved list-vs-store-page conflict (using the corrected identity, list label kept only in evidenceListLabel for audit):`);
+    for (const r of resolved) console.log(`  - "${r.evidenceListLabel}" -> ${r.branchName}`);
   }
 
   await mkdir(OUTPUT_DIR, { recursive: true });
   const outPath = join(OUTPUT_DIR, 'boots.json');
-  await writeFile(outPath, JSON.stringify({ sourceUrl: SOURCE_URL, records }, null, 2));
-  console.log(`\nWrote ${outPath}`);
+  await writeFile(outPath, JSON.stringify({ sourceUrl: SOURCE_URL, records, excluded }, null, 2));
+  console.log(`\nWrote ${outPath} (${records.length} records + ${excluded.length} excluded, kept for the audit trail)`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
