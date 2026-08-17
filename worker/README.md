@@ -133,6 +133,23 @@ wrangler d1 execute stop-meta-glasses-db --remote --file=./migrate-add-country.s
 ```
 A brand-new database doesn't need this — `schema.sql` already creates the
 column from the start.
+
+### Concession support / `host_retailer_name` (added 16 Aug 2026)
+
+Similarly, the `stockists` table gained a nullable `host_retailer_name`
+column for concessions (e.g. David Clulow trading inside Harrods or John
+Lewis — see `schema.sql`'s comment on this column for the full reasoning).
+**If your D1 database was created before this change**, run this one-off
+migration once:
+```
+wrangler d1 execute stop-meta-glasses-db --remote --file=./migrate-add-host-retailer-name.sql
+```
+A brand-new database doesn't need this — `schema.sql` already creates the
+column from the start. Hit for real during the first production deployment
+(17 Aug 2026): a locally downloaded copy of this repo, taken before this
+column existed, had its `schema.sql` applied to a fresh database before the
+data load — which failed until this migration was run by hand. Keeping this
+file means that's a one-line fix next time, not an improvised one.
 - `GET /api/stats` → `{ "visit": 12, "optician": 3, "mp": 1, "rayban": 2, "retailer": 4, "petition_click": 5, "petition_share": 0, "finder_search": 0, "stockist_selected": 0, "retailer_action_started": 0 }`
 - `POST /api/hit` with JSON body `{ "type": "optician" }` (type is one of
   `visit`, `optician`, `mp`, `rayban`, `retailer`, `petition_click`,

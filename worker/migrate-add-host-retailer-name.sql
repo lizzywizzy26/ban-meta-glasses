@@ -1,0 +1,25 @@
+-- One-off migration for a D1 database created BEFORE 16 Aug 2026's David
+-- Clulow/Selfridges concession work, where `stockists` already exists
+-- without a `host_retailer_name` column. schema.sql's `CREATE TABLE IF NOT
+-- EXISTS` is a no-op against an existing table, so it won't add this column
+-- on its own — run this once, manually, against any such database:
+--
+--   wrangler d1 execute stop-meta-glasses-db --remote --file=./migrate-add-host-retailer-name.sql
+--
+-- Safe to skip entirely for a brand-new database — schema.sql already
+-- creates the column from the start in that case. Do NOT run this twice
+-- against the same database: SQLite/D1 errors on adding a column that
+-- already exists ("duplicate column name"), which is a harmless error to
+-- see (it means this already ran) but will abort the file's remaining
+-- statements if any were added below in future, so keep this file to just
+-- the one idempotency-unsafe statement.
+--
+-- Hit for real during the 17 Aug 2026 production deployment: a locally
+-- downloaded copy of this repo, taken before this column existed, had its
+-- schema.sql applied to a fresh database first, so the initial data load
+-- failed with "table stockists has no column named host_retailer_name"
+-- until this exact ALTER TABLE was run by hand. Committing this migration
+-- file means that fix no longer has to be improvised live against a
+-- production database.
+
+ALTER TABLE stockists ADD COLUMN host_retailer_name TEXT;
