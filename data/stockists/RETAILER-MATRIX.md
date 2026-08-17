@@ -897,3 +897,86 @@ one in any future audit:**
 Not ingested: the 4 Selfridges physical locations. Not implemented: adding
 Selfridges to the frontend national retailer list (flagged as a follow-up
 task, not forgotten).
+
+## Boots Opticians — national retailer target: YES (confirmed); physical stores: NOT RESOLVABLE from this environment (17 Aug 2026)
+
+Same three-question standard applied as every other retailer:
+
+1. **Is the physical branch real?** Boots Opticians genuinely operates
+   physical opticians branches UK-wide (~496–600, depending on source) —
+   not in question.
+2. **Is that specific branch evidenced as stocking Ray-Ban Meta?** **Not
+   determinable from this environment.** Boots' own newsroom press release
+   confirms Ray-Ban Meta launched in **201 of its stores** (a genuine
+   minority, not "every branch" — the exact trap this project's standing
+   rule exists to prevent), and a real store finder exists at
+   `bootsopticians.com/stores/`. But this sandbox's network egress blocks
+   direct requests to `boots.com`, `bootsopticians.com`, and
+   `boots-uk.com` (same restriction hit with every retailer this project),
+   and no third-party source (search, trade press, Wayback Machine — all
+   tried) surfaced a specific list of which 201 stores qualify.
+3. **Can the resulting set be demonstrated complete?** No — moot, since no
+   branch-level list was obtained at all.
+
+**First-party/secondary evidence found:**
+- Boots UK newsroom press release: 201 of ~496–600 stores stock 6 Ray-Ban
+  Meta styles from £399, launched 30 July; 42 of those 201 also carry
+  Nuance Audio.
+- Boots' own product pages (`boots.com/opticians/glasses/ray-ban-meta`,
+  `bootsopticians.com/brands/smart-eyewear/ray-ban-meta/`) confirm real
+  Ray-Ban Meta SKUs for sale under the Boots Opticians brand.
+- Trade press (Optician Online, Retail Gazette) corroborates the 201-store
+  figure independently.
+- A genuine store finder exists (`bootsopticians.com/stores/`) but its
+  underlying query/data could not be inspected — direct access blocked,
+  same limitation noted throughout this project's retailer investigations.
+
+**What this proves:** Boots as a company genuinely, currently sells
+Ray-Ban Meta — solid enough for the national retailer/campaign action
+list, on the same basis as Selfridges. It does **not** identify any
+specific branch, and assuming a given Boots Opticians branch stocks it
+would repeat exactly the completeness error this project's methodology
+exists to catch.
+
+**Decision:** Boots Opticians added to the national retailer/campaign
+target list (chain-level evidence, same tier as Selfridges). **Zero**
+physical branches ingested — held, not ruled out, pending real
+branch-level evidence.
+
+### Capture procedure, for if/when there's time to resolve this properly
+
+This needs someone's actual browser — the underlying blocker is this
+project's own network access, not a missing feature or unclear evidence.
+Same method already used successfully for Vision Express Ireland and
+David Clulow (see the DevTools guide earlier in this file), applied to
+Boots:
+
+1. Open **`https://www.bootsopticians.com/brands/smart-eyewear/ray-ban-meta/`**
+   (the *product-specific* page, not the generic store list) and look for
+   any "find in store," "check availability," or postcode-search feature
+   on that page specifically. This matters — a search box on the generic
+   `/stores/` page would only prove "a Boots Opticians is near you," not
+   "a Boots Opticians that stocks Ray-Ban Meta is near you," the exact
+   trap the Vision Express Ireland "Dublin-group" finding exists to avoid.
+2. If found, right-click the page → **Inspect** (or `Cmd+Option+I` on Mac
+   / `F12` on Windows) to open DevTools, click the **Network** tab, then
+   the **Fetch/XHR** filter button.
+3. With DevTools still open, use the search feature on the page — type in
+   a real postcode and submit it.
+4. Watch the Network panel for a new request appearing (look for names
+   containing things like `stores`, `search`, `availability`). Click it,
+   then click its **Response** (or **Preview**) tab to see what came
+   back — check specifically whether each store in the response carries
+   some field indicating Ray-Ban Meta / smart eyewear availability (like
+   Vision Express Ireland's per-store `availableBrands` field), or whether
+   it's just a plain distance-sorted list with no product signal at all
+   (which would mean the locator can't answer this question either, and
+   that's a useful, final answer in itself).
+5. Right-click that request → **Copy** → **Copy as cURL**, paste into a
+   text file, and send it back along with a screenshot of the Response
+   tab. One capture is enough to work from.
+6. If no store/postcode search exists on the product-specific page at
+   all — that's a real, useful finding too. Send a screenshot of whatever
+   the page actually shows instead, and Boots' physical-branch question
+   stays resolved as "not resolvable via this method," same status as
+   right now.
