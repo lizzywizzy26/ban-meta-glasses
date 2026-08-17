@@ -898,7 +898,7 @@ Not ingested: the 4 Selfridges physical locations. Not implemented: adding
 Selfridges to the frontend national retailer list (flagged as a follow-up
 task, not forgotten).
 
-## Boots Opticians — national retailer target: YES (confirmed); physical stores: RESOLVED, 204 candidate branches identified (17 Aug 2026, superseded same day — see update below)
+## Boots Opticians — national retailer target: YES (confirmed); physical stores: RESOLVED, 205 candidate branches identified (17 Aug 2026, superseded same day — see update below)
 
 Same three-question standard applied as every other retailer:
 
@@ -1023,24 +1023,27 @@ capture, no live fetch — see that file's header for full reasoning):**
   first-party, just coarser than a confirmed full street address (the
   individual store pages themselves are also unreachable from this
   sandbox, so those weren't fetched).
-- **3 confirmed list-vs-store-page conflicts, resolved 17 Aug 2026 per the
-  campaign owner's explicit instruction**: "Ealing" is really the branch
-  at London - Stratford - The Broadway (E15 1NG), "Mill Hill" is really
-  Macclesfield - 46 Mill Street (SK11 6LT), "Whetstone" is really London -
-  Kilburn (NW6 4JD) — the Smart Eyewear list's display name and the
-  linked individual store page disagree on the town for all 3. **The
-  linked store page is canonical** — the erroneous list label is kept
-  only in an internal `evidenceListLabel` field (confirmed never exposed
-  via the public API or UI: `worker/src/stockists.js` never returns
-  `notes` at all), never in the branch's name/address/city.
-- **1 further case held out, not guessed**: "Newcastle Upon Tyne -
-  Hotspur Way" (list label) vs "Newcastle Eldon Square" (linked store
-  page) — both are genuinely central Newcastle (NE1), unlike the 3
-  above, but "Hotspur Way" and "Eldon Square" aren't confirmed to be the
-  same specific unit. Per "flag it for review rather than guessing,"
-  this record is excluded from the ingestable set entirely (**204 of
-  205**, not 205) pending a direct answer — not auto-assigned either
-  name.
+- **3 confirmed genuine list-vs-store-page conflicts, resolved 17 Aug
+  2026 per the campaign owner's explicit instruction**: "Ealing" is
+  really the branch at London - Stratford - The Broadway (E15 1NG),
+  "Mill Hill" is really Macclesfield - 46 Mill Street (SK11 6LT),
+  "Whetstone" is really London - Kilburn (NW6 4JD) — the Smart Eyewear
+  list's display name and the linked individual store page disagree on
+  the town for all 3. **The linked store page is canonical** — the
+  erroneous list label is kept only in an internal `evidenceListLabel`
+  field (confirmed never exposed via the public API or UI:
+  `worker/src/stockists.js` never returns `notes` at all), never in the
+  branch's name/address/city.
+- **1 further case initially held out, then confirmed NOT an error**:
+  "Newcastle Upon Tyne - Hotspur Way" (list label) vs "Newcastle Eldon
+  Square" (linked store page). First excluded pending review rather than
+  guessed at, per "flag it, don't guess." Campaign owner then directly
+  checked the linked store page (screenshot, 17 Aug 2026): it confirms
+  branch name "Newcastle Eldon Square," address "Hotspur Way, Eldon
+  Square" — Hotspur Way is simply the street the Eldon Square shopping
+  centre sits on, so both names describe the exact same branch. Restored
+  to the set using that confirmed identity, address, and phone number
+  (01912612475) straight from the store page — **back to 205/205**.
 - **Duplicate check against the existing 534-record database, by
   postcode** (not name, per instruction): 21 of the 205 share a postcode
   with an existing record — all 21 are **Vision Express** or **David
@@ -1053,8 +1056,8 @@ capture, no live fetch — see that file's header for full reasoning):**
   working notes if a closer look is ever wanted.)
 - Dry-run through `2-normalize-and-geocode.mjs` (`--mock-geocoder`, so
   coordinates are fake placeholders, not for real use) confirms the
-  pipeline processes the ingestable 204 cleanly end-to-end: 204/204
-  geocode successfully, 204/204 reach `verified_branch` under
+  pipeline processes all 205 cleanly end-to-end: 205/205 geocode
+  successfully, 205/205 reach `verified_branch` under
   `--source-is-structured-brand-list --assume-first-party`, 0 skipped.
 
 **Not yet done — needs real geocoding, which needs real network access
