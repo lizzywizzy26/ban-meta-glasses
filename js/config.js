@@ -4,4 +4,4 @@
 // Left blank: the campaign-impact panel hides itself, and the postcode
 // finder shows a graceful "search is being set up" message instead of a
 // broken search box — the rest of the site keeps working either way.
-window.API_BASE_URL = '';
+window.API_BASE_URL = 'https://stop-meta-glasses-counters.banmetaglasses.workers.dev';
