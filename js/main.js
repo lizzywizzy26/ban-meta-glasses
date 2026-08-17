@@ -27,11 +27,15 @@ function buildTemplateWithSubstitution(fieldId, textareaId, placeholder) {
 }
 
 function buildOpticianEmail() {
-  return buildTemplateWithSubstitution('shopName', 'emailBody', '[Optician name]');
+  return buildTemplateWithSubstitution('shopName', 'emailBody', '[Store name]');
 }
 
 function buildRetailerMessage() {
   return buildTemplateWithSubstitution('retailerName', 'retailerEmailBody', '[Retailer name]');
+}
+
+function buildVenueEmail() {
+  return buildTemplateWithSubstitution('venueName', 'venueEmailBody', '[Leisure Centre / Gym / Venue name]');
 }
 
 // Some mail clients (older Outlook desktop, some OS-level mailto handlers)
@@ -91,4 +95,19 @@ document.getElementById('copyRetailerBtn').addEventListener('click', () => {
 document.getElementById('openRetailerMailtoBtn').addEventListener('click', () => {
   mailtoFromTemplate(buildRetailerMessage(), 'mailtoWarnRetailer');
   reportHit('retailer');
+});
+
+// 'venue' isn't a registered counter type in the Worker yet (see
+// worker/src/index.js's COUNTER_TYPES) — deliberately left unregistered
+// rather than miscounting these under 'optician'. hit() in stats.js fails
+// silently on an unrecognised type, so this is a harmless no-op today and
+// will start working with zero frontend changes once 'venue' is added
+// server-side (schema.sql + COUNTER_TYPES + a Worker redeploy).
+document.getElementById('copyVenueBtn').addEventListener('click', () => {
+  navigator.clipboard.writeText(buildVenueEmail()).then(() => flash('copiedMsg6'));
+  reportHit('venue');
+});
+document.getElementById('openVenueMailtoBtn').addEventListener('click', () => {
+  mailtoFromTemplate(buildVenueEmail(), 'mailtoWarnVenue');
+  reportHit('venue');
 });

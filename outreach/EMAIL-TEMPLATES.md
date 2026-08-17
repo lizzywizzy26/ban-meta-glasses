@@ -137,7 +137,7 @@ itself.
 
 ## Email 4 — Local MPs
 
-**Subject:** Please act now before it's too late: Ban camera-equipped smart glasses
+**Subject:** Please act now before it’s too late: Ban camera-equipped smart glasses
 
 > Dear [MP name],
 >
@@ -147,15 +147,15 @@ itself.
 >
 > Women and girls, children, older people, LGBTQ+ people and disabled people are particularly vulnerable. We know technology is already used for stalking, harassment, sexualised deepfakes and exploitation. Why are we making that easier by arming them with covert recording devices?
 >
-> This raises serious questions under Article 8 of the Human Rights Act, UK GDPR and data-protection law, and the Equality Act 2010.
+> This raises serious questions under Article 8 of the Human Rights Act (the right to respect for private and family life), UK GDPR and data-protection law, and the Equality Act 2010.
 >
 > Yet someone secretly recorded may never know their image was captured, where it went, how it was processed or what it was subsequently used for. There is no meaningful consent at the point of capture, and no meaningful justice being offered afterwards.
 >
-> Everyone standing in front of the camera has rights too. We spent years allowing social media to race ahead of regulation. Only after serious harms to children, privacy and public safety became impossible to ignore did governments begin trying to catch up. We don't want to repeat that mistake with smart glasses.
+> Everyone standing in front of the camera has rights too. We spent years allowing social media to race ahead of regulation. Only after serious harms to children, privacy and public safety became impossible to ignore did governments begin trying to catch up.
 >
-> We do not need another generation to be the evidence.
+> We don't want to repeat that mistake with smart glasses. We do not need another generation to be the evidence.
 >
-> The window to act is shrinking. Once cameras worn on faces become normalised, walking this back will be extraordinarily difficult. In 10 or 20 years, we may well look back and realise this was the moment when we could have stopped it.
+> The window to act is shrinking. Once cameras worn on faces become normalised, walking it back will be extraordinarily difficult. In 10 or 20 years time, we may well look back and realise this was the moment when we could have stopped it.
 >
 > I am asking you to support a blanket ban on camera-equipped smart glasses and press the Government to act now, before this becomes normal.
 >

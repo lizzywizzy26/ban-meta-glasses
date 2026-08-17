@@ -66,19 +66,45 @@ function displayName(chainName, branchName) {
 }
 
 function buildMessageTemplate(name) {
-  return `Subject: Please stop selling Meta Ray-Ban smart glasses
+  return `Subject: Please stop selling camera-equipped smart glasses
 
-Dear ${name} team,
+Dear ${name},
 
-I'm a customer writing to ask you to stop selling Meta Ray-Ban smart glasses — glasses with a built-in camera that can record people without a clear, unmistakable signal.
+I'm asking you to stop selling camera-equipped smart glasses, including Ray-Ban Meta glasses.
 
-A BBC investigation published in May 2026 documented a London woman covertly filmed via smart glasses in a shopping centre; when she asked for the video to be taken down, the man who filmed her said he'd only remove it as a "paid service." A separate BBC investigation found nearly 50 women filmed without their knowledge on nights out, across more than 65 online channels with a combined 3 billion+ views.
+As a local optician, you're an important part of your high street and community. You may have known some of your customers and their families for years. People trust you with their sight, their health and the products you recommend.
 
-There is a live UK Parliament petition calling for a ban on the sale of smart glasses with recording capability: https://petition.parliament.uk/petitions/769206
+So why sell a device that can be used to record those same customers – and other people in your community – without their knowledge or consent?
 
-I'd be glad to hear your thoughts, and I hope you'll consider this seriously.
+Smart glasses allow people to film those around them without holding up a phone or camera. The person buying the glasses chooses to wear a camera on their face. The people around them get no such choice.
 
-Kind regards,
+Women. Children. Older people. People with disabilities. Vulnerable people. Your customers, their families and your neighbours.
+
+And the danger isn't hypothetical. Smart glasses have already been linked to cases involving non-consensual intimate recording, sextortion and blackmail:
+
+Non-consensual intimate recording:
+https://www.telegraph.co.uk/news/2026/01/09/man-smart-glasses-illegally-record-sex-spared-jail/
+
+Sextortion:
+https://www.ubergizmo.com/2026/05/can-smart-glasses-be-used-for-extortion/
+
+Blackmail:
+https://www.bbc.co.uk/news/articles/cwy87wqz0q9o
+
+A small recording light is not an adequate safeguard. Cheap stickers capable of obscuring LED lights are readily available.
+
+Meta has already helped put millions of camera-equipped glasses into circulation, and other technology companies are developing smart eyewear of their own. We need to stop cameras worn on people's faces becoming normal.
+
+Your business is built around helping people see clearly.
+
+We're asking you to open your eyes to the dangers of camera-equipped smart glasses – and stop selling them.
+
+Protect the trust your community places in you. Don't help normalise a technology that allows people to record others without their knowledge or consent.
+
+You can read more about the campaign and the evidence behind it here:
+[CAMPAIGN WEBSITE]
+
+Yours Sincerely,
 [Your name]`;
 }
 
