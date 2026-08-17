@@ -898,7 +898,7 @@ Not ingested: the 4 Selfridges physical locations. Not implemented: adding
 Selfridges to the frontend national retailer list (flagged as a follow-up
 task, not forgotten).
 
-## Boots Opticians — national retailer target: YES (confirmed); physical stores: RESOLVED, 205 candidate branches identified (17 Aug 2026, superseded same day — see update below)
+## Boots Opticians — national retailer target: YES (confirmed); physical stores: RESOLVED, 204 candidate branches, QA complete, awaiting real geocoding + final approval (17 Aug 2026, closed as a research task)
 
 Same three-question standard applied as every other retailer:
 
@@ -1043,31 +1043,44 @@ capture, no live fetch — see that file's header for full reasoning):**
   Square" — Hotspur Way is simply the street the Eldon Square shopping
   centre sits on, so both names describe the exact same branch. Restored
   to the set using that confirmed identity, address, and phone number
-  (01912612475) straight from the store page — **back to 205/205**.
+  (01912612475) straight from the store page — back to 205/205.
+- **Final QA pass (17 Aug 2026) found one more genuine, purely mechanical
+  issue**: Boots' own list carries the Macclesfield/Mill Street branch as
+  **two separate rows** — "Macclesfield - Mill Street" and the (corrected)
+  "Mill Hill" row — that both link to the exact same `branchPageUrl`. Not
+  a naming ambiguity like the 4 above, just the same branch listed twice.
+  Deduped by `branchPageUrl` (the only fully unambiguous identity key
+  available) down to **204 distinct physical branches**. Checked
+  systematically — this was the only duplicate `branchPageUrl` among all
+  205 rows.
 - **Duplicate check against the existing 534-record database, by
-  postcode** (not name, per instruction): 21 of the 205 share a postcode
+  postcode** (not name, per instruction): 21 of the 204 share a postcode
   with an existing record — all 21 are **Vision Express** or **David
   Clulow** records, not other Boots records. Boots is a separate,
   competing chain from both, so a shared postcode most likely means
   "same shopping centre, different unit" (several optician chains
   commonly share one postcode in a shopping centre), not a genuine
   duplicate — recommend keeping all of them as distinct branches, not
-  excluding the 21. (Full list of the 21 overlaps is in this session's
-  working notes if a closer look is ever wanted.)
+  excluding the 21.
+- Full data-quality pass, all clean: 204/204 postcodes pass UK format
+  validation; 0 internal postcode duplicates; 0 duplicate `branchName`
+  values; 0 records missing a required field.
 - Dry-run through `2-normalize-and-geocode.mjs` (`--mock-geocoder`, so
   coordinates are fake placeholders, not for real use) confirms the
-  pipeline processes all 205 cleanly end-to-end: 205/205 geocode
-  successfully, 205/205 reach `verified_branch` under
+  pipeline processes all 204 cleanly end-to-end: 204/204 geocode
+  successfully, 204/204 reach `verified_branch` under
   `--source-is-structured-brand-list --assume-first-party`, 0 skipped.
 
-**Not yet done — needs real geocoding, which needs real network access
-this sandbox doesn't have:** the actual production run of
-`2-normalize-and-geocode.mjs` (without `--mock-geocoder`) has to happen
-on the campaign owner's own machine, same as this morning's deployment
-steps. Once she runs it and sends back the real
-`output/boots.normalized.json`, that becomes the actual proposed
-ingestion set for her review — **nothing has been ingested to production
-D1**, per her explicit instruction.
+**Closed as a research task, per the campaign owner's instruction (17 Aug
+2026).** One mechanical step remains before anything can be proposed for
+production: real geocoding needs `postcodes.io`, which this sandbox
+cannot reach (same restriction as `bootsopticians.com` itself). The
+production run of `2-normalize-and-geocode.mjs` (without `--mock-geocoder`)
+has to happen on the campaign owner's own machine, same pattern as the
+Cloudflare deployment steps earlier in the day. Once she runs it and
+sends back the real `output/boots.normalized.json`, that becomes the
+final proposed ingestion set for her approval — **nothing has been
+ingested to production D1**, per her explicit instruction.
 
 **Evidence preserved:**
 `scripts/ingest/fixtures/boots-smart-eyewear-stores-list.raw.html` (the

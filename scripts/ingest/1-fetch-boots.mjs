@@ -31,7 +31,12 @@
 // directory judgement call. 216 total rows found; 205 marked Ray-Ban Meta
 // = Y (notably more than the 201 figure in Boots' own July 2026 launch
 // press release — this table is evidently more current than that
-// announcement, not in conflict with it).
+// announcement, not in conflict with it). One of those 205 rows is a
+// genuine duplicate of another (both link to the same branchPageUrl —
+// Boots' own list carries the Macclesfield/Mill Street branch twice, once
+// under its correct name and once under the row that also had the wrong
+// "Mill Hill" label) — deduped down to 204 distinct physical branches, see
+// the dedupe step at the end of parseBootsStoreList().
 //
 // ADDRESS DATA CAVEAT: each store name in the table links to its own
 // bootsopticians.com store page (also unreachable from here), so this
@@ -198,7 +203,30 @@ export function parseBootsStoreList(html, sourceUrl) {
     records.push(record);
   }
 
-  return records;
+  // Found 17 Aug 2026 QA pass: Boots' own list carries "Macclesfield -
+  // Mill Street" and the (corrected) "Mill Hill" row as two separate rows
+  // that both link to the exact same branchPageUrl — a genuine duplicate
+  // in Boots' own source table, not a naming ambiguity like the 4 conflicts
+  // above (those are now settled; this is a different, distinct issue: the
+  // same physical branch listed twice). Dedupe by branchPageUrl — the only
+  // completely unambiguous identity key available — keeping whichever
+  // occurrence lists first and folding the other's evidence into a note on
+  // the survivor, rather than silently dropping it.
+  const seenByUrl = new Map();
+  const deduped = [];
+  for (const record of records) {
+    const existing = seenByUrl.get(record.branchPageUrl);
+    if (!existing) {
+      seenByUrl.set(record.branchPageUrl, record);
+      deduped.push(record);
+      continue;
+    }
+    const dupeNote = `Boots' own Smart Eyewear Stores List carries this branch (${record.branchPageUrl}) as two separate rows — this one, and a duplicate list row labelled "${record.evidenceListLabel || record.branchName}" — both marked Ray-Ban Meta = Y. Counted once here, not twice.`;
+    existing.needsReview = true;
+    existing.reviewNote = existing.reviewNote ? `${existing.reviewNote} ${dupeNote}` : dupeNote;
+  }
+
+  return deduped;
 }
 
 async function main() {
@@ -211,7 +239,7 @@ async function main() {
   const resolved = records.filter((r) => r.needsReview);
   if (resolved.length) {
     console.log(`\n${resolved.length} record(s) had a list-vs-store-page conflict, resolved to the store page's real identity (list label kept only in evidenceListLabel for audit):`);
-    for (const r of resolved) console.log(`  - "${r.evidenceListLabel}" -> ${r.branchName}`);
+    for (const r of resolved) console.log(`  - ${r.evidenceListLabel ? `"${r.evidenceListLabel}"` : '(list-duplicate merged in)'} -> ${r.branchName}`);
   }
 
   await mkdir(OUTPUT_DIR, { recursive: true });
