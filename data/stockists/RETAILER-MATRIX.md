@@ -898,7 +898,7 @@ Not ingested: the 4 Selfridges physical locations. Not implemented: adding
 Selfridges to the frontend national retailer list (flagged as a follow-up
 task, not forgotten).
 
-## Boots Opticians — national retailer target: YES (confirmed); physical stores: NOT RESOLVABLE from this environment (17 Aug 2026)
+## Boots Opticians — national retailer target: YES (confirmed); physical stores: RESOLVED, 205 candidate branches identified (17 Aug 2026, superseded same day — see update below)
 
 Same three-question standard applied as every other retailer:
 
@@ -980,3 +980,83 @@ Boots:
    the page actually shows instead, and Boots' physical-branch question
    stays resolved as "not resolvable via this method," same status as
    right now.
+
+### Update: resolved via a different first-party source (17 Aug 2026, same day)
+
+The capture procedure above was never needed — the campaign owner found a
+**better** source independently: Boots' own **"Smart Eyewear Stores
+List"** (`bootsopticians.com/brands/smart-eyewear/smart-eyewear-stores-list/`),
+which states outright "Ray-Ban Meta and Nuance are available at the
+following stores" above a table listing every store with separate
+Ray-Ban Meta / Nuance columns, each either "Y" or blank. She saved the
+page ("Webpage, Complete") and supplied it directly, the same evidence
+route used throughout this project whenever this sandbox's network
+blocks a retailer's own domain (confirmed still blocked for
+`bootsopticians.com` when tried again this session).
+
+**Re-applying the three-question standard against this new source:**
+
+1. **Is the physical branch real?** Yes, per Boots' own store network —
+   unchanged from before.
+2. **Is that specific branch evidenced as stocking Ray-Ban Meta?** **Yes
+   — this is genuine per-branch, first-party, structured evidence.** Not
+   a chain-level claim, not a whole-directory judgement call: an explicit
+   named-product flag against each individual store row on Boots' own
+   page. This is the same evidence category as
+   `first_party_structured_brand_list`, the method already established
+   for Vision Express Ireland's per-store `availableBrands` field (see
+   above in this file) — comparably strong to a branch's own confirmed
+   `metaEvidenceText`.
+3. **Can the resulting set be demonstrated complete?** As complete as
+   this page's own table — 216 total store rows, of which **205 are
+   marked Ray-Ban Meta = Y**. Notably more than the 201 figure in Boots'
+   own July launch press release (not a contradiction — this table is
+   evidently more current; store rollout apparently continued past
+   launch day).
+
+**Extraction (`scripts/ingest/1-fetch-boots.mjs`, parses the preserved
+capture, no live fetch — see that file's header for full reasoning):**
+- 205/205 rows successfully yielded a real UK postcode, extracted from
+  Boots' own URL slug for each store's individual page (e.g.
+  `.../stores/abingdon-bury-street-ox14-3qx-3977` → `OX14 3QX`) — Boots
+  generates these slugs from its own address data, so this is still
+  first-party, just coarser than a confirmed full street address (the
+  individual store pages themselves are also unreachable from this
+  sandbox, so those weren't fetched).
+- **3 records flagged for review**: "Ealing" (postcode/slug actually
+  indicate Stratford), "Mill Hill" (actually Macclesfield), "Whetstone"
+  (actually Kilburn) — the display name and the postcode/slug disagree
+  on the town. The postcode/slug (Boots' own structured URL data) is
+  trusted over the display name for these 3; each is flagged with
+  `needsReview: true` and kept in the set, not excluded, pending a
+  direct look.
+- **Duplicate check against the existing 534-record database, by
+  postcode** (not name, per instruction): 21 of the 205 share a postcode
+  with an existing record — all 21 are **Vision Express** or **David
+  Clulow** records, not other Boots records. Boots is a separate,
+  competing chain from both, so a shared postcode most likely means
+  "same shopping centre, different unit" (several optician chains
+  commonly share one postcode in a shopping centre), not a genuine
+  duplicate — recommend keeping all 205 as distinct branches, not
+  excluding the 21. (Full list of the 21 overlaps is in this session's
+  working notes if a closer look is ever wanted.)
+- Dry-run through `2-normalize-and-geocode.mjs` (`--mock-geocoder`, so
+  coordinates are fake placeholders, not for real use) confirms the
+  pipeline processes all 205 cleanly end-to-end: 205/205 geocode
+  successfully, 205/205 reach `verified_branch` under
+  `--source-is-structured-brand-list --assume-first-party`, 0 skipped.
+
+**Not yet done — needs real geocoding, which needs real network access
+this sandbox doesn't have:** the actual production run of
+`2-normalize-and-geocode.mjs` (without `--mock-geocoder`) has to happen
+on the campaign owner's own machine, same as this morning's deployment
+steps. Once she runs it and sends back the real
+`output/boots.normalized.json`, that becomes the actual proposed
+ingestion set for her review — **nothing has been ingested to production
+D1**, per her explicit instruction.
+
+**Evidence preserved:**
+`scripts/ingest/fixtures/boots-smart-eyewear-stores-list.raw.html` (the
+saved page itself) and `scripts/ingest/1-fetch-boots.mjs` (the parser,
+committed so this extraction is exactly reproducible from the preserved
+evidence alone, not dependent on chat history).
