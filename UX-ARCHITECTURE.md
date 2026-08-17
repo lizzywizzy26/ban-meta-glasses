@@ -173,6 +173,40 @@ whoever sets stocking policy").
    labels (letters, numbers, whatever) can follow from it rather than
    the other way round.
 
+## Locked requirements for the landing-page redesign discussion (17 Aug 2026)
+
+Set by the campaign owner before any implementation starts — these are
+constraints on whatever IA gets agreed, not proposals up for debate:
+
+- **Sentence case everywhere** — navigation, headings, buttons, labels,
+  all UI copy. Not Title Case, not ALL CAPS.
+- **Campaign voice**: clear, bold, urgent, campaigning — not corporate or
+  overly polite. (Consistent with the locked email templates' register —
+  see `outreach/EMAIL-TEMPLATES.md`.)
+- **Core framing**: Meta is the ringleader, but the problem is bigger
+  than Meta.
+- **New section required**: headed "This is bigger than Meta." Argument
+  it must make: Meta is leading the current push to make cameras worn on
+  people's faces a normal consumer product; they are not alone — the
+  wider technology industry is moving into smart eyewear; we need to act
+  before recording-enabled glasses become normal. **Do not** list other
+  smart-glasses manufacturers by name in the MVP — that research is
+  explicitly deferred, not part of this pass.
+- **Four action-strand framings** (see "The five campaign strands" above
+  for how these map to LOCAL/NATIONAL/POLITICAL/ORGANISATIONS):
+  - Local opticians → **"Open your eyes"**
+  - National retailers → scale, responsibility, normalisation
+  - MPs → power, regulation, public protection
+  - Venues → privacy, safeguarding — **"Ban cameras worn on faces"**
+- **The four supplied email templates are the canonical action copy** —
+  `outreach/EMAIL-TEMPLATES.md`/`.docx`. Not to be rewritten, shortened,
+  or reconstructed from anything else in this repo or chat history.
+- **Local-retailer journey**: move away from "Visit branch page" as the
+  primary action, toward the already-documented Copy email / Send email
+  flow where a verified email address exists (see "Local-optician
+  conversion fix" above) — this is a locked requirement for the redesign,
+  not a separate, optional piece of work.
+
 ## Proposed information architecture (new, not tied to A–F)
 
 A page built around this would read as:
