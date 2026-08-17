@@ -309,6 +309,57 @@ None of this is being built now — captured so it's available when the
 retailer database and main user journey are further along, per the
 brief.
 
+## Local-optician conversion fix: "Send email," not "Visit branch page" (17 Aug 2026, not yet implemented)
+
+Found reviewing the live finder's actual user journey once real data was
+flowing: for a selected local seller, the flow effectively became *Find
+seller → Ask this retailer to stop → Copy message → Visit branch page*.
+That last step is wrong for the campaign — a branch's own webpage is
+evidence/location information, not a way to actually send the email.
+The user's goal is to send pressure to the retailer, not browse its
+website.
+
+**Locked UX principle for the rebuild:** for a selected local seller,
+show the prepared Email 2 with:
+- **Copy email | Send email →**, where a verified appropriate email
+  address exists. `Send email` is a `mailto:` link with recipient,
+  subject, and the complete locked Email 2 body all pre-filled, and the
+  selected branch/store name incorporated so the retailer knows which
+  physical location is being challenged.
+- **Copy email | Contact retailer →**, where no suitable published email
+  exists. The second button goes directly to the retailer's official
+  contact form/page so the user can paste the copied email.
+- `"Visit branch page"` is not used as the primary campaigning action.
+- `"See evidence"` remains a small, separate transparency link where
+  appropriate — the evidence/source URL proving a branch stocks Ray-Ban
+  Meta and the contact route for campaigning are two different things
+  and stay separate.
+
+**Proposed chain-level contact map** (chain-level architecture — branches
+inherit their chain's route; not hundreds of individual branch email
+addresses), each independently corroborated via search against
+first-party context, though direct retrieval of the retailers' own
+contact pages wasn't possible from this environment (same network
+restriction noted throughout this project) so this is secondary
+corroboration, not a direct-page read:
+
+| Chain | Email | Action | Notes |
+|---|---|---|---|
+| David Clulow | `info@davidclulow.com` | Send email | Their own site scopes this to in-store queries specifically (separate addresses exist for online orders/prescriptions/warranty — don't use those). |
+| Vision Express | `customer.care@visionexpress.com` | Send email | Contact form also exists at visionexpress.com/contact-us but email is preferred once confirmed appropriate. Do **not** use `complaintsofficer@visionexpress.com` — this action isn't a formal complaint. |
+| John Lewis optician locations | `info@davidclulow.com` (via David Clulow) | Send email | John Lewis's optician service is operated as David Clulow at John Lewis in selected stores, so the local-optician action inherits David Clulow's route. Do not use unverified John Lewis governance/CSR addresses. John Lewis itself remains separately relevant as a national-retailer target. |
+| Ray-Ban | none found | Copy email \| Contact Ray-Ban → | Official UK contact page: ray-ban.com/uk/contact-us (confirmed real: has a contact form and phone number, no direct public email found). Do **not** use EssilorLuxottica's EthicsPoint/whistleblowing system for ordinary campaign messages. |
+| Boots Opticians | `boots.customercare@boots.co.uk` | Send email (if/when Boots branches enter the finder — see RETAILER-MATRIX.md) | Boots' own help centre identifies this address specifically for Boots Opticians queries (separate from Boots' general customer care address). |
+
+The email body itself is **not** being touched here: the copy currently
+live in the finder is old/obsolete and will be replaced wholesale by the
+campaign owner's locked, definitive Email 2 template at implementation
+time — not reconstructed or rewritten from anything in this repo or chat
+history.
+
+None of this is implemented yet. To be reviewed and actioned alongside
+the landing-page information architecture, before either is built.
+
 ## Source
 
 Concept developed by the campaign owner using a custom GPT, shared and
