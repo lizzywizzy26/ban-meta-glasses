@@ -125,17 +125,32 @@ a{color:inherit;}
 /* object-position is keyed to each photo's content, not its slot, so
    values travel with the class when the running order changes */
 .hero-photo--child{object-position:64% 34%;}
-.hero-photo--crossing{object-position:50% 60%;}
 .hero-photo--woman{object-position:49% 24%;}
+/* Centre photo: the source is portrait and the slot is landscape, so a
+   plain object-fit:cover crop always loses ~35% of the frame's height —
+   no object-position value can show more of the crossing without hiding
+   the environment above it, or vice versa. Showing the full, uncropped
+   photo (contain) with a blurred extension of the same image filling
+   the resulting side gaps keeps the crossing, all three children and
+   the wider street fully intact, with no crop trade-off and no visible
+   letterboxing. */
+.hero-crossing-frame{position:relative;width:100%;height:100%;overflow:hidden;background:#0a0a0a;}
+.hero-crossing-frame__backdrop{
+  position:absolute;
+  inset:-4%;
+  background-image:url("../assets/hero-right-crossing-clean.jpg");
+  background-size:cover;
+  background-position:50% 55%;
+  filter:blur(26px) brightness(.6);
+  transform:scale(1.06);
+}
+.hero-crossing-frame img{position:relative;width:100%;height:100%;object-fit:contain;object-position:50% 50%;display:block;}
 @media (max-width:860px){
   .hero__triptych{grid-template-columns:1fr;grid-template-rows:none;height:auto;}
   .hero__triptych img{height:44vh;min-height:280px;}
+  .hero-crossing-frame{height:44vh;min-height:280px;}
   .hero-photo--child{object-position:68% 32%;}
-  .hero-photo--crossing{object-position:50% 54%;}
   .hero-photo--woman{object-position:50% 20%;}
-}
-@media (min-width:861px) and (max-width:1100px){
-  .hero-photo--crossing{object-position:50% 64%;}
 }
 .hero__body{
   background:var(--cream);
@@ -356,147 +371,178 @@ textarea{width:100%;min-height:180px;font-family:var(--sans);font-size:13.5px;li
 .bigger-band .photo-placeholder{aspect-ratio:4/5;}
 .forward-note{font-size:13.5px;color:var(--muted);border-left:3px solid var(--violet);padding-left:14px;margin-top:24px;max-width:46ch;}
 
-/* ---------- action boxes ----------
-   Translated from the Liberty "take action" construct: substantial
-   clickable blocks, one action each, obvious CTA, scannable at a glance.
-   No rounded corners, no shadows — sharp-cornered cells on a hairline
-   grid (same 1px-line-on-var(--line) technique used elsewhere on this
-   page). Deliberate 3-photo / 2-graphic system: Local/Political/Venues
-   carry real B&W photography (photo zone on top, text below — never
-   overlaid, per the hero lesson); National is a quiet cream+violet
-   typographic box; Petition is a dominant solid-violet block. National
-   and Petition are kept visibly different compositions, not two
-   versions of the same rectangle. The whole box is a single <a> so the
-   entire block is the click target, not just the CTA text. */
-.action-grid__label{
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.06em;
-  color:var(--muted);
-  margin:0 0 14px;
+/* ---------- action composition (v2) ----------
+   Rebuilt as one asymmetric editorial arrangement rather than a repeated
+   card grid — no hairline borders, no equal columns. Local/National/
+   Political share a row but at three different widths (3/2/3 of 12);
+   National is a narrow violet poster-spine, not a bookend card. Venues
+   is a full-width dramatic band below them. Petition is a tall right-
+   hand rail spanning the full height of both — structurally set apart
+   from the row logic entirely, which is how its "parallel, campaign-
+   wide" status reads without a label saying so. A reusable .ink-wash
+   class reproduces the hero's irregular yellow wash for selective use
+   here (National's "retailers", Petition's "petition") — kept as z-index:0
+   on its own wrapper from the start, per the stacking-context lesson
+   from the hero build. */
+.ink-wash{
+  position:relative;
+  z-index:0;
+  display:inline-block;
+  color:var(--ink);
+  white-space:nowrap;
 }
-.action-grid__label--parallel{margin-top:48px;}
-.action-grid{
+.ink-wash::before{
+  content:"";
+  position:absolute;
+  inset:-0.1em -0.06em -0.16em -0.04em;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 140' preserveAspectRatio='none'%3E%3Cpath d='M3,26 C55,6 120,32 190,14 C270,-6 350,24 430,9 C500,-4 560,18 597,15 L598,112 C545,132 480,102 410,120 C335,140 250,108 175,124 C110,138 45,116 3,120 Z' fill='%23FFDB00'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  transform:rotate(-1deg);
+  z-index:-1;
+}
+
+.action-composition{
   display:grid;
-  gap:1px;
-  background:var(--line);
-  border:1px solid var(--line);
-  align-items:stretch;
+  grid-template-columns:repeat(12,1fr);
+  grid-template-rows:auto auto;
+  column-gap:30px;
+  row-gap:36px;
+  margin-top:44px;
 }
-.action-grid--escalation{grid-template-columns:repeat(3,1fr);}
-.action-grid--parallel{grid-template-columns:0.78fr 1.22fr;}
-@media (max-width:860px){
-  .action-grid--escalation, .action-grid--parallel{grid-template-columns:1fr;}
+@media (max-width:900px){
+  .action-composition{grid-template-columns:1fr;grid-template-rows:none;row-gap:44px;}
+  .action-item{grid-column:auto !important;grid-row:auto !important;}
 }
-.action-box{
+.action-item--local{grid-column:1/4;grid-row:1/2;}
+.action-item--national{grid-column:4/6;grid-row:1/2;}
+.action-item--political{grid-column:6/9;grid-row:1/2;}
+.action-item--venues{grid-column:1/9;grid-row:2/3;}
+.action-item--petition{grid-column:9/13;grid-row:1/3;}
+
+.action-item{
   display:flex;
   flex-direction:column;
-  background:var(--cream);
   text-decoration:none;
   color:var(--ink);
-  transition:background-color .15s ease;
 }
-.action-box:hover{background:var(--cream-shade);}
-.action-box[aria-disabled="true"]{cursor:default;}
-.action-box[aria-disabled="true"]:hover{background:var(--cream);}
+.action-item[aria-disabled="true"]{cursor:default;}
 
-/* shared text-zone rhythm (used inside both photo and graphic boxes) */
-.action-box__num{
-  font-family:var(--serif);
-  font-size:13px;
-  font-weight:700;
-  color:var(--violet);
-  margin-bottom:18px;
-}
-.action-box__body{flex:1 1 auto;}
-.action-box__headline{
+/* Local + Political — photo as figure, caption directly beneath it,
+   no card padding, so the photograph itself reads as the object rather
+   than content trapped inside a box. */
+.action-item__photo{display:block;overflow:hidden;background:var(--cream-shade);}
+.action-item__photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+.action-item:hover .action-item__photo img{transform:scale(1.045);}
+.action-item--local .action-item__photo{aspect-ratio:3/4;}
+.action-item--political .action-item__photo{aspect-ratio:1/1;}
+.action-item__text{padding:20px 2px 0;}
+.action-item__num{display:block;font-family:var(--serif);font-size:12.5px;font-weight:700;color:var(--violet);margin-bottom:10px;}
+.action-item__headline{
   display:block;
   font-family:var(--serif);
   font-weight:700;
-  font-size:clamp(21px,2vw,25px);
+  font-size:clamp(19px,1.7vw,23px);
   line-height:1.14;
-  margin-bottom:10px;
+  margin-bottom:8px;
   color:var(--ink);
 }
-.action-box__sub{display:block;font-size:14px;color:var(--muted);max-width:32ch;}
-.action-box__cta{
+.action-item__sub{display:block;font-size:13.5px;color:var(--muted);max-width:26ch;margin-bottom:14px;}
+.action-item__cta{
   display:inline-block;
   align-self:flex-start;
-  margin-top:20px;
-  font-size:14px;
+  font-size:13.5px;
   font-weight:700;
   border-bottom:1px solid var(--ink);
   padding-bottom:2px;
 }
-.action-box:hover .action-box__cta{border-color:var(--violet);color:var(--violet);}
-.action-box[aria-disabled="true"] .action-box__cta,
-.action-box[aria-disabled="true"]:hover .action-box__cta{color:var(--muted);border-color:var(--line);}
-.action-box__note{display:block;font-size:11.5px;color:var(--muted);margin-top:8px;}
+.action-item:hover .action-item__cta{color:var(--violet);border-color:var(--violet);}
+.action-item__note{display:block;font-size:11px;color:var(--muted);margin-top:6px;}
 
-/* photographic boxes — Local, Political, Venues */
-.action-box--photo{padding:0;}
-.action-box__photo{display:block;aspect-ratio:4/3;overflow:hidden;background:var(--cream-shade);}
-.action-box__photo img{width:100%;height:100%;object-fit:cover;display:block;}
-.action-box__text{display:flex;flex-direction:column;flex:1 1 auto;padding:28px 32px 32px;}
-/* Venues: confident, tighter crop with real scale to the refusal gesture */
-.action-box--venue .action-box__photo{aspect-ratio:3/4;}
-.action-box--venue .action-box__photo img{transform:scale(1.08);}
-
-/* National — quiet, cream+violet typographic treatment: an accent bar,
-   not a fill, so it reads as restrained "corporate pressure" rather than
-   loud. Yellow appears only as the CTA underline — its one selective
-   intervention. */
-.action-box--national{
-  border-left:4px solid var(--violet);
-  padding:36px 34px 32px 30px;
-  justify-content:center;
-}
-.action-box--national .action-box__body{flex:0 0 auto;}
-.action-box__kicker{
-  font-size:11.5px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  color:var(--violet);
-  font-weight:700;
-  margin-bottom:20px;
-}
-.action-box--national .action-box__cta{border-bottom-color:var(--yellow);}
-.action-box--national:hover .action-box__cta{border-bottom-color:var(--yellow);color:var(--ink);}
-
-/* Petition — dominant, solid violet fill. The one box on the page (with
-   the hero CTA) that fills with the identity colour; yellow is reserved
-   for the actual action button, not the field itself. */
-.action-box--petition{
+/* National — a narrow violet poster-spine standing between the two
+   photographs. Oversized type is the image here; yellow touches the
+   one word that matters ("retailers") and the CTA's underline. */
+.action-item--national{
   background:var(--violet);
   color:var(--cream);
-  padding:48px 46px;
-  justify-content:center;
+  padding:28px 24px 26px;
+  justify-content:flex-start;
 }
-.action-box--petition .action-box__body{flex:0 0 auto;}
-.action-box--petition:hover{background:var(--violet-deep);}
-.action-box--petition .action-box__kicker{color:var(--yellow);}
-.action-box--petition .action-box__headline{color:var(--cream);font-size:clamp(28px,3vw,40px);max-width:13ch;}
-.action-box--petition .action-box__sub{color:#d9d0fb;max-width:42ch;}
-.action-box__stat{
+.action-item--national:hover{background:var(--violet-deep);}
+.action-item--national .action-item__num{color:var(--yellow);margin-bottom:0;}
+.action-item__poster-headline{
   display:block;
   font-family:var(--serif);
-  font-size:15px;
   font-weight:700;
+  font-size:clamp(18px,2vw,22px);
+  line-height:1.14;
   color:var(--cream);
-  margin-top:18px;
+  margin:22px 0 24px;
+  overflow-wrap:break-word;
 }
-.action-box__stat strong{color:var(--yellow);font-size:27px;}
-.action-box__cta-btn{
+.action-item--national .action-item__sub{color:#d9d0fb;font-size:13px;max-width:19ch;margin-bottom:16px;}
+.action-item--national .action-item__cta{color:var(--cream);border-bottom-color:var(--yellow);}
+.action-item--national:hover .action-item__cta{color:var(--yellow);border-bottom-color:var(--yellow);}
+.action-item--national .action-item__note{color:#c3b5f5;}
+
+/* Venues — full-width dramatic band; the photo dominates almost the
+   entire block and the copy sits in a lean strip beneath it, headline
+   and CTA side by side rather than stacked, so it reads differently
+   from Local/Political's caption pattern. */
+.action-item--venues .action-item__photo{aspect-ratio:16/9;}
+.action-item--venues .action-item__photo img{object-position:40% 38%;transform:scale(1.1);}
+.action-item--venues:hover .action-item__photo img{transform:scale(1.14);}
+.venues-footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  gap:20px;
+  padding-top:22px;
+}
+.venues-footer .action-item__headline{font-size:clamp(23px,2.2vw,29px);margin-bottom:6px;}
+.venues-footer .action-item__sub{margin-bottom:0;max-width:34ch;}
+.venues-footer__action{text-align:right;}
+
+/* Petition — the tall rail. Dominance comes from typographic scale and
+   message, not from being the largest flat rectangle: an oversized
+   headline (with the hero's wash treatment on its own name), a genuinely
+   large signature count, and the one yellow button on the page that's
+   an actual filled CTA. */
+.action-item--petition{
+  background:var(--violet);
+  color:var(--cream);
+  padding:40px 38px;
+  justify-content:flex-start;
+}
+.action-item--petition:hover{background:var(--violet-deep);}
+.action-item--petition .action-item__num{color:var(--yellow);text-transform:uppercase;letter-spacing:.08em;font-size:12px;margin-bottom:26px;}
+.petition-headline{
+  display:block;
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:clamp(36px,4.2vw,54px);
+  line-height:1;
+  color:var(--cream);
+  margin-bottom:22px;
+  overflow-wrap:break-word;
+}
+.petition-headline .ink-wash{font-size:1em;}
+.action-item--petition .action-item__sub{font-size:14.5px;color:#d9d0fb;max-width:28ch;margin-bottom:28px;}
+.petition-stat{display:block;font-family:var(--serif);font-weight:700;line-height:1;}
+.petition-stat strong{color:var(--yellow);font-size:clamp(38px,3.8vw,50px);}
+.petition-stat__of{font-size:15.5px;color:var(--cream);font-weight:600;margin-left:6px;}
+.petition-stat__meta{display:block;font-size:12.5px;color:#c3b5f5;margin:8px 0 28px;}
+.action-item__cta-btn{
   display:inline-block;
   align-self:flex-start;
-  margin-top:24px;
   background:var(--yellow);
   color:var(--ink);
   font-weight:700;
-  font-size:15px;
-  padding:14px 28px;
+  font-size:15.5px;
+  padding:15px 30px;
 }
-.action-box--petition:hover .action-box__cta-btn{background:#ffe544;}
+.action-item--petition:hover .action-item__cta-btn{background:#ffe544;}
 
 /* ---------- why now ---------- */
 .why-now{
@@ -585,7 +631,10 @@ footer .open-source-note a{color:var(--violet);text-decoration:underline;}
 <header class="hero">
   <div class="hero__triptych">
     <img class="hero-photo--child" src="../assets/hero-left-child-transit.jpg" alt="A young child looks toward the camera while riding public transport, an adult seated behind them.">
-    <img class="hero-photo--crossing" src="../assets/hero-right-crossing-clean.jpg" alt="Three people, two children and an adult with school backpacks, cross a road together, seen from behind.">
+    <div class="hero-crossing-frame">
+      <div class="hero-crossing-frame__backdrop"></div>
+      <img class="hero-photo--crossing" src="../assets/hero-right-crossing-clean.jpg" alt="Three people, two children and an adult with school backpacks, cross a road on a marked zebra crossing, seen from a distance.">
+    </div>
     <img class="hero-photo--woman" src="../assets/hero-centre-woman.jpg" alt="A woman with curly hair looks back over her shoulder while walking down a street.">
   </div>
   <div class="hero__body">
@@ -655,69 +704,63 @@ footer .open-source-note a{color:var(--violet);text-decoration:underline;}
     <p class="eyebrow-label">Take action</p>
     <h2 class="section-title">Choose where to apply pressure.</h2>
 
-    <p class="action-grid__label">Local → National → Political — a deliberate escalation</p>
-    <div class="action-grid action-grid--escalation">
-      <a class="action-box action-box--photo" href="#locate">
-        <span class="action-box__photo">
+    <div class="action-composition">
+      <a class="action-item action-item--local" href="#locate">
+        <span class="action-item__photo">
           <img src="../assets/getty-_NL0ZN4UROY-bw-v1.jpg" alt="A woman rests her head on her hand, looking out of the window on public transport." style="object-position:58% 42%;">
         </span>
-        <span class="action-box__text">
-          <span class="action-box__num">01</span>
-          <span class="action-box__body">
-            <span class="action-box__headline">Email your local optician</span>
-            <span class="action-box__sub">Ask opticians to stop selling smart glasses</span>
-          </span>
-          <span class="action-box__cta">Find an optician →</span>
+        <span class="action-item__text">
+          <span class="action-item__num">01</span>
+          <span class="action-item__headline">Email your local optician</span>
+          <span class="action-item__sub">Ask opticians to stop selling smart glasses</span>
+          <span class="action-item__cta">Find an optician →</span>
         </span>
       </a>
-      <a class="action-box action-box--national" href="#" aria-disabled="true" title="Focused National action page — coming in the Take action hub">
-        <span class="action-box__kicker">National pressure</span>
-        <span class="action-box__body">
-          <span class="action-box__headline">Email national retailers</span>
-          <span class="action-box__sub">Ask major retailers to stop selling smart glasses</span>
-        </span>
-        <span class="action-box__cta">Choose a retailer →</span>
-        <span class="action-box__note">Coming soon</span>
+
+      <a class="action-item action-item--national" href="#" aria-disabled="true" title="Focused National action page — coming in the Take action hub">
+        <span class="action-item__num">02</span>
+        <span class="action-item__poster-headline">Email<br>national<br><span class="ink-wash">retailers</span></span>
+        <span class="action-item__sub">Ask major retailers to stop selling smart glasses</span>
+        <span class="action-item__cta">Choose a retailer →</span>
+        <span class="action-item__note">Coming soon</span>
       </a>
-      <a class="action-box action-box--photo" href="#" aria-disabled="true" title="Focused Political action page — coming in the Take action hub">
-        <span class="action-box__photo">
+
+      <a class="action-item action-item--political" href="#" aria-disabled="true" title="Focused Political action page — coming in the Take action hub">
+        <span class="action-item__photo">
           <img src="../assets/tommao-wang-bw-v1.jpg" alt="An adult holds a young child close on public transport." style="object-position:28% 38%;">
         </span>
-        <span class="action-box__text">
-          <span class="action-box__num">03</span>
-          <span class="action-box__body">
-            <span class="action-box__headline">Email your MP</span>
-            <span class="action-box__sub">Ask your MP to act before smart glasses become normal</span>
-          </span>
-          <span class="action-box__cta">Find your MP →</span>
-          <span class="action-box__note">Coming soon</span>
+        <span class="action-item__text">
+          <span class="action-item__num">03</span>
+          <span class="action-item__headline">Email your MP</span>
+          <span class="action-item__sub">Ask your MP to act before smart glasses become normal</span>
+          <span class="action-item__cta">Find your MP →</span>
+          <span class="action-item__note">Coming soon</span>
         </span>
       </a>
-    </div>
 
-    <p class="action-grid__label action-grid__label--parallel">Venues and the petition — parallel routes, not further steps</p>
-    <div class="action-grid action-grid--parallel">
-      <a class="action-box action-box--photo action-box--venue" href="#" aria-disabled="true" title="Focused Venues action page — coming in the Take action hub">
-        <span class="action-box__photo">
-          <img src="../assets/wassim-chouak-bw-v1.jpg" alt="A young man holds his palm up directly at the camera, face obscured, in a clear gesture of refusal." style="object-position:38% 40%;">
+      <a class="action-item action-item--venues" href="#" aria-disabled="true" title="Focused Venues action page — coming in the Take action hub">
+        <span class="action-item__photo">
+          <img src="../assets/wassim-chouak-bw-v1.jpg" alt="A young man holds his palm up directly at the camera, face obscured, in a clear gesture of refusal." style="object-position:40% 38%;">
         </span>
-        <span class="action-box__text">
-          <span class="action-box__body">
-            <span class="action-box__headline">Email a venue</span>
-            <span class="action-box__sub">Ask venues to ban cameras worn on faces</span>
+        <span class="venues-footer">
+          <span class="venues-footer__text">
+            <span class="action-item__headline">Email a venue</span>
+            <span class="action-item__sub">Ask venues to ban cameras worn on faces</span>
           </span>
-          <span class="action-box__cta">Contact a venue →</span>
-          <span class="action-box__note">Coming soon</span>
+          <span class="venues-footer__action">
+            <span class="action-item__cta">Contact a venue →</span>
+            <span class="action-item__note">Coming soon</span>
+          </span>
         </span>
       </a>
-      <a id="petition" class="action-box action-box--petition" href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">
-        <span class="action-box__kicker">Campaign-wide action</span>
-        <span class="action-box__body">
-          <span class="action-box__headline">Sign the petition</span>
-          <span class="action-box__sub">Add your name to the campaign asking for an immediate ban on the sale and promotion of smart glasses</span>
-        </span>
-        <span class="action-box__stat"><strong>5,399</strong> / 10,000 signatures — closes 9 December 2026</span>
-        <span class="action-box__cta-btn">Sign the petition →</span>
+
+      <a id="petition" class="action-item action-item--petition" href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">
+        <span class="action-item__num">Campaign-wide action</span>
+        <span class="petition-headline">Sign the<br><span class="ink-wash">petition</span></span>
+        <span class="action-item__sub">Add your name to the campaign asking for an immediate ban on the sale and promotion of smart glasses</span>
+        <span class="petition-stat"><strong>5,399</strong><span class="petition-stat__of">/ 10,000 signed</span></span>
+        <span class="petition-stat__meta">Closes 9 December 2026</span>
+        <span class="action-item__cta-btn">Sign the petition →</span>
       </a>
     </div>
   </div>
