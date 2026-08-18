@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exemption for disabled people — Ban Smart Glasses</title>
+<meta name="description" content="How the Ban Smart Glasses campaign approaches an exemption for disabled people who rely on smart glasses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --violet:#5B22F6;
+  --violet-deep:#3D0FC7;
+  --cream:#F6F2EB;
+  --cream-shade:#EEE8DB;
+  --yellow:#FFDB00;
+  --ink:#111111;
+  --muted:#5c5850;
+  --line:#DAD3C2;
+  --serif: 'Fraunces', Georgia, 'Iowan Old Style', 'Palatino Linotype', ui-serif, serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, ui-sans-serif, sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;}
+a{color:inherit;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+/* ---------- nav (matches homepage) ---------- */
+.site-nav{padding:20px 0;}
+.site-nav__row{display:flex;align-items:center;justify-content:space-between;width:100%;gap:20px;}
+.site-nav__mark{font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:-.01em;white-space:nowrap;color:var(--ink);text-decoration:none;flex:0 0 auto;}
+.site-nav__links{display:flex;align-items:center;gap:20px;list-style:none;margin:0;padding:0;flex:1 1 auto;justify-content:center;}
+.site-nav__links a{font-size:13px;white-space:nowrap;text-decoration:none;color:var(--ink);border-bottom:1px solid transparent;padding-bottom:2px;}
+.site-nav__links a:hover{border-bottom-color:var(--violet);}
+.site-nav__links a[aria-disabled="true"]{color:var(--muted);cursor:default;}
+.site-nav__links a[aria-disabled="true"]:hover{border-bottom-color:transparent;}
+.site-nav__links a.is-current{border-bottom-color:var(--violet);font-weight:600;}
+.soon-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--violet);background:#ece6fd;border-radius:3px;padding:1px 5px;margin-left:4px;vertical-align:2px;}
+.site-nav__actions{display:flex;align-items:center;gap:14px;flex:0 0 auto;}
+.site-nav__cta{font-size:14px;font-weight:600;white-space:nowrap;background:var(--violet);color:var(--cream);padding:10px 18px;text-decoration:none;}
+.site-nav__cta:hover{background:var(--violet-deep);}
+.site-nav__toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:4px;width:36px;height:36px;padding:0;background:none;border:0;cursor:pointer;flex:0 0 auto;}
+.site-nav__toggle span{display:block;width:20px;height:2px;background:var(--ink);}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.site-nav__mobile-menu{display:none;}
+@media (max-width:900px){
+  .site-nav__mark{font-size:11px;white-space:normal;}
+  .site-nav__links{display:none;}
+  .site-nav__toggle{display:flex;}
+  .site-nav__mobile-menu{flex-direction:column;background:var(--cream);border-top:1px solid var(--line);margin-top:20px;}
+  .site-nav__mobile-menu:not([hidden]){display:flex;}
+  .site-nav__mobile-menu a{display:block;padding:16px 32px;border-bottom:1px solid var(--line);font-size:16px;text-decoration:none;color:var(--ink);}
+  .site-nav__mobile-menu a[aria-disabled="true"]{color:var(--muted);}
+}
+
+/* ---------- stub content ---------- */
+.stub-hero{padding:8px 0 44px;border-bottom:1px solid var(--line);}
+.stub-hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,4vw,44px);line-height:1.15;margin:0 0 18px;max-width:20ch;}
+.stub-body{padding:44px 0 72px;max-width:64ch;}
+.stub-body p{font-size:16px;line-height:1.6;color:var(--muted);margin:0 0 18px;}
+.stub-body p:last-child{margin-bottom:0;}
+
+/* ---------- footer (matches homepage) ---------- */
+footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line);padding:56px 0 0;margin-top:24px;}
+.footer__top{display:grid;grid-template-columns:1.6fr 1fr;gap:40px;align-items:start;padding-bottom:40px;}
+.footer__mark{font-family:var(--serif);font-weight:700;font-size:clamp(21px,2vw,25px);letter-spacing:-.01em;margin:0 0 10px;}
+.footer__tagline{font-family:var(--serif);font-weight:700;font-size:clamp(18px,1.6vw,21px);line-height:1.3;margin:0 0 12px;color:var(--ink);}
+.footer__desc{font-size:14px;color:var(--muted);margin:0 0 20px;max-width:44ch;}
+.footer__links{display:flex;flex-wrap:wrap;row-gap:8px;margin:0 0 20px;}
+.footer__links a{font-size:13.5px;color:var(--ink);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px;}
+.footer__links a:hover{border-bottom-color:var(--violet);}
+.footer__links a[aria-disabled="true"]{color:var(--muted);cursor:default;}
+.footer__links a[aria-disabled="true"]:hover{border-bottom-color:transparent;}
+.footer__links a+a::before{content:"·";margin:0 12px;color:var(--line);}
+.footer__statement{font-family:var(--serif);font-weight:700;font-size:clamp(15px,1.3vw,18px);line-height:1.4;max-width:40ch;margin:0;color:var(--ink);}
+.footer__replicate{background:var(--violet);color:var(--cream);padding:26px 24px;}
+.footer__replicate-label{font-family:var(--serif);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--yellow);margin:0 0 12px;}
+.footer__replicate-copy{font-size:13.5px;line-height:1.5;color:#ede7fb;margin:0 0 18px;}
+.footer__replicate-cta{display:inline-block;background:var(--yellow);color:var(--ink);font-size:13.5px;font-weight:700;padding:10px 18px;text-decoration:none;}
+.footer__replicate-cta:hover{background:#ffe544;}
+.footer__legal{border-top:1px solid var(--line);padding:20px 0 28px;font-size:12px;color:var(--muted);}
+.footer__legal p{margin:0 0 6px;}
+.footer__legal a{color:var(--muted);text-decoration:underline;}
+@media (max-width:900px){ .footer__top{grid-template-columns:1fr;gap:28px;} }
+
+.proto-banner{background:var(--ink);color:var(--yellow);font-size:12px;text-align:center;padding:8px 12px;letter-spacing:.03em;}
+</style>
+</head>
+<body>
+
+<div class="proto-banner">Public beta — Ban Smart Glasses launches in public beta, with further campaign tools being added during the beta period.</div>
+
+<nav class="site-nav">
+  <div class="wrap site-nav__row">
+    <a class="site-nav__mark" href="/">Ban Smart Glasses</a>
+    <ul class="site-nav__links">
+      <li><a href="/#take-action">Take action</a></li>
+      <li><a href="/#why-this-matters">Why this matters</a></li>
+      <li><a href="/exemption-for-disabled-people/" class="is-current">Exemption for disabled people</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version</a></li>
+      <li><a href="#" aria-disabled="true" title="Coming in a later build phase">About <span class="soon-badge">Soon</span></a></li>
+    </ul>
+    <div class="site-nav__actions">
+      <a class="site-nav__cta" href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">Sign the petition</a>
+      <button type="button" class="site-nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMobileMenu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="site-nav__mobile-menu" id="navMobileMenu" hidden>
+    <a href="/#take-action">Take action</a>
+    <a href="/#why-this-matters">Why this matters</a>
+    <a href="/exemption-for-disabled-people/">Exemption for disabled people</a>
+    <a href="/resources/">Resources</a>
+    <a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version</a>
+    <a href="#" aria-disabled="true" title="Coming in a later build phase">About <span class="soon-badge">Soon</span></a>
+  </div>
+</nav>
+
+<header class="wrap stub-hero">
+  <h1>Exemption for disabled people</h1>
+</header>
+
+<main class="wrap stub-body">
+  <p>Ban Smart Glasses campaigns for a ban on the sale and promotion of camera-equipped smart glasses. We recognise that some disabled people rely on smart glasses technology, and that any policy the campaign calls for needs to account for that clearly and fairly.</p>
+  <p>The detailed position for this page is being finalised by the campaign and will be published here shortly.</p>
+</main>
+
+<footer>
+  <div class="wrap footer__top">
+    <div class="footer__identity">
+      <p class="footer__mark">Ban Smart Glasses</p>
+      <p class="footer__tagline">Stop smart glasses becoming the new normal</p>
+      <p class="footer__desc">An independent UK &amp; Ireland privacy campaign created by Liz Hunter.</p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/#take-action">Take action</a>
+        <a href="/#why-this-matters">Why this matters</a>
+        <a href="/resources/">Resources</a>
+        <a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version</a>
+        <a href="#" aria-disabled="true" title="Coming in a later build phase">About</a>
+        <a href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">Sign the petition</a>
+      </nav>
+      <p class="footer__statement">The database shows where they're sold. The campaign gives people the tools to act.</p>
+    </div>
+    <div class="footer__replicate">
+      <p class="footer__replicate-label">Create your version</p>
+      <p class="footer__replicate-copy">This starts in the UK and Ireland. But the website is open source — designed to be copied and adapted by anyone who wants to launch Ban Smart Glasses in their country.</p>
+      <a class="footer__replicate-cta" href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version →</a>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <p>Press: <a href="mailto:press@banmetaglasses.com">press@banmetaglasses.com</a></p>
+    <p>Ban Smart Glasses is an independent campaign and is not affiliated with, endorsed by or associated with Meta or Ray-Ban.</p>
+    <p>&copy; 2026 Ban Smart Glasses</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn = document.getElementById('navToggle');
+  var menu = document.getElementById('navMobileMenu');
+  if(!btn || !menu) return;
+  btn.addEventListener('click', function(){
+    var willOpen = menu.hidden;
+    menu.hidden = !willOpen;
+    btn.setAttribute('aria-expanded', String(willOpen));
+  });
+  menu.addEventListener('click', function(e){
+    var link = e.target.closest('a');
+    if(link && link.getAttribute('aria-disabled') !== 'true'){
+      menu.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+</script>
+</body>
+</html>
