@@ -427,12 +427,9 @@ mark.highlight{
 /* ---------- this is bigger than meta ---------- */
 .bigger-band{
   display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:48px;
-  align-items:center;
+  grid-template-columns:1fr;
+  max-width:62ch;
 }
-@media (max-width:860px){ .bigger-band{grid-template-columns:1fr;} }
-.bigger-band .photo-placeholder{aspect-ratio:4/5;}
 .forward-note{font-size:13.5px;color:var(--muted);border-left:3px solid var(--violet);padding-left:14px;margin-top:24px;max-width:46ch;}
 
 /* ---------- action composition (v2) ----------
@@ -630,11 +627,9 @@ mark.highlight{
 }
 .why-now .wrap{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:56px;
-  align-items:center;
+  grid-template-columns:1fr;
+  max-width:62ch;
 }
-@media (max-width:860px){ .why-now .wrap{grid-template-columns:1fr;} }
 .why-now .eyebrow-label{color:var(--violet);}
 .why-now h2{
   font-family:var(--serif);
@@ -644,7 +639,7 @@ mark.highlight{
   margin:0 0 18px;
   color:var(--ink);
 }
-.why-now p{font-size:15.5px;color:var(--muted);margin:0 0 14px;max-width:44ch;}
+.why-now p{font-size:15.5px;color:var(--muted);margin:0 0 14px;max-width:56ch;}
 .why-now .evidence-strip{font-size:12.5px;color:var(--muted);margin-top:22px;border-top:1px solid var(--line);padding-top:16px;}
 .why-now .photo-placeholder{aspect-ratio:3/4;}
 
@@ -717,7 +712,7 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
     <ul class="site-nav__links">
       <li><a href="#take-action">Take action</a></li>
       <li><a href="#why-this-matters">Why this matters</a></li>
-      <li><a href="#" aria-disabled="true" title="Resources hub — coming in a later build phase">Resources <span class="soon-badge">Soon</span></a></li>
+      <li><a href="/resources/">Resources</a></li>
       <li><a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version</a></li>
       <li><a href="#" aria-disabled="true" title="Coming in a later build phase">About <span class="soon-badge">Soon</span></a></li>
     </ul>
@@ -731,7 +726,7 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
   <div class="site-nav__mobile-menu" id="navMobileMenu" hidden>
     <a href="#take-action">Take action</a>
     <a href="#why-this-matters">Why this matters</a>
-    <a href="#" aria-disabled="true" title="Resources hub — coming in a later build phase">Resources <span class="soon-badge">Soon</span></a>
+    <a href="/resources/">Resources</a>
     <a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version</a>
     <a href="#" aria-disabled="true" title="Coming in a later build phase">About <span class="soon-badge">Soon</span></a>
   </div>
@@ -801,7 +796,6 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
       <p class="section-lede">Meta made cameras worn on people's faces a mainstream consumer product. They're not alone — the wider technology industry is moving into smart eyewear. If we wait until recording-enabled glasses are everywhere, we'll have waited too long.</p>
       <p class="forward-note">A fuller, evidenced picture of the wider smart-glasses industry is coming to a dedicated page — not listed here yet.</p>
     </div>
-    <div class="photo-placeholder"><span class="photo-placeholder__tag">Photo pending — aware moment</span></div>
   </div>
 </section>
 
@@ -886,7 +880,6 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
       <p><mark class="highlight">We do not need another generation to be the evidence.</mark></p>
       <div class="evidence-strip">BBC News, May &amp; Feb 2026 · Home Secretary Shabana Mahmood: this "will not be tolerated" · 49% of Britons support a public-space ban (March 2026 poll)</div>
     </div>
-    <div class="photo-placeholder"><span class="photo-placeholder__tag">Photo pending — refusal moment</span></div>
   </div>
 </section>
 
@@ -937,7 +930,7 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
       <nav class="footer__links" aria-label="Footer">
         <a href="#take-action">Take action</a>
         <a href="#why-this-matters">Why this matters</a>
-        <a href="#" aria-disabled="true" title="Coming in a later build phase">Resources</a>
+        <a href="/resources/">Resources</a>
         <a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version</a>
         <a href="#" aria-disabled="true" title="Coming in a later build phase">About</a>
         <a href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">Sign the petition</a>
