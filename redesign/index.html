@@ -78,20 +78,23 @@ a{color:inherit;}
 
 /* ---------- nav ---------- */
 .site-nav{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:22px 0;
+  padding:20px 0;
 }
+.site-nav__row{display:flex;align-items:center;justify-content:space-between;width:100%;gap:20px;}
 .site-nav__mark{
   font-family:var(--serif);
   font-weight:700;
   font-size:19px;
   letter-spacing:-.01em;
+  white-space:nowrap;
+  color:var(--ink);
+  text-decoration:none;
+  flex:0 0 auto;
 }
-.site-nav__links{display:flex;gap:28px;list-style:none;margin:0;padding:0;}
+.site-nav__links{display:flex;align-items:center;gap:20px;list-style:none;margin:0;padding:0;flex:1 1 auto;justify-content:center;}
 .site-nav__links a{
-  font-size:14px;
+  font-size:13px;
+  white-space:nowrap;
   text-decoration:none;
   color:var(--ink);
   border-bottom:1px solid transparent;
@@ -100,15 +103,57 @@ a{color:inherit;}
 .site-nav__links a:hover{border-bottom-color:var(--violet);}
 .site-nav__links a[aria-disabled="true"]{color:var(--muted);cursor:default;}
 .site-nav__links a[aria-disabled="true"]:hover{border-bottom-color:transparent;}
+.soon-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--violet);background:#ece6fd;border-radius:3px;padding:1px 5px;margin-left:4px;vertical-align:2px;}
+.site-nav__actions{display:flex;align-items:center;gap:14px;flex:0 0 auto;}
 .site-nav__cta{
   font-size:14px;
   font-weight:600;
+  white-space:nowrap;
   background:var(--violet);
   color:var(--cream);
   padding:10px 18px;
   text-decoration:none;
 }
 .site-nav__cta:hover{background:var(--violet-deep);}
+.site-nav__toggle{
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:4px;
+  width:36px;
+  height:36px;
+  padding:0;
+  background:none;
+  border:0;
+  cursor:pointer;
+  flex:0 0 auto;
+}
+.site-nav__toggle span{display:block;width:20px;height:2px;background:var(--ink);}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.site-nav__mobile-menu{display:none;}
+@media (max-width:900px){
+  .site-nav__links{display:none;}
+  .site-nav__toggle{display:flex;}
+  .site-nav__mobile-menu{
+    flex-direction:column;
+    background:var(--cream);
+    border-top:1px solid var(--line);
+    margin-top:20px;
+  }
+  .site-nav__mobile-menu:not([hidden]){display:flex;}
+  .site-nav__mobile-menu a{
+    display:block;
+    padding:16px 32px;
+    border-bottom:1px solid var(--line);
+    font-size:16px;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .site-nav__mobile-menu a[aria-disabled="true"]{color:var(--muted);}
+}
 
 /* ---------- hero ---------- */
 .hero{padding:6px 0 0;}
@@ -347,8 +392,27 @@ mark.highlight{
 .link-btn{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:var(--ink);color:var(--cream);text-decoration:none;font-size:13.5px;margin-bottom:8px;}
 .finder-message-panel{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);}
 .finder-message-panel[hidden]{display:none;}
-.finder-message-panel h3{font-size:16px;color:var(--ink);}
-textarea{width:100%;min-height:180px;font-family:var(--sans);font-size:13.5px;line-height:1.6;padding:14px;border:1px solid var(--line);background:var(--cream);color:var(--ink);resize:vertical;}
+.finder-message-panel h3{font-size:18px;color:var(--ink);margin:0 0 14px;}
+.email-meta{margin-bottom:16px;}
+.email-meta__row{font-size:13.5px;color:var(--muted);margin-bottom:4px;}
+.email-meta__row span{display:inline-block;width:56px;text-transform:uppercase;font-size:10.5px;letter-spacing:.04em;font-weight:700;color:var(--muted);}
+.email-meta__row strong{color:var(--ink);font-weight:600;}
+.email-doc{
+  width:100%;
+  max-width:64ch;
+  background:var(--cream);
+  border:1px solid var(--line);
+  padding:20px 22px;
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  color:var(--ink);
+}
+@media (min-width:701px){ .email-doc{font-size:17px;} }
+.email-doc p{margin:0 0 1em;white-space:pre-wrap;}
+.email-doc p:last-child{margin-bottom:0;}
+.email-doc--editing{border-color:var(--violet);outline:2px solid var(--violet);outline-offset:2px;background:#fff;}
+.email-note{font-size:13px;color:var(--muted);max-width:52ch;margin:12px 0 0;}
 .field-label{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;display:block;margin-bottom:6px;}
 .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 .copied-msg{font-size:12.5px;color:var(--violet-deep);font-weight:700;margin-left:4px;opacity:0;transition:opacity .2s;}
@@ -492,24 +556,31 @@ textarea{width:100%;min-height:180px;font-family:var(--sans);font-size:13.5px;li
   display:block;
   font-family:var(--serif);
   font-weight:700;
-  font-size:clamp(18px,1.5vw,22px);
+  font-size:clamp(23px,1.9vw,28px);
   line-height:1.14;
-  margin-bottom:5px;
+  margin-bottom:14px;
   color:var(--ink);
 }
-.action-item__sub{display:block;font-size:13px;color:var(--muted);max-width:30ch;}
+.action-item__sub{display:block;font-size:15px;line-height:1.35;color:var(--muted);max-width:38ch;}
 .action-item__cta{
   display:inline-block;
   align-self:flex-start;
-  margin-top:auto;
-  padding-top:8px;
-  font-size:13px;
-  font-weight:700;
+  margin-top:28px;
+  font-size:15px;
+  font-weight:800;
   border-bottom:1px solid var(--ink);
   padding-bottom:2px;
 }
 .action-item:hover .action-item__cta{color:var(--violet);border-color:var(--violet);}
-.action-item__note{display:block;font-size:10.5px;color:var(--muted);margin-top:4px;}
+.action-item__note{display:block;font-size:10.5px;color:var(--muted);margin-top:10px;}
+@media (max-width:900px){
+  .action-item__text{padding-top:12px;}
+  .action-item__num{margin-bottom:4px;}
+  .action-item__headline{margin-bottom:10px;}
+  .action-item__sub{line-height:1.3;}
+  .action-item__cta{margin-top:10px;}
+  .action-item__note{margin-top:6px;}
+}
 
 /* National — identical outer box (same fixed height, same grid cell) as
    the other three, filled edge to edge with a horizontal graphic
@@ -519,7 +590,7 @@ textarea{width:100%;min-height:180px;font-family:var(--sans);font-size:13.5px;li
   background:var(--violet);
   color:var(--cream);
   padding:24px 26px 22px;
-  justify-content:space-between;
+  justify-content:flex-start;
 }
 .action-item--national:hover{background:var(--violet-deep);}
 .action-item--national .action-item__num{color:var(--yellow);margin-bottom:0;}
@@ -530,13 +601,19 @@ textarea{width:100%;min-height:180px;font-family:var(--sans);font-size:13.5px;li
   font-size:clamp(24px,2.2vw,29px);
   line-height:1.1;
   color:var(--cream);
-  margin:12px 0;
+  margin:12px 0 14px;
   overflow-wrap:break-word;
 }
-.action-item--national .action-item__sub{color:#d9d0fb;font-size:13px;max-width:32ch;}
-.action-item--national .action-item__cta{color:var(--cream);border-bottom-color:var(--yellow);margin-top:0;}
+.action-item--national .action-item__sub{color:#d9d0fb;font-size:15px;line-height:1.35;max-width:40ch;}
+.action-item--national .action-item__cta{color:var(--cream);border-bottom-color:var(--yellow);}
 .action-item--national:hover .action-item__cta{color:var(--yellow);border-bottom-color:var(--yellow);}
 .action-item--national .action-item__note{color:#c3b5f5;}
+@media (max-width:900px){
+  .action-item__poster-headline{margin:10px 0 10px;font-size:22px;}
+}
+@media (max-width:480px){
+  .action-item--national .action-item__sub{max-width:28ch;}
+}
 
 /* Venues — same fixed box and 60/40 photo split as Local/Political; crop
    stays confident and tightly scaled so the refusal gesture still reads
@@ -595,12 +672,30 @@ textarea{width:100%;min-height:180px;font-family:var(--sans);font-size:13.5px;li
 .handoff__item h4{font-family:var(--serif);font-size:16.5px;margin:0 0 8px;}
 .handoff__item a{font-size:12.5px;text-decoration:none;border-bottom:1px solid rgba(246,242,235,.5);color:var(--cream);}
 .handoff__item a[aria-disabled="true"]{color:rgba(246,242,235,.55);border-color:transparent;}
+.handoff__soon{display:block;margin-top:6px;font-size:10.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--yellow);}
 
 /* ---------- footer ---------- */
-footer{padding:44px 0;font-size:12.5px;color:var(--muted);}
-footer a{color:var(--muted);}
-footer .attribution{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);}
-footer .open-source-note a{color:var(--violet);text-decoration:underline;}
+footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line);padding:56px 0 0;}
+.footer__top{display:grid;grid-template-columns:1.6fr 1fr;gap:40px;align-items:start;padding-bottom:40px;}
+.footer__mark{font-family:var(--serif);font-weight:700;font-size:clamp(21px,2vw,25px);letter-spacing:-.01em;margin:0 0 10px;}
+.footer__tagline{font-family:var(--serif);font-weight:700;font-size:clamp(18px,1.6vw,21px);line-height:1.3;margin:0 0 12px;color:var(--ink);}
+.footer__desc{font-size:14px;color:var(--muted);margin:0 0 20px;max-width:44ch;}
+.footer__links{display:flex;flex-wrap:wrap;row-gap:8px;margin:0 0 20px;}
+.footer__links a{font-size:13.5px;color:var(--ink);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px;}
+.footer__links a:hover{border-bottom-color:var(--violet);}
+.footer__links a[aria-disabled="true"]{color:var(--muted);cursor:default;}
+.footer__links a[aria-disabled="true"]:hover{border-bottom-color:transparent;}
+.footer__links a+a::before{content:"·";margin:0 12px;color:var(--line);}
+.footer__statement{font-family:var(--serif);font-weight:700;font-size:clamp(15px,1.3vw,18px);line-height:1.4;max-width:40ch;margin:0;color:var(--ink);}
+.footer__replicate{background:var(--violet);color:var(--cream);padding:26px 24px;}
+.footer__replicate-label{font-family:var(--serif);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--yellow);margin:0 0 12px;}
+.footer__replicate-copy{font-size:13.5px;line-height:1.5;color:#ede7fb;margin:0 0 18px;}
+.footer__replicate-cta{display:inline-block;background:var(--yellow);color:var(--ink);font-size:13.5px;font-weight:700;padding:10px 18px;text-decoration:none;}
+.footer__replicate-cta:hover{background:#ffe544;}
+.footer__legal{border-top:1px solid var(--line);padding:20px 0 28px;font-size:12px;color:var(--muted);}
+.footer__legal p{margin:0 0 6px;}
+.footer__legal a{color:var(--muted);text-decoration:underline;}
+@media (max-width:900px){ .footer__top{grid-template-columns:1fr;gap:28px;} }
 
 .proto-banner{
   background:var(--ink);
@@ -617,14 +712,28 @@ footer .open-source-note a{color:var(--violet);text-decoration:underline;}
 <div class="proto-banner">Prototype build — hero triptych uses real supplied photography; remaining photo slots and working/dummy copy still pending. Not the live site.</div>
 
 <nav class="site-nav">
-  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;width:100%;">
-    <div class="site-nav__mark">Stop the sale</div>
+  <div class="wrap site-nav__row">
+    <a class="site-nav__mark" href="#">Ban Meta Glasses</a>
     <ul class="site-nav__links">
       <li><a href="#take-action">Take action</a></li>
-      <li><a href="#" aria-disabled="true" title="Coming in a later build phase">Why this matters</a></li>
-      <li><a href="#" aria-disabled="true" title="Coming in a later build phase">About</a></li>
+      <li><a href="#why-this-matters">Why this matters</a></li>
+      <li><a href="#" aria-disabled="true" title="Resources hub — coming in a later build phase">Resources <span class="soon-badge">Soon</span></a></li>
+      <li><a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version</a></li>
+      <li><a href="#" aria-disabled="true" title="Coming in a later build phase">About <span class="soon-badge">Soon</span></a></li>
     </ul>
-    <a class="site-nav__cta" href="#petition">Sign the petition</a>
+    <div class="site-nav__actions">
+      <a class="site-nav__cta" href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">Sign the petition</a>
+      <button type="button" class="site-nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMobileMenu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="site-nav__mobile-menu" id="navMobileMenu" hidden>
+    <a href="#take-action">Take action</a>
+    <a href="#why-this-matters">Why this matters</a>
+    <a href="#" aria-disabled="true" title="Resources hub — coming in a later build phase">Resources <span class="soon-badge">Soon</span></a>
+    <a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version</a>
+    <a href="#" aria-disabled="true" title="Coming in a later build phase">About <span class="soon-badge">Soon</span></a>
   </div>
 </nav>
 
@@ -643,7 +752,7 @@ footer .open-source-note a{color:var(--violet);text-decoration:underline;}
       <h1 class="hero__headline">Stop smart glasses.<br><span class="wash">Before they become normal.</span></h1>
       <p class="hero__sub">Camera-equipped smart glasses let anyone film the people around them with no visible signal and no way to say no. Meta made this a consumer product. We're asking retailers, government and Meta's own brand to stop it before it becomes normal.</p>
       <div class="hero__ctas">
-        <a class="btn btn--yellow btn--primary" href="#petition">Sign the petition →</a>
+        <a class="btn btn--yellow btn--primary" href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">Sign the petition →</a>
         <a class="hero__cta-secondary" href="#take-action">Take action →</a>
       </div>
       <p class="hero__social-proof"><strong>5,399</strong> people have signed</p>
@@ -726,7 +835,7 @@ footer .open-source-note a{color:var(--violet);text-decoration:underline;}
           <span class="action-item__num">01</span>
           <span class="action-item__headline">Email your local optician</span>
           <span class="action-item__sub">Ask opticians to stop selling smart glasses</span>
-          <span class="action-item__cta">Find an optician →</span>
+          <span class="action-item__cta">Write to your local optician →</span>
         </span>
       </a>
 
@@ -734,7 +843,7 @@ footer .open-source-note a{color:var(--violet);text-decoration:underline;}
         <span class="action-item__num">02</span>
         <span class="action-item__poster-headline">Email national <span class="ink-wash">retailers</span></span>
         <span class="action-item__sub">Ask major retailers to stop selling smart glasses</span>
-        <span class="action-item__cta">Choose a retailer →</span>
+        <span class="action-item__cta">Write to a national retailer →</span>
         <span class="action-item__note">Coming soon</span>
       </a>
 
@@ -746,7 +855,7 @@ footer .open-source-note a{color:var(--violet);text-decoration:underline;}
           <span class="action-item__num">03</span>
           <span class="action-item__headline">Email your MP</span>
           <span class="action-item__sub">Ask your MP to act before smart glasses become normal</span>
-          <span class="action-item__cta">Find your MP →</span>
+          <span class="action-item__cta">Write to your MP →</span>
           <span class="action-item__note">Coming soon</span>
         </span>
       </a>
@@ -759,7 +868,7 @@ footer .open-source-note a{color:var(--violet);text-decoration:underline;}
           <span class="action-item__num">04</span>
           <span class="action-item__headline">Email a venue</span>
           <span class="action-item__sub">Ask venues to ban cameras worn on faces.</span>
-          <span class="action-item__cta">Contact a venue →</span>
+          <span class="action-item__cta">Write to a venue →</span>
           <span class="action-item__note">Coming soon</span>
         </span>
       </a>
@@ -768,7 +877,7 @@ footer .open-source-note a{color:var(--violet);text-decoration:underline;}
 </section>
 
 <!-- ============== WHY NOW ============== -->
-<section class="why-now">
+<section id="why-this-matters" class="why-now">
   <div class="wrap">
     <div>
       <p class="eyebrow-label">Why now</p>
@@ -790,37 +899,61 @@ footer .open-source-note a{color:var(--violet);text-decoration:underline;}
       <div class="handoff__item">
         <div class="num">01</div>
         <h4>Local</h4>
-        <a href="#locate">Find sellers →</a>
+        <a href="#locate">Write to your local optician →</a>
       </div>
       <div class="handoff__item">
         <div class="num">02</div>
         <h4>National</h4>
-        <a href="#" aria-disabled="true" title="Coming soon">Take a stand →</a>
+        <a href="#" aria-disabled="true" title="Coming soon">Write to a national retailer →</a>
+        <span class="handoff__soon">Coming soon</span>
       </div>
       <div class="handoff__item">
         <div class="num">03</div>
         <h4>Political</h4>
-        <a href="#" aria-disabled="true" title="Coming soon">Contact your MP →</a>
+        <a href="#" aria-disabled="true" title="Coming soon">Write to your MP →</a>
+        <span class="handoff__soon">Coming soon</span>
       </div>
       <div class="handoff__item">
         <div class="num">04</div>
         <h4>Venues</h4>
-        <a href="#" aria-disabled="true" title="Coming soon">Ask a venue →</a>
+        <a href="#" aria-disabled="true" title="Coming soon">Write to a venue →</a>
+        <span class="handoff__soon">Coming soon</span>
       </div>
       <div class="handoff__item">
         <div class="num">05</div>
         <h4>Petition</h4>
-        <a href="#petition">Sign now →</a>
+        <a href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">Sign the petition →</a>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">
-    <p>Built as a community toolkit. Claims sourced from BBC News reporting (Feb &amp; May 2026) and petition.parliament.uk, checked as of August 2026.</p>
-    <p class="attribution">Created by Liz Hunter — independent UK &amp; Ireland privacy campaign.</p>
-    <p class="open-source-note">This campaign site was designed to be copied. <a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Copy the code</a> and build your own country's version.</p>
+  <div class="wrap footer__top">
+    <div class="footer__identity">
+      <p class="footer__mark">Ban Meta Glasses</p>
+      <p class="footer__tagline">Stop smart glasses before they become normal.</p>
+      <p class="footer__desc">An independent UK &amp; Ireland privacy campaign created by Liz Hunter.</p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#take-action">Take action</a>
+        <a href="#why-this-matters">Why this matters</a>
+        <a href="#" aria-disabled="true" title="Coming in a later build phase">Resources</a>
+        <a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version</a>
+        <a href="#" aria-disabled="true" title="Coming in a later build phase">About</a>
+        <a href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">Sign the petition</a>
+      </nav>
+      <p class="footer__statement">The database shows where they're sold. The campaign gives people the tools to act.</p>
+    </div>
+    <div class="footer__replicate">
+      <p class="footer__replicate-label">Create your version</p>
+      <p class="footer__replicate-copy">This starts in the UK and Ireland. But the website is open source — designed to be copied and adapted by anyone who wants to launch Ban Meta Glasses in their country.</p>
+      <a class="footer__replicate-cta" href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version →</a>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <p>Press: <a href="mailto:press@banmetaglasses.com">press@banmetaglasses.com</a></p>
+    <p>Ban Meta Glasses is an independent campaign and is not affiliated with, endorsed by or associated with Meta or Ray-Ban.</p>
+    <p>&copy; 2026 Ban Meta Glasses</p>
   </div>
 </footer>
 
@@ -892,58 +1025,130 @@ function displayName(chainName, branchName) {
   return `${chainName} — ${branchName}`;
 }
 
-function buildMessageTemplate(name) {
-  return `Subject: Please stop selling camera-equipped smart glasses
+// Locked Email 2 template (outreach/EMAIL-TEMPLATES.md), verbatim. Only the
+// salutation name and the campaign-website link are substituted — the
+// [Your name] sign-off is left for the supporter to fill in themselves.
+const EMAIL2_SUBJECT = 'Please stop selling camera-equipped smart glasses';
+const CAMPAIGN_URL = 'https://banmetaglasses.com';
 
-Dear ${name},
-
-I'm asking you to stop selling camera-equipped smart glasses, including Ray-Ban Meta glasses.
-
-[Working placeholder — the locked Email 2 template from outreach/EMAIL-TEMPLATES.md is not yet wired into this prototype.]
-
-Yours Sincerely,
-[Your name]`;
+function buildMessageParagraphs(name) {
+  return [
+    `Dear ${name},`,
+    `I'm asking you to stop selling camera-equipped smart glasses, including Ray-Ban Meta glasses.`,
+    `As a local optician, you're an important part of your high street and community. You may have known some of your customers and their families for years. People trust you with their sight, their health and the products you recommend.`,
+    `So why sell a device that can be used to record those same customers – and other people in your community – without their knowledge or consent?`,
+    `Smart glasses allow people to film those around them without holding up a phone or camera. The person buying the glasses chooses to wear a camera on their face. The people around them get no such choice.`,
+    `Women. Children. Older people. People with disabilities. Vulnerable people. Your customers, their families and your neighbours.`,
+    `And the danger isn't hypothetical. Smart glasses have already been linked to cases involving non-consensual intimate recording, sextortion and blackmail:`,
+    `Non-consensual intimate recording:\nhttps://www.telegraph.co.uk/news/2026/01/09/man-smart-glasses-illegally-record-sex-spared-jail/`,
+    `Sextortion:\nhttps://www.ubergizmo.com/2026/05/can-smart-glasses-be-used-for-extortion/`,
+    `Blackmail:\nhttps://www.bbc.co.uk/news/articles/cwy87wqz0q9o`,
+    `A small recording light is not an adequate safeguard. Cheap stickers capable of obscuring LED lights are readily available.`,
+    `Meta has already helped put millions of camera-equipped glasses into circulation, and other technology companies are developing smart eyewear of their own. We need to stop cameras worn on people's faces becoming normal.`,
+    `Your business is built around helping people see clearly.`,
+    `We're asking you to open your eyes to the dangers of camera-equipped smart glasses – and stop selling them.`,
+    `Protect the trust your community places in you. Don't help normalise a technology that allows people to record others without their knowledge or consent.`,
+    `You can read more about the campaign and the evidence behind it here: ${CAMPAIGN_URL}`,
+    `Yours Sincerely,`,
+    `[Your name]`,
+  ];
 }
 
-function mailtoUrl(text, recipient) {
-  const lines = text.split('\n');
-  const subjectLine = lines[0].replace(/^Subject:\s*/i, '');
-  const body = lines.slice(1).join('\n').trim();
+function mailtoUrl(subject, body, recipient) {
   const to = recipient ? encodeURIComponent(recipient) : '';
-  return `mailto:${to}?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(body)}`;
+  return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+// Chain-level contact routes, from the campaign owner's researched contact
+// map (UX-ARCHITECTURE.md, 17 Aug 2026). The branch-level dataset only
+// carries branch_page URLs (evidence a branch stocks Ray-Ban Meta, not a
+// campaigning contact route) — this overrides with a verified chain-level
+// email or contact page where one exists. Never invented or guessed from a
+// domain name; only chains with a documented, verified route are listed.
+const CHAIN_CONTACTS = {
+  'david-clulow': { type: 'email', value: 'info@davidclulow.com' },
+  // John Lewis's optician service is operated as David Clulow in-store, so
+  // it inherits David Clulow's verified route rather than an unverified
+  // John Lewis governance/CSR address.
+  'john-lewis': { type: 'email', value: 'info@davidclulow.com' },
+  'vision-express': { type: 'email', value: 'customer.care@visionexpress.com' },
+  'ray-ban': { type: 'contact_form', url: 'https://www.ray-ban.com/uk/contact-us' },
+};
+
+function resolveContact(stockist) {
+  return CHAIN_CONTACTS[stockist.chain.slug] || stockist.contact || {};
+}
+
+function currentBodyText(doc) {
+  return [...doc.querySelectorAll('p')].map((p) => p.textContent).join('\n\n');
 }
 
 function renderMessagePanel(stockist) {
   const name = displayName(stockist.chain.name, stockist.branchName);
-  const text = buildMessageTemplate(name);
-  const contact = stockist.contact || {};
+  const paragraphs = buildMessageParagraphs(name);
+  const contact = resolveContact(stockist);
 
   messagePanel.innerHTML = '';
   messagePanel.hidden = false;
 
   const heading = document.createElement('h3');
-  heading.textContent = `Message to ${name}`;
+  heading.textContent = `Write to ${name}`;
   messagePanel.appendChild(heading);
 
-  const label = document.createElement('label');
-  label.className = 'field-label visually-hidden';
-  label.setAttribute('for', 'finderMessageBody');
-  label.textContent = 'Message text';
-  messagePanel.appendChild(label);
+  const meta = document.createElement('div');
+  meta.className = 'email-meta';
+  const toRow = document.createElement('div');
+  toRow.className = 'email-meta__row';
+  toRow.innerHTML = `<span>To</span> <strong>${
+    contact.type === 'email' && contact.value ? contact.value : 'No verified direct contact — see below'
+  }</strong>`;
+  meta.appendChild(toRow);
+  const subjectRow = document.createElement('div');
+  subjectRow.className = 'email-meta__row';
+  subjectRow.innerHTML = `<span>Subject</span> <strong>${EMAIL2_SUBJECT}</strong>`;
+  meta.appendChild(subjectRow);
+  messagePanel.appendChild(meta);
 
-  const textarea = document.createElement('textarea');
-  textarea.id = 'finderMessageBody';
-  textarea.value = text;
-  messagePanel.appendChild(textarea);
+  const doc = document.createElement('div');
+  doc.className = 'email-doc';
+  doc.id = 'finderMessageBody';
+  doc.setAttribute('contenteditable', 'false');
+  doc.setAttribute('role', 'textbox');
+  doc.setAttribute('aria-label', 'Email message — read the full text below');
+  paragraphs.forEach((para) => {
+    const p = document.createElement('p');
+    p.textContent = para;
+    doc.appendChild(p);
+  });
+  messagePanel.appendChild(doc);
+
+  if (contact.type !== 'email' && contact.type !== 'contact_form') {
+    const note = document.createElement('p');
+    note.className = 'email-note';
+    note.textContent = "We don't yet have a verified direct email or contact form for this branch, so here's their branch page instead — you can paste the copied message there or get in touch by phone.";
+    messagePanel.appendChild(note);
+  }
 
   const btnRow = document.createElement('div');
   btnRow.className = 'btn-row';
 
+  if (contact.type === 'email' && contact.value) {
+    const emailBtn = document.createElement('button');
+    emailBtn.type = 'button';
+    emailBtn.textContent = 'Email this optician →';
+    emailBtn.addEventListener('click', () => {
+      window.location.href = mailtoUrl(EMAIL2_SUBJECT, currentBodyText(doc), contact.value);
+      reportHit('retailer_action_started');
+    });
+    btnRow.appendChild(emailBtn);
+  }
+
   const copyBtn = document.createElement('button');
   copyBtn.type = 'button';
+  copyBtn.className = 'secondary';
   copyBtn.textContent = 'Copy message';
   copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(textarea.value).then(() => {
+    navigator.clipboard.writeText(currentBodyText(doc)).then(() => {
       copiedMsg.classList.add('show');
       setTimeout(() => copiedMsg.classList.remove('show'), 1800);
     });
@@ -951,33 +1156,46 @@ function renderMessagePanel(stockist) {
   });
   btnRow.appendChild(copyBtn);
 
-  if (contact.type === 'email' && contact.value) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'secondary';
-    btn.textContent = 'Open in email app';
-    btn.addEventListener('click', () => {
-      window.location.href = mailtoUrl(textarea.value, contact.value);
-      reportHit('retailer_action_started');
-    });
-    btnRow.appendChild(btn);
-  } else if ((contact.type === 'contact_form' || contact.type === 'branch_page' || contact.type === 'central_contact') && contact.url) {
+  const editBtn = document.createElement('button');
+  editBtn.type = 'button';
+  editBtn.className = 'secondary';
+  editBtn.textContent = 'Edit message';
+  editBtn.addEventListener('click', () => {
+    const editing = doc.getAttribute('contenteditable') === 'true';
+    doc.setAttribute('contenteditable', String(!editing));
+    doc.classList.toggle('email-doc--editing', !editing);
+    editBtn.textContent = editing ? 'Edit message' : 'Done editing';
+    if (!editing) doc.focus();
+  });
+  btnRow.appendChild(editBtn);
+
+  if (contact.type === 'contact_form' && contact.url) {
     const btn = document.createElement('a');
     btn.className = 'link-btn';
     btn.href = contact.url;
     btn.target = '_blank';
     btn.rel = 'noopener';
-    btn.textContent =
-      contact.type === 'contact_form' ? 'Open contact form ↗' : contact.type === 'branch_page' ? 'Visit branch page ↗' : "Visit retailer's contact page ↗";
+    btn.textContent = 'Open contact form ↗';
     btn.addEventListener('click', () => reportHit('retailer_action_started'));
     btnRow.appendChild(btn);
-  } else if (contact.phone) {
-    const btn = document.createElement('a');
-    btn.className = 'link-btn';
-    btn.href = `tel:${contact.phone.replace(/\s+/g, '')}`;
-    btn.textContent = `Call this branch — ${contact.phone}`;
-    btn.addEventListener('click', () => reportHit('retailer_action_started'));
-    btnRow.appendChild(btn);
+  } else if (contact.type !== 'email') {
+    if ((contact.type === 'branch_page' || contact.type === 'central_contact') && contact.url) {
+      const btn = document.createElement('a');
+      btn.className = 'link-btn';
+      btn.href = contact.url;
+      btn.target = '_blank';
+      btn.rel = 'noopener';
+      btn.textContent = 'Visit branch page ↗';
+      btn.addEventListener('click', () => reportHit('retailer_action_started'));
+      btnRow.appendChild(btn);
+    } else if (contact.phone) {
+      const btn = document.createElement('a');
+      btn.className = 'link-btn';
+      btn.href = `tel:${contact.phone.replace(/\s+/g, '')}`;
+      btn.textContent = `Call this branch — ${contact.phone}`;
+      btn.addEventListener('click', () => reportHit('retailer_action_started'));
+      btnRow.appendChild(btn);
+    }
   }
 
   messagePanel.appendChild(btnRow);
@@ -1027,7 +1245,7 @@ function renderCard(stockist) {
 
   const actionBtn = document.createElement('button');
   actionBtn.type = 'button';
-  actionBtn.textContent = 'Ask this retailer to stop';
+  actionBtn.textContent = 'Write to your local optician →';
   actionBtn.addEventListener('click', () => {
     reportHit('stockist_selected');
     renderMessagePanel(stockist);
@@ -1101,6 +1319,25 @@ form.addEventListener('submit', (e) => {
   }
   runSearch(postcode);
 });
+</script>
+<script>
+(function(){
+  var btn = document.getElementById('navToggle');
+  var menu = document.getElementById('navMobileMenu');
+  if(!btn || !menu) return;
+  btn.addEventListener('click', function(){
+    var willOpen = menu.hidden;
+    menu.hidden = !willOpen;
+    btn.setAttribute('aria-expanded', String(willOpen));
+  });
+  menu.addEventListener('click', function(e){
+    var link = e.target.closest('a');
+    if(link && link.getAttribute('aria-disabled') !== 'true'){
+      menu.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
 </script>
 </body>
 </html>
