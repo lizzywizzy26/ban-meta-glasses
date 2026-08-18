@@ -514,6 +514,8 @@ body.modal-open{overflow:hidden;}
   max-width:62ch;
 }
 .forward-note{font-size:13.5px;color:var(--muted);border-left:3px solid var(--violet);padding-left:14px;margin-top:24px;max-width:46ch;}
+.section-cta{display:inline-block;font-size:15px;font-weight:600;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:3px;margin-top:8px;}
+.section-cta:hover{color:var(--violet);border-color:var(--violet);}
 
 /* ---------- action composition (v2) ----------
    Rebuilt as one asymmetric editorial arrangement rather than a repeated
@@ -862,20 +864,20 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
   <div class="wrap">
     <div class="finder-intro">
       <p class="eyebrow-label">Local action</p>
-      <h2 class="section-title">This is being sold near you.</h2>
-      <p class="section-lede">Not somewhere else. Not in theory. Enter your postcode (UK) or town/city (Ireland) and see the verified sellers nearest you — <mark class="highlight">checked against the retailer's own website</mark>, not a guess.</p>
-      <p class="forward-note">Once you've found a seller, the full contact flow continues in Take action — this page is about making the issue tangible where you live, not embedding every tool here.</p>
+      <h2 class="section-title">They're being sold on our high streets.</h2>
+      <p class="section-lede">Enter your postcode or town to find smart-glasses stockists near you. Then ask them to stop selling them.</p>
+      <p class="section-lede">Every location in our database has been checked against the retailer's own&nbsp;website.</p>
     </div>
 
     <div class="finder-panel">
-      <h3>Find sellers near you</h3>
-      <p>Real, working search — connected to the live verified-stockist database.</p>
+      <h3>Find where they're sold near you</h3>
+      <p>Enter a UK postcode or a town/city in&nbsp;Ireland.</p>
       <form id="finderForm" class="finder-form">
         <label class="visually-hidden" for="postcodeInput">Your postcode (UK) or town/city (Ireland)</label>
         <input type="text" id="postcodeInput" placeholder="e.g. SW1A 1AA or Cork" autocomplete="postal-code" inputmode="text">
-        <button type="submit" id="finderSubmitBtn">Find sellers near me</button>
+        <button type="submit" id="finderSubmitBtn">Find where they're sold →</button>
       </form>
-      <p class="finder-hint">Ireland search is by town/city for now — exact Eircode search isn't supported yet.</p>
+      <p class="finder-hint">In Ireland? Search by town or city.</p>
       <p class="finder-status" id="finderStatus" role="status" aria-live="polite"></p>
       <div class="finder-results" id="finderResults"></div>
     </div>
@@ -889,9 +891,11 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
   <div class="wrap bigger-band">
     <div>
       <p class="eyebrow-label">The wider picture</p>
-      <h2 class="section-title">Meta is the ringleader. But the problem is bigger than them.</h2>
-      <p class="section-lede">Meta made cameras worn on people's faces a mainstream consumer product. They're not alone — the wider technology industry is moving into smart eyewear. If we wait until recording-enabled glasses are everywhere, we'll have waited too long.</p>
-      <p class="forward-note">A fuller, evidenced picture of the wider smart-glasses industry is coming to a dedicated page — not listed here yet.</p>
+      <h2 class="section-title">Meta has opened the&nbsp;floodgates.</h2>
+      <p class="section-lede">Meta is the ringleader and the immediate campaign target. But the problem is bigger than them&nbsp;now.</p>
+      <p class="section-lede">Cameras worn on faces are on their way to becoming an ordinary part of everyday life. The question is whether we allow that to happen without a proper public debate about where the line should be drawn.</p>
+      <p class="section-lede">The price of innovation shouldn't be your right to privacy. Tech companies shouldn't get to decide where society draws the&nbsp;line.</p>
+      <a class="section-cta" href="/resources/#wider-industry">See the wider picture →</a>
     </div>
   </div>
 </section>
@@ -1177,9 +1181,9 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
   <div class="wrap">
     <div>
       <p class="eyebrow-label">Why now</p>
-      <h2>We allowed social media to race ahead of&nbsp;regulation.<br>We dealt with the harms&nbsp;afterwards.</h2>
-      <p>Only after serious damage to children, privacy and public safety became impossible to ignore did governments begin trying to catch up. We shouldn't repeat that mistake with cameras worn on people's faces.</p>
-      <p><mark class="highlight">We do not need another generation to be the evidence.</mark></p>
+      <h2>We allowed social media to race ahead of&nbsp;regulation.<br>We dealt with the harm&nbsp;afterwards.</h2>
+      <p>Children and young people paid the price while governments struggled to catch up. Now face-worn cameras bring new risks to privacy, safety and safeguarding, while the law is once again lagging behind the&nbsp;technology.</p>
+      <p><mark class="highlight">We do not want another damaged generation to be the evidence.</mark></p>
       <div class="evidence-strip">BBC News, May &amp; Feb 2026 · Home Secretary Shabana Mahmood: this "will not be tolerated" · 49% of Britons support a public-space ban (March 2026 poll)</div>
     </div>
   </div>
