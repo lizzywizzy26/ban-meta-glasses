@@ -402,23 +402,22 @@ textarea{width:100%;min-height:180px;font-family:var(--sans);font-size:13.5px;li
   z-index:-1;
 }
 
+/* Four targeted actions, locked equal status: a true 2x2, each card the
+   same fixed aspect-ratio (so equal footprint is guaranteed by
+   construction, not by tuning four different contents to match) and the
+   same 62/38 photo-to-text split for every photographic action. National
+   fills the identical footprint with a horizontal graphic composition
+   instead of a photo — same size, different substance, which is the
+   point: equal status, not identical cards. */
 .action-composition{
   display:grid;
-  grid-template-columns:repeat(12,1fr);
-  grid-template-rows:auto auto;
-  column-gap:30px;
-  row-gap:36px;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
   margin-top:44px;
 }
 @media (max-width:900px){
-  .action-composition{grid-template-columns:1fr;grid-template-rows:none;row-gap:44px;}
-  .action-item{grid-column:auto !important;grid-row:auto !important;}
+  .action-composition{grid-template-columns:1fr;}
 }
-.action-item--local{grid-column:1/6;grid-row:1/2;}
-.action-item--national{grid-column:6/8;grid-row:1/2;}
-.action-item--political{grid-column:8/13;grid-row:1/2;}
-.action-item--venues{grid-column:1/13;grid-row:2/3;}
-
 .action-item{
   display:flex;
   flex-direction:column;
@@ -427,29 +426,30 @@ textarea{width:100%;min-height:180px;font-family:var(--sans);font-size:13.5px;li
 }
 .action-item[aria-disabled="true"]{cursor:default;}
 
-/* Local + Political — photo as figure, caption directly beneath it,
-   no card padding, so the photograph itself reads as the object rather
-   than content trapped inside a box. */
-.action-item__photo{display:block;overflow:hidden;background:var(--cream-shade);}
+/* Photo gets its own fixed aspect-ratio (not a percentage of the card),
+   so every photographic action renders the same image height at a given
+   column width regardless of how much its own copy wraps — equal
+   footprint without a total-card height that could clip overflowing
+   text at narrower breakpoints. */
+.action-item__photo{display:block;aspect-ratio:4/3;overflow:hidden;background:var(--cream-shade);}
 .action-item__photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
 .action-item:hover .action-item__photo img{transform:scale(1.045);}
-.action-item--local .action-item__photo{aspect-ratio:3/4;}
-.action-item--political .action-item__photo{aspect-ratio:1/1;}
-.action-item__text{padding:20px 2px 0;}
-.action-item__num{display:block;font-family:var(--serif);font-size:12.5px;font-weight:700;color:var(--violet);margin-bottom:10px;}
+.action-item__text{flex:1 1 auto;padding:18px 2px 0;display:flex;flex-direction:column;}
+.action-item__num{display:block;font-family:var(--serif);font-size:12.5px;font-weight:700;color:var(--violet);margin-bottom:8px;}
 .action-item__headline{
   display:block;
   font-family:var(--serif);
   font-weight:700;
-  font-size:clamp(19px,1.7vw,23px);
+  font-size:clamp(19px,1.6vw,23px);
   line-height:1.14;
-  margin-bottom:8px;
+  margin-bottom:6px;
   color:var(--ink);
 }
-.action-item__sub{display:block;font-size:13.5px;color:var(--muted);max-width:26ch;margin-bottom:14px;}
+.action-item__sub{display:block;font-size:13.5px;color:var(--muted);max-width:30ch;margin-bottom:auto;}
 .action-item__cta{
   display:inline-block;
   align-self:flex-start;
+  margin-top:12px;
   font-size:13.5px;
   font-weight:700;
   border-bottom:1px solid var(--ink);
@@ -458,14 +458,19 @@ textarea{width:100%;min-height:180px;font-family:var(--sans);font-size:13.5px;li
 .action-item:hover .action-item__cta{color:var(--violet);border-color:var(--violet);}
 .action-item__note{display:block;font-size:11px;color:var(--muted);margin-top:6px;}
 
-/* National — a narrow violet poster-spine standing between the two
-   photographs. Oversized type is the image here; yellow touches the
-   one word that matters ("retailers") and the CTA's underline. */
+/* National — same card footprint as the other three, filled edge to
+   edge with a horizontal graphic composition instead of a photo.
+   Oversized type is the image here; yellow touches the one word that
+   matters ("retailers") and the CTA's underline. */
 .action-item--national{
   background:var(--violet);
   color:var(--cream);
-  padding:28px 24px 26px;
-  justify-content:flex-start;
+  padding:26px 28px 24px;
+  justify-content:space-between;
+  min-height:410px;
+}
+@media (max-width:900px){
+  .action-item--national{min-height:400px;}
 }
 .action-item--national:hover{background:var(--violet-deep);}
 .action-item--national .action-item__num{color:var(--yellow);margin-bottom:0;}
@@ -473,35 +478,22 @@ textarea{width:100%;min-height:180px;font-family:var(--sans);font-size:13.5px;li
   display:block;
   font-family:var(--serif);
   font-weight:700;
-  font-size:clamp(18px,2vw,22px);
-  line-height:1.14;
+  font-size:clamp(26px,2.6vw,34px);
+  line-height:1.08;
   color:var(--cream);
-  margin:22px 0 24px;
+  margin:14px 0;
   overflow-wrap:break-word;
 }
-.action-item--national .action-item__sub{color:#d9d0fb;font-size:13px;max-width:19ch;margin-bottom:16px;}
-.action-item--national .action-item__cta{color:var(--cream);border-bottom-color:var(--yellow);}
+.action-item--national .action-item__sub{color:#d9d0fb;font-size:13.5px;max-width:34ch;margin-bottom:0;}
+.action-item--national .action-item__cta{color:var(--cream);border-bottom-color:var(--yellow);margin-top:16px;}
 .action-item--national:hover .action-item__cta{color:var(--yellow);border-bottom-color:var(--yellow);}
 .action-item--national .action-item__note{color:#c3b5f5;}
 
-/* Venues — full-width dramatic band; the photo dominates almost the
-   entire block and the copy sits in a lean strip beneath it, headline
-   and CTA side by side rather than stacked, so it reads differently
-   from Local/Political's caption pattern. */
-.action-item--venues .action-item__photo{aspect-ratio:16/9;}
-.action-item--venues .action-item__photo img{object-position:40% 38%;transform:scale(1.1);}
-.action-item--venues:hover .action-item__photo img{transform:scale(1.14);}
-.venues-footer{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  flex-wrap:wrap;
-  gap:20px;
-  padding-top:22px;
-}
-.venues-footer .action-item__headline{font-size:clamp(23px,2.2vw,29px);margin-bottom:6px;}
-.venues-footer .action-item__sub{margin-bottom:0;max-width:34ch;}
-.venues-footer__action{text-align:right;}
+/* Venues — same card footprint and 62/38 photo split as Local/Political;
+   crop stays confident and tightly scaled so the refusal gesture still
+   reads with real presence at this size. */
+.action-item--venues .action-item__photo img{transform:scale(1.12);}
+.action-item--venues:hover .action-item__photo img{transform:scale(1.18);}
 
 /* Petition — a short, wide, high-impact band that interrupts the
    composition, rather than a tall rail. Prominence comes from position
@@ -748,7 +740,7 @@ footer .open-source-note a{color:var(--violet);text-decoration:underline;}
 
       <a class="action-item action-item--national" href="#" aria-disabled="true" title="Focused National action page — coming in the Take action hub">
         <span class="action-item__num">02</span>
-        <span class="action-item__poster-headline">Email<br>national<br><span class="ink-wash">retailers</span></span>
+        <span class="action-item__poster-headline">Email national <span class="ink-wash">retailers</span></span>
         <span class="action-item__sub">Ask major retailers to stop selling smart glasses</span>
         <span class="action-item__cta">Choose a retailer →</span>
         <span class="action-item__note">Coming soon</span>
@@ -771,18 +763,14 @@ footer .open-source-note a{color:var(--violet);text-decoration:underline;}
         <span class="action-item__photo">
           <img src="../assets/wassim-chouak-bw-v1.jpg" alt="A young man holds his palm up directly at the camera, face obscured, in a clear gesture of refusal." style="object-position:40% 38%;">
         </span>
-        <span class="venues-footer">
-          <span class="venues-footer__text">
-            <span class="action-item__headline">Email a venue</span>
-            <span class="action-item__sub">Ask venues to ban cameras worn on faces</span>
-          </span>
-          <span class="venues-footer__action">
-            <span class="action-item__cta">Contact a venue →</span>
-            <span class="action-item__note">Coming soon</span>
-          </span>
+        <span class="action-item__text">
+          <span class="action-item__num">04</span>
+          <span class="action-item__headline">Email a venue</span>
+          <span class="action-item__sub">Ask venues to ban cameras worn on faces.</span>
+          <span class="action-item__cta">Contact a venue →</span>
+          <span class="action-item__note">Coming soon</span>
         </span>
       </a>
-
     </div>
   </div>
 </section>
