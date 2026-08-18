@@ -753,7 +753,7 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
         <a class="btn btn--yellow btn--primary" href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">Sign the petition →</a>
         <a class="hero__cta-secondary" href="#take-action">Take action →</a>
       </div>
-      <p class="hero__social-proof"><strong>5,399</strong> people have signed</p>
+      <p class="hero__social-proof"><strong id="petitionCountHero">5,399</strong> people have signed</p>
       <div class="hero__status">
         <div><strong>Closes</strong> 9 December 2026</div>
         <div><strong>Documented:</strong> ~50 women identified as filmed without knowledge</div>
@@ -817,7 +817,7 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
         <span class="petition-band__sub">Add your name to the campaign asking for an immediate ban on the sale and promotion of smart glasses</span>
       </span>
       <span class="petition-band__stat">
-        <span class="petition-band__count"><strong>5,399</strong><span class="petition-band__count-of">/ 10,000 signed</span></span>
+        <span class="petition-band__count"><strong id="petitionCountBand">5,399</strong><span class="petition-band__count-of">/ 10,000 signed</span></span>
         <span class="petition-band__meta">Closes 9 December 2026</span>
       </span>
       <span class="petition-band__cta">Sign the petition →</span>
@@ -1333,6 +1333,27 @@ form.addEventListener('submit', (e) => {
       btn.setAttribute('aria-expanded', 'false');
     }
   });
+})();
+</script>
+<script>
+// Live petition signature count. Fetches the real-time figure from
+// Parliament's own public JSON representation of the petition on every
+// page load — this is the number actually shown to visitors, not a
+// scheduled/cached refresh, so it can't go stale between updates. The
+// hardcoded "5,399" in the HTML is only a no-JS/fetch-failure fallback.
+(function(){
+  fetch('https://petition.parliament.uk/petitions/769206.json')
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      var count = data && data.data && data.data.attributes && data.data.attributes.signature_count;
+      if (!count) return;
+      var formatted = Number(count).toLocaleString('en-GB');
+      var hero = document.getElementById('petitionCountHero');
+      var band = document.getElementById('petitionCountBand');
+      if (hero) hero.textContent = formatted;
+      if (band) band.textContent = formatted;
+    })
+    .catch(function(){ /* leave the static fallback count in place */ });
 })();
 </script>
 </body>
