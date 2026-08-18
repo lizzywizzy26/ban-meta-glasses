@@ -29,7 +29,13 @@ a{color:inherit;}
 /* ---------- nav (matches homepage) ---------- */
 .site-nav{padding:20px 0;}
 .site-nav__row{display:flex;align-items:center;justify-content:space-between;width:100%;gap:20px;}
-.site-nav__mark{font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:-.01em;white-space:nowrap;color:var(--ink);text-decoration:none;flex:0 0 auto;}
+.site-nav__wordmark{display:block;text-decoration:none;color:var(--ink);flex:0 0 auto;line-height:1;}
+.wm-top{display:flex;align-items:center;gap:4px;}
+.wm-ban{display:inline-block;font-family:var(--serif);font-weight:700;font-size:38px;line-height:0.85;letter-spacing:-.01em;}
+.wm-glasses{width:41px;height:auto;flex:0 0 auto;display:block;}
+.wm-sub{display:block;font-family:var(--serif);font-weight:700;font-size:13px;line-height:1.05;letter-spacing:.04em;margin-top:3px;color:var(--ink);white-space:nowrap;}
+.ink-wash{position:relative;z-index:0;display:inline-block;color:var(--ink);white-space:nowrap;}
+.ink-wash::before{content:"";position:absolute;inset:-0.1em -0.06em -0.16em -0.04em;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 140' preserveAspectRatio='none'%3E%3Cpath d='M3,26 C55,6 120,32 190,14 C270,-6 350,24 430,9 C500,-4 560,18 597,15 L598,112 C545,132 480,102 410,120 C335,140 250,108 175,124 C110,138 45,116 3,120 Z' fill='%23FFDB00'/%3E%3C/svg%3E");background-repeat:no-repeat;background-size:100% 100%;transform:rotate(-1deg);z-index:-1;}
 .site-nav__links{display:flex;align-items:center;gap:20px;list-style:none;margin:0;padding:0;flex:1 1 auto;justify-content:center;}
 .site-nav__links a{font-size:13px;white-space:nowrap;text-decoration:none;color:var(--ink);border-bottom:1px solid transparent;padding-bottom:2px;}
 .site-nav__links a:hover{border-bottom-color:var(--violet);}
@@ -47,7 +53,10 @@ a{color:inherit;}
 .site-nav__toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
 .site-nav__mobile-menu{display:none;}
 @media (max-width:900px){
-  .site-nav__mark{font-size:11px;white-space:normal;}
+  .wm-ban{font-size:24px;}
+  .wm-glasses{width:26px;}
+  .wm-top{gap:3px;}
+  .wm-sub{font-size:9px;margin-top:2px;}
   .site-nav__links{display:none;}
   .site-nav__toggle{display:flex;}
   .site-nav__mobile-menu{flex-direction:column;background:var(--cream);border-top:1px solid var(--line);margin-top:20px;}
@@ -114,7 +123,21 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
 
 <nav class="site-nav">
   <div class="wrap site-nav__row">
-    <a class="site-nav__mark" href="/">Ban Smart Glasses</a>
+    <a class="site-nav__wordmark" href="/" aria-label="Ban Smart Glasses — homepage">
+      <span class="wm-top">
+        <span class="wm-ban ink-wash">BAN</span>
+        <svg class="wm-glasses" viewBox="0 0 128 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="14" y="14" width="38" height="28" rx="7" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+          <rect x="76" y="14" width="38" height="28" rx="7" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+          <path d="M52 24 H76" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+          <path d="M14 22 L2 16" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+          <path d="M114 22 L126 16" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+          <path d="M99,9 C106,6 113,8 115,13 C117,18 114,22 108,23 C102,24 97,21 96,16 C95,12 96,11 99,9 Z" fill="#FFDB00"/>
+          <circle cx="106" cy="16" r="3.4" fill="#1a1a1a"/>
+        </svg>
+      </span>
+      <span class="wm-sub">SMART&nbsp;GLASSES</span>
+    </a>
     <ul class="site-nav__links">
       <li><a href="/#take-action">Take action</a></li>
       <li><a href="/#why-this-matters">Why this matters</a></li>
