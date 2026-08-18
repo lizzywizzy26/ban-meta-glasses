@@ -413,6 +413,13 @@ mark.highlight{
 .email-doc p:last-child{margin-bottom:0;}
 .email-doc--editing{border-color:var(--violet);outline:2px solid var(--violet);outline-offset:2px;background:#fff;}
 .email-note{font-size:13px;color:var(--muted);max-width:52ch;margin:12px 0 0;}
+.static-action{max-width:800px;margin:56px 0 0;padding-top:40px;border-top:1px solid var(--line);}
+.static-action:first-of-type{margin-top:56px;}
+.static-action h3{font-family:var(--serif);font-weight:700;font-size:clamp(21px,2.2vw,26px);margin:0 0 12px;}
+.static-action__intro{font-size:15px;line-height:1.55;color:var(--muted);max-width:64ch;margin:0 0 28px;}
+.static-action__group{margin:0 0 40px;}
+.static-action__group:last-child{margin-bottom:0;}
+.static-action__group h4{font-family:var(--serif);font-weight:700;font-size:17px;margin:0 0 12px;color:var(--violet);}
 .field-label{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;display:block;margin-bottom:6px;}
 .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 .copied-msg{font-size:12.5px;color:var(--violet-deep);font-weight:700;margin-left:4px;opacity:0;transition:opacity .2s;}
@@ -835,15 +842,14 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
         </span>
       </a>
 
-      <a class="action-item action-item--national" href="#" aria-disabled="true" title="Focused National action page — coming in the Take action hub">
+      <a class="action-item action-item--national" href="#national-action">
         <span class="action-item__num">02</span>
         <span class="action-item__poster-headline">Email national <span class="ink-wash">retailers</span></span>
         <span class="action-item__sub">Ask major retailers to stop selling smart glasses</span>
         <span class="action-item__cta">Write to a national retailer →</span>
-        <span class="action-item__note">Coming soon</span>
       </a>
 
-      <a class="action-item action-item--political" href="#" aria-disabled="true" title="Focused Political action page — coming in the Take action hub">
+      <a class="action-item action-item--political" href="#mp-action">
         <span class="action-item__photo">
           <img src="../assets/tommao-wang-bw-v1.jpg" alt="An adult holds a young child close on public transport." style="object-position:28% 38%;">
         </span>
@@ -852,11 +858,10 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
           <span class="action-item__headline">Email your MP</span>
           <span class="action-item__sub">Ask your MP to act before smart glasses become normal</span>
           <span class="action-item__cta">Write to your MP →</span>
-          <span class="action-item__note">Coming soon</span>
         </span>
       </a>
 
-      <a class="action-item action-item--venues" href="#" aria-disabled="true" title="Focused Venues action page — coming in the Take action hub">
+      <a class="action-item action-item--venues" href="#premises-action">
         <span class="action-item__photo">
           <img src="../assets/wassim-chouak-bw-v1.jpg" alt="A young man holds his palm up directly at the camera, face obscured, in a clear gesture of refusal." style="object-position:40% 38%;">
         </span>
@@ -865,9 +870,193 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
           <span class="action-item__headline">Email a premises</span>
           <span class="action-item__sub">Ask venues to ban cameras worn on faces.</span>
           <span class="action-item__cta">Write to a premises →</span>
-          <span class="action-item__note">Coming soon</span>
         </span>
       </a>
+    </div>
+
+    <div class="static-action" id="national-action">
+      <h3>Write to a national retailer</h3>
+      <p class="static-action__intro">Choose a retailer we've verified a real contact route for. Each message below is the campaign's approved national-retailer template, addressed to that retailer.</p>
+      <div class="static-action__group">
+        <h4>David Clulow</h4>
+        <div class="email-meta">
+          <div class="email-meta__row"><span>To</span> <strong>info@davidclulow.com</strong></div>
+          <div class="email-meta__row"><span>Subject</span> <strong>Please stop selling camera-equipped smart glasses</strong></div>
+        </div>
+        <div class="email-doc" id="retailerBodyDavidClulow">
+          <p>Dear David Clulow,</p>
+          <p>I'm asking you to stop selling camera-equipped smart glasses, including Ray-Ban Meta glasses.</p>
+          <p>As a major national optician, what you choose to stock matters. Your stores, website, advertising and reputation don't just respond to consumer trends – they help create them.</p>
+          <p>By selling camera-equipped smart glasses, you are helping normalise a technology that allows people to film those around them without holding up a phone or camera. The people being filmed can have no idea it's happening.</p>
+          <p>The person buying the glasses chooses to wear a camera on their face. Everyone around them gets no such choice.</p>
+          <p>And the danger isn't hypothetical. Smart glasses have already been linked to cases involving non-consensual intimate recording, sextortion and blackmail:</p>
+          <p>Non-consensual intimate recording:<br>https://www.telegraph.co.uk/news/2026/01/09/man-smart-glasses-illegally-record-sex-spared-jail/</p>
+          <p>Sextortion:<br>https://www.ubergizmo.com/2026/05/can-smart-glasses-be-used-for-extortion/</p>
+          <p>Blackmail:<br>https://www.bbc.co.uk/news/articles/cwy87wqz0q9o</p>
+          <p>A small recording light is not an adequate safeguard. Cheap stickers capable of obscuring LED lights are readily available.</p>
+          <p>Meta is leading the charge, but the problem is bigger than Meta. Other major technology companies are following.</p>
+          <p>Use your scale and influence as a national retailer responsibly. Stop selling Ray-Ban Meta and all camera-equipped smart glasses.</p>
+          <p>Don't help normalise a technology that allows people to record others without their knowledge or consent.</p>
+          <p>You can read more about the campaign and the evidence behind it here: https://bansmartglasses.com</p>
+          <p>Yours Sincerely,</p>
+          <p>[Your name]</p>
+        </div>
+        <div class="btn-row">
+          <button type="button" onclick="window.location.href=mailtoStatic('Please stop selling camera-equipped smart glasses', document.getElementById('retailerBodyDavidClulow'), 'info@davidclulow.com')">Email this retailer →</button>
+          <button type="button" class="secondary" onclick="copyStaticMessage(document.getElementById('retailerBodyDavidClulow'), this)">Copy message</button>
+          <span class="copied-msg">Copied ✓</span>
+        </div>
+      </div>
+
+      <div class="static-action__group">
+        <h4>Vision Express</h4>
+        <div class="email-meta">
+          <div class="email-meta__row"><span>To</span> <strong>customer.care@visionexpress.com</strong></div>
+          <div class="email-meta__row"><span>Subject</span> <strong>Please stop selling camera-equipped smart glasses</strong></div>
+        </div>
+        <div class="email-doc" id="retailerBodyVisionExpress">
+          <p>Dear Vision Express,</p>
+          <p>I'm asking you to stop selling camera-equipped smart glasses, including Ray-Ban Meta glasses.</p>
+          <p>As a major national optician, what you choose to stock matters. Your stores, website, advertising and reputation don't just respond to consumer trends – they help create them.</p>
+          <p>By selling camera-equipped smart glasses, you are helping normalise a technology that allows people to film those around them without holding up a phone or camera. The people being filmed can have no idea it's happening.</p>
+          <p>The person buying the glasses chooses to wear a camera on their face. Everyone around them gets no such choice.</p>
+          <p>And the danger isn't hypothetical. Smart glasses have already been linked to cases involving non-consensual intimate recording, sextortion and blackmail:</p>
+          <p>Non-consensual intimate recording:<br>https://www.telegraph.co.uk/news/2026/01/09/man-smart-glasses-illegally-record-sex-spared-jail/</p>
+          <p>Sextortion:<br>https://www.ubergizmo.com/2026/05/can-smart-glasses-be-used-for-extortion/</p>
+          <p>Blackmail:<br>https://www.bbc.co.uk/news/articles/cwy87wqz0q9o</p>
+          <p>A small recording light is not an adequate safeguard. Cheap stickers capable of obscuring LED lights are readily available.</p>
+          <p>Meta is leading the charge, but the problem is bigger than Meta. Other major technology companies are following.</p>
+          <p>Use your scale and influence as a national retailer responsibly. Stop selling Ray-Ban Meta and all camera-equipped smart glasses.</p>
+          <p>Don't help normalise a technology that allows people to record others without their knowledge or consent.</p>
+          <p>You can read more about the campaign and the evidence behind it here: https://bansmartglasses.com</p>
+          <p>Yours Sincerely,</p>
+          <p>[Your name]</p>
+        </div>
+        <div class="btn-row">
+          <button type="button" onclick="window.location.href=mailtoStatic('Please stop selling camera-equipped smart glasses', document.getElementById('retailerBodyVisionExpress'), 'customer.care@visionexpress.com')">Email this retailer →</button>
+          <button type="button" class="secondary" onclick="copyStaticMessage(document.getElementById('retailerBodyVisionExpress'), this)">Copy message</button>
+          <span class="copied-msg">Copied ✓</span>
+        </div>
+      </div>
+
+      <div class="static-action__group">
+        <h4>Boots Opticians</h4>
+        <div class="email-meta">
+          <div class="email-meta__row"><span>To</span> <strong>boots.customercare@boots.co.uk</strong></div>
+          <div class="email-meta__row"><span>Subject</span> <strong>Please stop selling camera-equipped smart glasses</strong></div>
+        </div>
+        <div class="email-doc" id="retailerBodyBoots">
+          <p>Dear Boots Opticians,</p>
+          <p>I'm asking you to stop selling camera-equipped smart glasses, including Ray-Ban Meta glasses.</p>
+          <p>As a major national optician, what you choose to stock matters. Your stores, website, advertising and reputation don't just respond to consumer trends – they help create them.</p>
+          <p>By selling camera-equipped smart glasses, you are helping normalise a technology that allows people to film those around them without holding up a phone or camera. The people being filmed can have no idea it's happening.</p>
+          <p>The person buying the glasses chooses to wear a camera on their face. Everyone around them gets no such choice.</p>
+          <p>And the danger isn't hypothetical. Smart glasses have already been linked to cases involving non-consensual intimate recording, sextortion and blackmail:</p>
+          <p>Non-consensual intimate recording:<br>https://www.telegraph.co.uk/news/2026/01/09/man-smart-glasses-illegally-record-sex-spared-jail/</p>
+          <p>Sextortion:<br>https://www.ubergizmo.com/2026/05/can-smart-glasses-be-used-for-extortion/</p>
+          <p>Blackmail:<br>https://www.bbc.co.uk/news/articles/cwy87wqz0q9o</p>
+          <p>A small recording light is not an adequate safeguard. Cheap stickers capable of obscuring LED lights are readily available.</p>
+          <p>Meta is leading the charge, but the problem is bigger than Meta. Other major technology companies are following.</p>
+          <p>Use your scale and influence as a national retailer responsibly. Stop selling Ray-Ban Meta and all camera-equipped smart glasses.</p>
+          <p>Don't help normalise a technology that allows people to record others without their knowledge or consent.</p>
+          <p>You can read more about the campaign and the evidence behind it here: https://bansmartglasses.com</p>
+          <p>Yours Sincerely,</p>
+          <p>[Your name]</p>
+        </div>
+        <div class="btn-row">
+          <button type="button" onclick="window.location.href=mailtoStatic('Please stop selling camera-equipped smart glasses', document.getElementById('retailerBodyBoots'), 'boots.customercare@boots.co.uk')">Email this retailer →</button>
+          <button type="button" class="secondary" onclick="copyStaticMessage(document.getElementById('retailerBodyBoots'), this)">Copy message</button>
+          <span class="copied-msg">Copied ✓</span>
+        </div>
+      </div>
+
+      <div class="static-action__group">
+        <h4>Ray-Ban</h4>
+        <p class="email-note" style="margin:0 0 16px;">No verified direct email — Ray-Ban's official UK contact page has a contact form.</p>
+        <div class="email-meta">
+          <div class="email-meta__row"><span>Subject</span> <strong>Please stop selling camera-equipped smart glasses</strong></div>
+        </div>
+        <div class="email-doc" id="retailerBodyRayBan">
+          <p>Dear Ray-Ban,</p>
+          <p>I'm asking you to stop selling camera-equipped smart glasses, including Ray-Ban Meta glasses.</p>
+          <p>As a major national optician, what you choose to stock matters. Your stores, website, advertising and reputation don't just respond to consumer trends – they help create them.</p>
+          <p>By selling camera-equipped smart glasses, you are helping normalise a technology that allows people to film those around them without holding up a phone or camera. The people being filmed can have no idea it's happening.</p>
+          <p>The person buying the glasses chooses to wear a camera on their face. Everyone around them gets no such choice.</p>
+          <p>And the danger isn't hypothetical. Smart glasses have already been linked to cases involving non-consensual intimate recording, sextortion and blackmail:</p>
+          <p>Non-consensual intimate recording:<br>https://www.telegraph.co.uk/news/2026/01/09/man-smart-glasses-illegally-record-sex-spared-jail/</p>
+          <p>Sextortion:<br>https://www.ubergizmo.com/2026/05/can-smart-glasses-be-used-for-extortion/</p>
+          <p>Blackmail:<br>https://www.bbc.co.uk/news/articles/cwy87wqz0q9o</p>
+          <p>A small recording light is not an adequate safeguard. Cheap stickers capable of obscuring LED lights are readily available.</p>
+          <p>Meta is leading the charge, but the problem is bigger than Meta. Other major technology companies are following.</p>
+          <p>Use your scale and influence as a national retailer responsibly. Stop selling Ray-Ban Meta and all camera-equipped smart glasses.</p>
+          <p>Don't help normalise a technology that allows people to record others without their knowledge or consent.</p>
+          <p>You can read more about the campaign and the evidence behind it here: https://bansmartglasses.com</p>
+          <p>Yours Sincerely,</p>
+          <p>[Your name]</p>
+        </div>
+        <div class="btn-row">
+          <a class="link-btn" href="https://www.ray-ban.com/uk/contact-us" target="_blank" rel="noopener">Open contact form ↗</a>
+          <button type="button" class="secondary" onclick="copyStaticMessage(document.getElementById('retailerBodyRayBan'), this)">Copy message</button>
+          <span class="copied-msg">Copied ✓</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="static-action" id="mp-action">
+      <h3>Write to your MP</h3>
+      <p class="static-action__intro">Read the campaign's approved MP message below, then use WriteToThem to find your MP and send it — WriteToThem is an independent, well-established service for contacting your representatives; we don't need to build our own MP lookup.</p>
+      <div class="email-meta">
+        <div class="email-meta__row"><span>Subject</span> <strong>Please act now before it's too late: Ban camera-equipped smart glasses</strong></div>
+      </div>
+      <div class="email-doc" id="mpBody">
+        <p>Dear [MP name],</p>
+        <p>I am writing as your constituent to ask you to support an immediate ban on the sale and use of camera-equipped smart glasses in the UK.</p>
+        <p>These devices allow people to film those around them without holding up a phone or camera. The people being filmed can have no idea it is happening.</p>
+        <p>Women and girls, children, older people, LGBTQ+ people and disabled people are particularly vulnerable. We know technology is already used for stalking, harassment, sexualised deepfakes and exploitation. Why are we making that easier by arming them with covert recording devices?</p>
+        <p>This raises serious questions under Article 8 of the Human Rights Act (the right to respect for private and family life), UK GDPR and data-protection law, and the Equality Act 2010.</p>
+        <p>Yet someone secretly recorded may never know their image was captured, where it went, how it was processed or what it was subsequently used for. There is no meaningful consent at the point of capture, and no meaningful justice being offered afterwards.</p>
+        <p>Everyone standing in front of the camera has rights too. We spent years allowing social media to race ahead of regulation. Only after serious harms to children, privacy and public safety became impossible to ignore did governments begin trying to catch up.</p>
+        <p>We don't want to repeat that mistake with smart glasses. We do not need another generation to be the evidence.</p>
+        <p>The window to act is shrinking. Once cameras worn on faces become normalised, walking it back will be extraordinarily difficult. In 10 or 20 years time, we may well look back and realise this was the moment when we could have stopped it.</p>
+        <p>I am asking you to support a blanket ban on camera-equipped smart glasses and press the Government to act now, before this becomes normal.</p>
+        <p>Yours sincerely,</p>
+        <p>[Name]</p>
+        <p>{postcode}</p>
+      </div>
+      <div class="btn-row">
+        <a class="link-btn" href="https://www.writetothem.com/" target="_blank" rel="noopener">Find and write to your MP ↗</a>
+        <button type="button" class="secondary" onclick="copyStaticMessage(document.getElementById('mpBody'), this)">Copy message</button>
+        <span class="copied-msg">Copied ✓</span>
+      </div>
+    </div>
+
+    <div class="static-action" id="premises-action">
+      <h3>Write to a premises</h3>
+      <p class="static-action__intro">Ask a place you use — a gym, school, pub, restaurant, workplace, theatre, leisure centre or anywhere else — to introduce a policy restricting camera-equipped smart glasses. Copy the message below and send it through that organisation's normal contact route.</p>
+      <div class="email-meta">
+        <div class="email-meta__row"><span>Subject</span> <strong>Ban recording-enabled smart glasses from your premises</strong></div>
+      </div>
+      <div class="email-doc" id="premisesBody">
+        <p>Dear [Leisure Centre / Gym / Venue name],</p>
+        <p>I'm asking you to ban recording-enabled smart glasses and camera-equipped eyewear from your premises.</p>
+        <p>These glasses allow people to film those around them without holding up a phone or camera. The people being filmed can have no idea it's happening.</p>
+        <p>In leisure centres, gyms and swimming pools, that is unacceptable. Children and adults are changing, swimming and exercising in spaces where they should be able to expect privacy.</p>
+        <p>And the danger isn't hypothetical. Smart glasses have already been linked to cases involving non-consensual intimate recording, sextortion and blackmail:</p>
+        <p>Non-consensual intimate recording:<br>https://www.telegraph.co.uk/news/2026/01/09/man-smart-glasses-illegally-record-sex-spared-jail/</p>
+        <p>Sextortion:<br>https://www.ubergizmo.com/2026/05/can-smart-glasses-be-used-for-extortion/</p>
+        <p>Blackmail:<br>https://www.bbc.co.uk/news/articles/cwy87wqz0q9o</p>
+        <p>A small recording light is not an adequate safeguard. Cheap stickers capable of obscuring LED lights are readily available.</p>
+        <p>And this technology is spreading. We need to set boundaries now, before cameras worn on people's faces become normal.</p>
+        <p>Please ban recording-enabled smart glasses and camera-equipped eyewear from your premises now. Make the ban visible at entrances and clear to both staff and customers.</p>
+        <p>People should be able to swim, exercise, change and spend time with their children without wondering whether the person next to them is recording them.</p>
+        <p>You can read more about the campaign and the evidence behind it here: https://bansmartglasses.com</p>
+        <p>Yours Sincerely,</p>
+        <p>[Your name]</p>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="secondary" onclick="copyStaticMessage(document.getElementById('premisesBody'), this)">Copy message</button>
+        <span class="copied-msg">Copied ✓</span>
+      </div>
     </div>
   </div>
 </section>
@@ -899,20 +1088,17 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
       <div class="handoff__item">
         <div class="num">02</div>
         <h4>National</h4>
-        <a href="#" aria-disabled="true" title="Coming soon">Write to a national retailer →</a>
-        <span class="handoff__soon">Coming soon</span>
+        <a href="#national-action">Write to a national retailer →</a>
       </div>
       <div class="handoff__item">
         <div class="num">03</div>
         <h4>Political</h4>
-        <a href="#" aria-disabled="true" title="Coming soon">Write to your MP →</a>
-        <span class="handoff__soon">Coming soon</span>
+        <a href="#mp-action">Write to your MP →</a>
       </div>
       <div class="handoff__item">
         <div class="num">04</div>
         <h4>Venues</h4>
-        <a href="#" aria-disabled="true" title="Coming soon">Write to a premises →</a>
-        <span class="handoff__soon">Coming soon</span>
+        <a href="#premises-action">Write to a premises →</a>
       </div>
       <div class="handoff__item">
         <div class="num">05</div>
@@ -1076,6 +1262,21 @@ function resolveContact(stockist) {
 
 function currentBodyText(doc) {
   return [...doc.querySelectorAll('p')].map((p) => p.textContent).join('\n\n');
+}
+
+// Shared helpers for the static (non-database-driven) National retailer,
+// MP and Premises actions — same mailto/copy behaviour as the finder's
+// message panel, just without a dynamic stockist to render around.
+function mailtoStatic(subject, doc, recipient) {
+  return mailtoUrl(subject, currentBodyText(doc), recipient);
+}
+function copyStaticMessage(doc, btn) {
+  navigator.clipboard.writeText(currentBodyText(doc)).then(() => {
+    const msg = btn.parentElement.querySelector('.copied-msg');
+    if (!msg) return;
+    msg.classList.add('show');
+    setTimeout(() => msg.classList.remove('show'), 1800);
+  });
 }
 
 function renderMessagePanel(stockist) {
