@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Ban Smart Glasses</title>
+<meta name="description" content="Ban Smart Glasses is an independent UK and Ireland campaign calling for action on the mass-market sale and promotion of camera-equipped smart glasses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --violet:#5B22F6;
+  --violet-deep:#3D0FC7;
+  --cream:#F6F2EB;
+  --cream-shade:#EEE8DB;
+  --yellow:#FFDB00;
+  --ink:#111111;
+  --muted:#5c5850;
+  --line:#DAD3C2;
+  --serif: 'Fraunces', Georgia, 'Iowan Old Style', 'Palatino Linotype', ui-serif, serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, ui-sans-serif, sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;}
+a{color:inherit;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+/* ---------- nav (matches homepage) ---------- */
+.site-nav{padding:20px 0;}
+.site-nav__row{display:flex;align-items:center;justify-content:space-between;width:100%;gap:20px;}
+.site-nav__mark{font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:-.01em;white-space:nowrap;color:var(--ink);text-decoration:none;flex:0 0 auto;}
+.site-nav__links{display:flex;align-items:center;gap:20px;list-style:none;margin:0;padding:0;flex:1 1 auto;justify-content:center;}
+.site-nav__links a{font-size:13px;white-space:nowrap;text-decoration:none;color:var(--ink);border-bottom:1px solid transparent;padding-bottom:2px;}
+.site-nav__links a:hover{border-bottom-color:var(--violet);}
+.site-nav__links a[aria-disabled="true"]{color:var(--muted);cursor:default;}
+.site-nav__links a[aria-disabled="true"]:hover{border-bottom-color:transparent;}
+.site-nav__links a.is-current{border-bottom-color:var(--violet);font-weight:600;}
+.soon-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--violet);background:#ece6fd;border-radius:3px;padding:1px 5px;margin-left:4px;vertical-align:2px;}
+.site-nav__actions{display:flex;align-items:center;gap:14px;flex:0 0 auto;}
+.site-nav__cta{font-size:14px;font-weight:600;white-space:nowrap;background:var(--violet);color:var(--cream);padding:10px 18px;text-decoration:none;}
+.site-nav__cta:hover{background:var(--violet-deep);}
+.site-nav__toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:4px;width:36px;height:36px;padding:0;background:none;border:0;cursor:pointer;flex:0 0 auto;}
+.site-nav__toggle span{display:block;width:20px;height:2px;background:var(--ink);}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.site-nav__mobile-menu{display:none;}
+@media (max-width:900px){
+  .site-nav__mark{font-size:11px;white-space:normal;}
+  .site-nav__links{display:none;}
+  .site-nav__toggle{display:flex;}
+  .site-nav__mobile-menu{flex-direction:column;background:var(--cream);border-top:1px solid var(--line);margin-top:20px;}
+  .site-nav__mobile-menu:not([hidden]){display:flex;}
+  .site-nav__mobile-menu a{display:block;padding:16px 32px;border-bottom:1px solid var(--line);font-size:16px;text-decoration:none;color:var(--ink);}
+  .site-nav__mobile-menu a[aria-disabled="true"]{color:var(--muted);}
+}
+
+/* ---------- about content ---------- */
+mark.highlight{background:var(--yellow);color:var(--ink);padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+.about-hero{padding:8px 0 40px;border-bottom:1px solid var(--line);}
+.about-hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(32px,4.2vw,48px);line-height:1.1;margin:0 0 16px;max-width:18ch;}
+.about-hero__lead{font-family:var(--serif);font-weight:700;font-size:clamp(19px,2vw,24px);line-height:1.35;color:var(--violet);margin:0;max-width:28ch;}
+
+.about-body{padding:48px 0 0;max-width:70ch;}
+.about-body p{font-size:16px;line-height:1.65;color:var(--ink);margin:0 0 20px;}
+.about-body p:last-child{margin-bottom:0;}
+.about-lede p{font-size:17px;}
+.about-section{margin:56px 0 0;}
+.about-section:first-of-type{margin-top:48px;}
+.about-section h2{font-family:var(--serif);font-weight:700;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:0 0 22px;}
+.about-rights{list-style:none;margin:24px 0 20px;padding:0;}
+.about-rights li{font-size:15.5px;line-height:1.55;color:var(--ink);margin:0 0 14px;max-width:64ch;}
+.about-rights li:last-child{margin-bottom:0;}
+.about-rights strong{font-family:var(--serif);font-weight:700;}
+.about-cta{display:inline-block;background:var(--yellow);color:var(--ink);font-size:14px;font-weight:700;padding:10px 18px;text-decoration:none;margin:8px 0 20px;}
+.about-cta:hover{background:#ffe544;}
+
+@media (max-width:700px){
+  .about-hero h1{max-width:none;}
+  .about-hero__lead{max-width:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="proto-banner">Public beta — Ban Smart Glasses launches in public beta, with further campaign tools being added during the beta period.</div>
+
+<nav class="site-nav">
+  <div class="wrap site-nav__row">
+    <a class="site-nav__mark" href="/">Ban Smart Glasses</a>
+    <ul class="site-nav__links">
+      <li><a href="/#take-action">Take action</a></li>
+      <li><a href="/#why-this-matters">Why this matters</a></li>
+      <li><a href="/exemption-for-disabled-people/">Accessibility</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Global action</a></li>
+      <li><a href="/about/" class="is-current">About</a></li>
+    </ul>
+    <div class="site-nav__actions">
+      <a class="site-nav__cta" href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">Sign the petition</a>
+      <button type="button" class="site-nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMobileMenu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="site-nav__mobile-menu" id="navMobileMenu" hidden>
+    <a href="/#take-action">Take action</a>
+    <a href="/#why-this-matters">Why this matters</a>
+    <a href="/exemption-for-disabled-people/">Accessibility</a>
+    <a href="/resources/">Resources</a>
+    <a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Global action</a>
+    <a href="/about/">About</a>
+  </div>
+</nav>
+
+<header class="wrap about-hero">
+  <h1>About Ban Smart&nbsp;Glasses</h1>
+  <p class="about-hero__lead">Stop smart glasses becoming the new&nbsp;normal</p>
+</header>
+
+<main class="wrap about-body">
+  <div class="about-lede">
+    <p>Ban Smart Glasses is an independent UK and Ireland campaign calling for action on the mass-market sale and promotion of camera-equipped smart glasses.</p>
+    <p>The campaign has built the first UK and Ireland-wide database showing where Meta smart glasses are sold, giving people practical tools to turn concern about face-worn cameras into local, national and political action.</p>
+    <p>We support the use of smart glasses as assistive technology for disabled people. What we oppose is their mass-market normalisation as an everyday consumer product.</p>
+    <p><mark class="highlight">Open your eyes. Our right to privacy is being designed&nbsp;out.</mark></p>
+  </div>
+
+  <section class="about-section">
+    <h2>This is about more than&nbsp;privacy</h2>
+    <p>The question isn't simply whether smart glasses are useful, or whether every use of them is already unlawful.</p>
+    <p>The bigger question is:</p>
+    <p>What happens to society when cameras capable of discreetly recording the people around us become an ordinary part of what millions of people wear on their faces?</p>
+    <p>Existing protections were not designed for a world of ubiquitous, unobtrusive, networked cameras worn on people's faces. Meanwhile, increasingly sophisticated capabilities are developing faster than law, policy and social norms can adapt.</p>
+    <p>Technology shouldn't become socially normal before we've decided whether it's socially acceptable.</p>
+    <p>Once that normalisation happens, restricting the technology becomes considerably harder.</p>
+    <p><mark class="highlight">The window to act is&nbsp;shrinking.</mark></p>
+  </section>
+
+  <section class="about-section">
+    <h2>A question of&nbsp;rights</h2>
+    <p>Camera-equipped smart glasses raise questions that go far beyond the person wearing them.</p>
+    <ul class="about-rights">
+      <li><strong>Privacy</strong> — people retain legitimate privacy interests outside their homes.</li>
+      <li><strong>Agency</strong> — the wearer chooses to capture. The bystander may have no meaningful choice at all.</li>
+      <li><strong>Control over your image</strong> — our faces and identities should not simply become raw material for other people's devices and corporate systems.</li>
+      <li><strong>Children's rights</strong> — children have particular privacy interests and less ability to understand or resist being recorded.</li>
+      <li><strong>Women and girls' safety</strong> — covert recording forms part of the wider problem of technology-facilitated abuse.</li>
+      <li><strong>Data protection</strong> — particularly when recordings enter corporate systems or are processed using AI.</li>
+      <li><strong>Biometric protection</strong> — increasingly important as wearable facial-recognition capabilities develop.</li>
+      <li><strong>Equality</strong> — the risks and consequences of these technologies will not necessarily be experienced equally.</li>
+      <li><strong>Freedom to participate in society</strong> — people should be able to attend protests, Pride, places of worship, clinics and other sensitive spaces without unreasonable fear of covert recording or identification.</li>
+      <li><strong>Safeguarding</strong> — particularly in environments involving children and adults at risk.</li>
+      <li><strong>Safety by design</strong> — foreseeable harms should be addressed before a technology becomes ubiquitous.</li>
+    </ul>
+    <p><mark class="highlight">Privacy shouldn't end when you leave your front&nbsp;door.</mark></p>
+  </section>
+
+  <section class="about-section">
+    <h2>A transfer of&nbsp;power</h2>
+    <p>The wearer gets the technology. The company gets the profit. Everyone else loses control over when they're recorded and what happens to the footage.</p>
+    <p>That's not progress. That's a transfer of power — and we're paying for it with our privacy. Once surrendered, it will be very hard to claw&nbsp;back.</p>
+    <p>The campaign does not argue that every use of smart glasses is currently illegal. It argues that existing protections were not designed for a world in which millions of people may routinely wear networked cameras on their faces.</p>
+    <p>Cameras worn on faces raise questions technology companies shouldn't get to answer for&nbsp;society.</p>
+    <p>The government has a responsibility to protect privacy as technology&nbsp;changes.</p>
+  </section>
+
+  <section class="about-section">
+    <h2>Act before ubiquitous becomes&nbsp;inevitable</h2>
+    <p>We've seen before what happens when society tries to deal with the consequences of transformative technology after mass adoption.</p>
+    <p>We waited too long with social media. We don't have to make the same mistake&nbsp;again.</p>
+    <p>Ban Smart Glasses exists to intervene while there is still an opportunity to decide where the boundaries should&nbsp;be.</p>
+    <p>Not after cameras worn on faces have become unremarkable.</p>
+    <p>Before.</p>
+    <p><mark class="highlight">The price of innovation shouldn't be your right to&nbsp;privacy.</mark></p>
+  </section>
+
+  <section class="about-section">
+    <h2>Turn concern into&nbsp;action</h2>
+    <p>The database shows where they're sold. The campaign gives people the tools to&nbsp;act.</p>
+    <p>Ban Smart Glasses also supports the UK Parliament petition created by Guy Holder, calling for an immediate ban on the sale and promotion of smart glasses with recording capability.</p>
+    <a class="about-cta" href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">Sign the petition →</a>
+    <p>Local action. National pressure. Political change.</p>
+    <p>Find where they're sold. Ask them to&nbsp;stop.</p>
+  </section>
+
+  <section class="about-section">
+    <h2>Take Ban Smart Glasses&nbsp;global</h2>
+    <p>This starts in the UK and Ireland. But smart glasses are a global issue.</p>
+    <p>The website is open source — designed to be copied and adapted by anyone who wants to launch Ban Smart Glasses in their country.</p>
+    <p>Your face. Your image. Your identity. Your rights.</p>
+    <p>The technology should adapt to people — people should not be forced to adapt to&nbsp;surveillance.</p>
+    <a class="about-cta" href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your local site →</a>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer__top">
+    <div class="footer__identity">
+      <p class="footer__mark">Ban Smart Glasses</p>
+      <p class="footer__tagline">Stop smart glasses becoming the new normal</p>
+      <p class="footer__desc">Created by Liz Hunter — independent UK &amp; Ireland privacy campaign.</p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/#take-action">Take action</a>
+        <a href="/#why-this-matters">Why this matters</a>
+        <a href="/resources/">Resources</a>
+        <a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Global action</a>
+        <a href="/about/">About</a>
+        <a href="https://petition.parliament.uk/petitions/769206" target="_blank" rel="noopener">Sign the petition</a>
+      </nav>
+      <p class="footer__statement">The database shows where they're sold. The campaign gives people the tools to act.</p>
+    </div>
+    <div class="footer__replicate">
+      <p class="footer__replicate-label">Global action</p>
+      <p class="footer__replicate-copy">This starts in the UK and Ireland. But smart glasses are a global issue. The Ban Smart Glasses website is open source – designed to be copied and adapted by anyone who wants to launch the campaign in their country.</p>
+      <a class="footer__replicate-cta" href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your local site →</a>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <p>Ban Smart Glasses is an independent campaign and is not affiliated with, endorsed by or associated with Meta or Ray-Ban.</p>
+    <p>&copy; 2026 Ban Smart Glasses</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn = document.getElementById('navToggle');
+  var menu = document.getElementById('navMobileMenu');
+  if(!btn || !menu) return;
+  btn.addEventListener('click', function(){
+    var willOpen = menu.hidden;
+    menu.hidden = !willOpen;
+    btn.setAttribute('aria-expanded', String(willOpen));
+  });
+  menu.addEventListener('click', function(e){
+    var link = e.target.closest('a');
+    if(link && link.getAttribute('aria-disabled') !== 'true'){
+      menu.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+</script>
+</body>
+</html>
