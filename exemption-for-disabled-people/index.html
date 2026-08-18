@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Exemption for disabled people — Ban Smart Glasses</title>
-<meta name="description" content="How the Ban Smart Glasses campaign approaches an exemption for disabled people who rely on smart glasses.">
+<title>Accessibility — Ban Smart Glasses</title>
+<meta name="description" content="How Ban Smart Glasses approaches accessibility and assistive use of smart glasses by disabled people.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
 <style>
@@ -56,12 +56,23 @@ a{color:inherit;}
   .site-nav__mobile-menu a[aria-disabled="true"]{color:var(--muted);}
 }
 
-/* ---------- stub content ---------- */
+/* ---------- accessibility content ---------- */
 .stub-hero{padding:8px 0 44px;border-bottom:1px solid var(--line);}
 .stub-hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,4vw,44px);line-height:1.15;margin:0 0 18px;max-width:20ch;}
-.stub-body{padding:44px 0 72px;max-width:64ch;}
+.stub-body{padding:44px 0 20px;max-width:66ch;}
+.stub-body h2{font-family:var(--serif);font-weight:700;font-size:clamp(21px,2.4vw,26px);line-height:1.25;margin:40px 0 18px;}
+.stub-body h2:first-child{margin-top:0;}
 .stub-body p{font-size:16px;line-height:1.6;color:var(--muted);margin:0 0 18px;}
 .stub-body p:last-child{margin-bottom:0;}
+.a11y-source{font-size:13.5px;color:var(--muted);margin:0 0 18px;}
+.a11y-source a{color:var(--violet);text-decoration:none;border-bottom:1px solid var(--violet);word-break:break-word;}
+.a11y-source a:hover{color:var(--violet-deep);border-color:var(--violet-deep);}
+.a11y-source-list{list-style:none;margin:0 0 18px;padding:0;}
+.a11y-source-list li{margin:0 0 6px;font-size:13.5px;}
+.a11y-position{background:var(--violet);color:var(--cream);padding:32px 28px;margin:40px 0 0;}
+.a11y-position__label{font-family:var(--serif);font-weight:700;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--yellow);margin:0 0 16px;}
+.a11y-position p{font-family:var(--serif);font-weight:700;font-size:clamp(19px,2vw,23px);line-height:1.35;color:var(--cream);margin:0 0 12px;}
+.a11y-position p:last-child{margin-bottom:0;}
 
 /* ---------- footer (matches homepage) ---------- */
 footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line);padding:56px 0 0;margin-top:24px;}
@@ -99,7 +110,7 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
     <ul class="site-nav__links">
       <li><a href="/#take-action">Take action</a></li>
       <li><a href="/#why-this-matters">Why this matters</a></li>
-      <li><a href="/exemption-for-disabled-people/" class="is-current">Exemption for disabled people</a></li>
+      <li><a href="/exemption-for-disabled-people/" class="is-current">Accessibility</a></li>
       <li><a href="/resources/">Resources</a></li>
       <li><a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version</a></li>
       <li><a href="#" aria-disabled="true" title="Coming in a later build phase">About <span class="soon-badge">Soon</span></a></li>
@@ -114,7 +125,7 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
   <div class="site-nav__mobile-menu" id="navMobileMenu" hidden>
     <a href="/#take-action">Take action</a>
     <a href="/#why-this-matters">Why this matters</a>
-    <a href="/exemption-for-disabled-people/">Exemption for disabled people</a>
+    <a href="/exemption-for-disabled-people/">Accessibility</a>
     <a href="/resources/">Resources</a>
     <a href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">Create your version</a>
     <a href="#" aria-disabled="true" title="Coming in a later build phase">About <span class="soon-badge">Soon</span></a>
@@ -122,13 +133,39 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
 </nav>
 
 <header class="wrap stub-hero">
-  <h1>Exemption for disabled people</h1>
+  <h1>Accessibility</h1>
 </header>
 
 <main class="wrap stub-body">
-  <p>Ban Smart Glasses campaigns for a ban on the sale and promotion of camera-equipped smart glasses. We recognise that some disabled people rely on smart glasses technology, and that any policy the campaign calls for needs to account for that clearly and fairly.</p>
-  <p>The detailed position for this page is being finalised by the campaign and will be published here shortly.</p>
+  <h2>Accessibility should be protected</h2>
+  <p>Smart glasses can offer genuine and important benefits for disabled people.</p>
+  <p>For blind and partially sighted people, wearable technology can help with tasks such as understanding their surroundings, accessing information and navigating everyday life more independently. The Royal National Institute of Blind People (RNIB) currently offers people the opportunity to try Ray-Ban Meta glasses with prescription lenses through its Low Vision Centre.</p>
+  <p class="a11y-source">Source: <a href="https://shop.rnib.org.uk/" target="_blank" rel="noopener">https://shop.rnib.org.uk/</a></p>
+  <p>The UK Government also recognises the importance of assistive technology in removing barriers for disabled people and helping people participate more fully and independently in everyday life. Government-backed research has supported the development of smart glasses specifically designed to improve independence and quality of life for people with sight loss.</p>
+  <p class="a11y-source">Sources:</p>
+  <ul class="a11y-source-list">
+    <li><a href="https://www.gov.uk/government/publications/using-assistive-and-accessible-technology-atech" target="_blank" rel="noopener">https://www.gov.uk/government/publications/using-assistive-and-accessible-technology-atech</a></li>
+    <li><a href="https://www.gov.uk/government/publications/assistive-technology-research-and-development-work-2021-to-2022/assistive-technology-research-and-development-work-2021-to-2022" target="_blank" rel="noopener">https://www.gov.uk/government/publications/assistive-technology-research-and-development-work-2021-to-2022/assistive-technology-research-and-development-work-2021-to-2022</a></li>
+  </ul>
+  <p>Ban Smart Glasses supports the use of assistive technology by disabled people.</p>
+  <p>Our campaign is not about taking useful technology away from people who rely on it. It is about challenging the mass-market sale, promotion and normalisation of camera-equipped glasses as an everyday consumer product.</p>
+
+  <h2>Assistive use is different from mass-market use</h2>
+  <p>There is an important distinction between technology being used to overcome a disability-related barrier and millions of consumers being encouraged to wear cameras on their faces as part of everyday life.</p>
+  <p>UK government guidance already recognises a similar distinction in its approach to assistive technology and medical devices: the intended purpose of a product and the people it is designed to support can matter when determining how it should be treated.</p>
+  <p class="a11y-source">Source: <a href="https://www.gov.uk/government/publications/assistive-technology-definition-and-safe-use/assistive-technology-definition-and-safe-use" target="_blank" rel="noopener">https://www.gov.uk/government/publications/assistive-technology-definition-and-safe-use/assistive-technology-definition-and-safe-use</a></p>
+  <p>We believe any future regulation or restriction on camera-equipped smart glasses should therefore protect legitimate disability-related and assistive uses.</p>
+  <p>The precise legal and policy mechanism for achieving that needs to be developed with disabled people, accessibility organisations and relevant experts — not decided without them.</p>
+  <p>Accessibility and privacy should not be pitted against each other. We should be capable of protecting both.</p>
 </main>
+
+<div class="wrap">
+  <div class="a11y-position">
+    <p class="a11y-position__label">Our position</p>
+    <p>Protect assistive use for disabled people.</p>
+    <p>Stop the mass-market normalisation of cameras worn on our faces.</p>
+  </div>
+</div>
 
 <footer>
   <div class="wrap footer__top">
