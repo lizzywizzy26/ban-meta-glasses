@@ -402,75 +402,124 @@ textarea{width:100%;min-height:180px;font-family:var(--sans);font-size:13.5px;li
   z-index:-1;
 }
 
-/* Four targeted actions, locked equal status: a true 2x2, each card the
-   same fixed aspect-ratio (so equal footprint is guaranteed by
-   construction, not by tuning four different contents to match) and the
-   same 62/38 photo-to-text split for every photographic action. National
-   fills the identical footprint with a horizontal graphic composition
-   instead of a photo — same size, different substance, which is the
-   point: equal status, not identical cards. */
+/* Petition band — one full-width rectangle, ~50/25/25 internal columns
+   (main / stat / cta), fixed compact height. Sits directly under the
+   section heading with 36px breathing room before the grid below. */
+.petition-band{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  align-items:center;
+  column-gap:32px;
+  row-gap:12px;
+  background:var(--violet);
+  color:var(--cream);
+  text-decoration:none;
+  padding:30px 36px;
+  margin:36px 0 36px;
+}
+.petition-band:hover{background:var(--violet-deep);}
+.petition-band__kicker{
+  grid-column:1/-1;
+  font-size:11.5px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-weight:700;
+  color:var(--yellow);
+}
+.petition-band__headline{
+  display:block;
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:clamp(22px,2.2vw,28px);
+  line-height:1.1;
+  color:var(--cream);
+  margin-bottom:5px;
+  overflow-wrap:break-word;
+}
+.petition-band__sub{display:block;font-size:13px;color:#d9d0fb;max-width:40ch;}
+.petition-band__count{display:block;font-family:var(--serif);font-weight:700;line-height:1;white-space:nowrap;}
+.petition-band__count strong{color:var(--yellow);font-size:clamp(22px,2vw,27px);}
+.petition-band__count-of{font-size:13.5px;color:var(--cream);font-weight:600;margin-left:4px;}
+.petition-band__meta{display:block;font-size:11px;color:#c3b5f5;margin-top:3px;}
+.petition-band__cta{
+  justify-self:end;
+  display:inline-block;
+  background:var(--yellow);
+  color:var(--ink);
+  font-weight:700;
+  font-size:14.5px;
+  padding:13px 24px;
+  white-space:nowrap;
+}
+.petition-band:hover .petition-band__cta{background:#ffe544;}
+@media (max-width:700px){
+  .petition-band{grid-template-columns:1fr;padding:26px 24px;}
+  .petition-band__cta{justify-self:start;}
+}
+
+/* Four targeted actions — a strict, literal 2x2. Every card gets the
+   exact same fixed height (not aspect-ratio, not min-height, not
+   content-derived) so equal footprint is true by construction: any two
+   cards in the same row are identically tall because they share one
+   grid row, and both rows use the same explicit height, so all four
+   match. Photo cards split 60/40 image-to-copy within that fixed height;
+   National fills the identical box with a graphic composition instead. */
 .action-composition{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:30px;
-  margin-top:44px;
-}
-@media (max-width:900px){
-  .action-composition{grid-template-columns:1fr;}
+  column-gap:24px;
+  row-gap:24px;
 }
 .action-item{
   display:flex;
   flex-direction:column;
+  height:560px;
   text-decoration:none;
   color:var(--ink);
 }
+@media (max-width:900px){
+  .action-composition{grid-template-columns:1fr;row-gap:22px;}
+  .action-item{height:420px;}
+}
 .action-item[aria-disabled="true"]{cursor:default;}
 
-/* Photo gets its own fixed aspect-ratio (not a percentage of the card),
-   so every photographic action renders the same image height at a given
-   column width regardless of how much its own copy wraps — equal
-   footprint without a total-card height that could clip overflowing
-   text at narrower breakpoints. */
-.action-item__photo{display:block;aspect-ratio:4/3;overflow:hidden;background:var(--cream-shade);}
+.action-item__photo{display:block;flex:0 0 60%;overflow:hidden;background:var(--cream-shade);}
 .action-item__photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
 .action-item:hover .action-item__photo img{transform:scale(1.045);}
-.action-item__text{flex:1 1 auto;padding:18px 2px 0;display:flex;flex-direction:column;}
-.action-item__num{display:block;font-family:var(--serif);font-size:12.5px;font-weight:700;color:var(--violet);margin-bottom:8px;}
+.action-item__text{flex:1 1 40%;padding:16px 2px 0;display:flex;flex-direction:column;min-height:0;}
+.action-item__num{display:block;font-family:var(--serif);font-size:12.5px;font-weight:700;color:var(--violet);margin-bottom:6px;}
 .action-item__headline{
   display:block;
   font-family:var(--serif);
   font-weight:700;
-  font-size:clamp(19px,1.6vw,23px);
+  font-size:clamp(18px,1.5vw,22px);
   line-height:1.14;
-  margin-bottom:6px;
+  margin-bottom:5px;
   color:var(--ink);
 }
-.action-item__sub{display:block;font-size:13.5px;color:var(--muted);max-width:30ch;margin-bottom:auto;}
+.action-item__sub{display:block;font-size:13px;color:var(--muted);max-width:30ch;}
 .action-item__cta{
   display:inline-block;
   align-self:flex-start;
-  margin-top:12px;
-  font-size:13.5px;
+  margin-top:auto;
+  padding-top:8px;
+  font-size:13px;
   font-weight:700;
   border-bottom:1px solid var(--ink);
   padding-bottom:2px;
 }
 .action-item:hover .action-item__cta{color:var(--violet);border-color:var(--violet);}
-.action-item__note{display:block;font-size:11px;color:var(--muted);margin-top:6px;}
+.action-item__note{display:block;font-size:10.5px;color:var(--muted);margin-top:4px;}
 
-/* National — same card footprint as the other three, filled edge to
-   edge with a horizontal graphic composition instead of a photo.
-   Oversized type is the image here; yellow touches the one word that
+/* National — identical outer box (same fixed height, same grid cell) as
+   the other three, filled edge to edge with a horizontal graphic
+   composition instead of a photo. Yellow touches the one word that
    matters ("retailers") and the CTA's underline. */
 .action-item--national{
   background:var(--violet);
   color:var(--cream);
-  padding:26px 28px 24px;
+  padding:24px 26px 22px;
   justify-content:space-between;
-  min-height:410px;
-}
-@media (max-width:900px){
-  .action-item--national{min-height:400px;}
 }
 .action-item--national:hover{background:var(--violet-deep);}
 .action-item--national .action-item__num{color:var(--yellow);margin-bottom:0;}
@@ -478,79 +527,22 @@ textarea{width:100%;min-height:180px;font-family:var(--sans);font-size:13.5px;li
   display:block;
   font-family:var(--serif);
   font-weight:700;
-  font-size:clamp(26px,2.6vw,34px);
-  line-height:1.08;
+  font-size:clamp(24px,2.2vw,29px);
+  line-height:1.1;
   color:var(--cream);
-  margin:14px 0;
+  margin:12px 0;
   overflow-wrap:break-word;
 }
-.action-item--national .action-item__sub{color:#d9d0fb;font-size:13.5px;max-width:34ch;margin-bottom:0;}
-.action-item--national .action-item__cta{color:var(--cream);border-bottom-color:var(--yellow);margin-top:16px;}
+.action-item--national .action-item__sub{color:#d9d0fb;font-size:13px;max-width:32ch;}
+.action-item--national .action-item__cta{color:var(--cream);border-bottom-color:var(--yellow);margin-top:0;}
 .action-item--national:hover .action-item__cta{color:var(--yellow);border-bottom-color:var(--yellow);}
 .action-item--national .action-item__note{color:#c3b5f5;}
 
-/* Venues — same card footprint and 62/38 photo split as Local/Political;
-   crop stays confident and tightly scaled so the refusal gesture still
-   reads with real presence at this size. */
+/* Venues — same fixed box and 60/40 photo split as Local/Political; crop
+   stays confident and tightly scaled so the refusal gesture still reads
+   with real presence at this size. */
 .action-item--venues .action-item__photo img{transform:scale(1.12);}
 .action-item--venues:hover .action-item__photo img{transform:scale(1.18);}
-
-/* Petition — a short, wide, high-impact band that interrupts the
-   composition, rather than a tall rail. Prominence comes from position
-   (it sits before the four targeted actions on every breakpoint),
-   typography and the signature count — not from vertical acreage. */
-.petition-band{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  column-gap:44px;
-  row-gap:14px;
-  background:var(--violet);
-  color:var(--cream);
-  text-decoration:none;
-  padding:30px 40px;
-  margin:44px 0 0;
-}
-.petition-band:hover{background:var(--violet-deep);}
-.petition-band__kicker{
-  flex-basis:100%;
-  font-size:11.5px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  font-weight:700;
-  color:var(--yellow);
-}
-.petition-band__main{flex:1 1 300px;}
-.petition-band__headline{
-  display:block;
-  font-family:var(--serif);
-  font-weight:700;
-  font-size:clamp(24px,2.6vw,32px);
-  line-height:1.08;
-  color:var(--cream);
-  margin-bottom:6px;
-  overflow-wrap:break-word;
-}
-.petition-band__sub{display:block;font-size:13.5px;color:#d9d0fb;max-width:42ch;}
-.petition-band__stat{flex:0 0 auto;}
-.petition-band__count{display:block;font-family:var(--serif);font-weight:700;line-height:1;white-space:nowrap;}
-.petition-band__count strong{color:var(--yellow);font-size:clamp(24px,2.2vw,30px);}
-.petition-band__count-of{font-size:14px;color:var(--cream);font-weight:600;margin-left:4px;}
-.petition-band__meta{display:block;font-size:11.5px;color:#c3b5f5;margin-top:3px;}
-.petition-band__cta{
-  flex:0 0 auto;
-  display:inline-block;
-  background:var(--yellow);
-  color:var(--ink);
-  font-weight:700;
-  font-size:15px;
-  padding:14px 26px;
-}
-.petition-band:hover .petition-band__cta{background:#ffe544;}
-@media (max-width:640px){
-  .petition-band{padding:26px 24px;}
-  .petition-band__cta{flex:1 1 100%;text-align:center;}
-}
 
 /* ---------- why now ---------- */
 .why-now{
