@@ -159,6 +159,37 @@ export const IRELAND_TOWN_COORDS = {
   kildare: { latitude: 53.159, longitude: -6.9111 },
   killarney: { latitude: 52.0599, longitude: -9.5044 },
   cobh: { latitude: 51.8508, longitude: -8.2944 },
+
+  // Added 19/20 Aug 2026: bug report found Co. Mayo had zero coverage at
+  // all (Ballyhaunis, Westport, Castlebar all failed as "not recognised"
+  // before ever reaching a distance search) and Co. Leitrim was likewise
+  // entirely absent. This batch closes both gaps and adds other major
+  // towns/county towns not yet covered, so genuine Irish searches reach a
+  // real distance search (even if the honest answer is "nothing verified
+  // within 50 miles") instead of being rejected as unrecognised input.
+  // Town-centre coordinates only, same ~2-4 decimal precision as the rest
+  // of this table — not a stockist claim of any kind; adding a town here
+  // does not imply anything is sold there. See geocodeIrishTown's own
+  // policy above: don't add a town until asked, never invent a coordinate
+  // for an unlisted one.
+  castlebar: { latitude: 53.8547, longitude: -9.2989 }, // Co. Mayo county town
+  ballina: { latitude: 54.1146, longitude: -9.1568 },
+  westport: { latitude: 53.8014, longitude: -9.5178 },
+  ballyhaunis: { latitude: 53.7167, longitude: -8.7667 },
+  'carrick-on-shannon': { latitude: 53.945, longitude: -8.0937 }, // Co. Leitrim county town
+  swords: { latitude: 53.4597, longitude: -6.2181 },
+  tuam: { latitude: 53.515, longitude: -8.8514 },
+  ballinasloe: { latitude: 53.3333, longitude: -8.2167 },
+  dungarvan: { latitude: 52.0928, longitude: -7.6206 },
+  mallow: { latitude: 52.1367, longitude: -8.6425 },
+  midleton: { latitude: 51.9147, longitude: -8.1745 },
+  bandon: { latitude: 51.7444, longitude: -8.7397 },
+  fermoy: { latitude: 52.1394, longitude: -8.2761 },
+  trim: { latitude: 53.5561, longitude: -6.7911 },
+  kells: { latitude: 53.7281, longitude: -6.8794 },
+  birr: { latitude: 53.0925, longitude: -7.9086 },
+  edenderry: { latitude: 53.3439, longitude: -7.0575 },
+  listowel: { latitude: 52.4467, longitude: -9.49 },
 };
 
 // Eircode shape: routing key (1 letter + 2 more chars, digits or "W") + 4
