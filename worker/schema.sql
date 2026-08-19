@@ -115,6 +115,19 @@ CREATE TABLE IF NOT EXISTS stockists (
   --   per-branch structured fact, not a judgment call about a whole page's
   --   framing; comparable in strength to metaEvidenceText/first_party_branch_page.
   -- manual_confirmation
+  -- first_party_aggregate
+  --   NEVER USED AS A ROW IN THIS TABLE. Defined 19 Aug 2026 for the case
+  --   where a retailer or manufacturer states, in a first-party source, the
+  --   NUMBER of physical stores carrying the relevant product, but the
+  --   individual locations have not been identified — e.g. a press release
+  --   claiming "available in 150 stores nationwide" with no store list.
+  --   This is real evidence of physical footprint, but it cannot be
+  --   geocoded, mapped, or returned by the postcode finder, so it is never
+  --   written to this table. It is recorded only as prose in
+  --   data/stockists/RETAILER-MATRIX.md, in the format:
+  --   Retailer | Country | Product | claimed store count | first_party_aggregate | exact source quote | date checked
+  --   and reported alongside (never merged into) the mapped verified_branch
+  --   count — see "MAPPED vs FOOTPRINT" in RETAILER-MATRIX.md.
 
   source_url TEXT NOT NULL,
   source_label TEXT,

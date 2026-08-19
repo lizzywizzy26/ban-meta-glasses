@@ -1,5 +1,17 @@
 # Stockist database expansion research — 19 Aug 2026
 
+> **Correction, same day, later pass:** the Boots Opticians section below
+> (based on a WebSearch-only pass) says "0 branches added... doesn't
+> cleanly fit `verified_branch`." That was incomplete — it missed that
+> Boots had already been fully resolved via a first-party structured
+> store list the day before (17 Aug 2026), producing 204 QA'd candidate
+> branches, and that the resolving script/fixture were already committed
+> to this repo. See `RETAILER-RESEARCH-FOLLOWUP-19-AUG-2026.md` for the
+> corrected picture and the rest of that day's requested follow-up work.
+> Left in place below, uncorrected in the body text, as an honest record
+> of what that research pass actually found — not rewritten after the
+> fact.
+
 Research-only pass. No changes made to the committed database
 (`data/stockists/*.normalized.json`), the live site, or any public claim.
 Current committed total remains **518 verified_branch** across 4 retailers
