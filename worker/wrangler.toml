@@ -10,4 +10,4 @@ database_id = "REPLACE_WITH_YOUR_DATABASE_ID"
 [vars]
 # Comma-separated list of origins allowed to call this API.
 # Add your GitHub Pages URL and any custom domain you later attach.
-ALLOWED_ORIGINS = "https://bansmartglasses.com,https://lizzywizzy26.github.io,http://localhost:8000"
+ALLOWED_ORIGINS = "https://bansmartglasses.com,https://www.bansmartglasses.com,https://lizzywizzy26.github.io,http://localhost:8000"
