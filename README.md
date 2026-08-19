@@ -1,5 +1,11 @@
 # Stop the Sale — Smart Glasses Campaign Site
 
+## Take Stop Smart Glasses global
+
+Smart glasses are a global problem, so Stop Smart Glasses has been built to travel. We've made the campaign website open source so people in other countries can use what we've already built rather than starting from scratch. You can copy it, adapt it for your country, add your own retailers, laws and political actions, and build a Stop Smart Glasses campaign where you live.
+
+You don't need to be a developer to get involved. The resources below are there to help you understand what's available and how to get started.
+
 A single-page UK campaign site against smart glasses with hidden recording capability (e.g. Meta Ray-Ban). It drives six actions: find verified sellers near you by postcode, email opticians/MPs/major retailers with editable templates, sign the live UK Parliament petition, and petition Ray-Ban/EssilorLuxottica directly. Plain HTML/CSS/JS, no build step — the site itself needs no backend for actions B–F. The postcode finder (Action A) and the "campaign impact" counters both need the optional Cloudflare Worker + D1 backend in `worker/` — without it deployed, both features degrade gracefully (finder shows a "search is being set up" message, impact panel hides) and the rest of the site works normally.
 
 **Petition signature count:** a few different snapshots showed up across this repo's source material (5,399 / 4,997 / 5,367 / 1,220, all supposedly for petition 769206). Since a live petition's count only ever goes up until it closes, the largest of those (5,399) is the most recent real snapshot, and that's the value currently set in `js/main.js` — the 1,220 figure looks like a stale or mismatched read from a third-party tracker, not a real data point. Time will have passed since that snapshot was taken, though, so do a final live check at https://petition.parliament.uk/petitions/769206 before any major push (e.g. a press mention) and bump the number up if it's grown. The closing date (9 December 2026) was consistent across every source.
