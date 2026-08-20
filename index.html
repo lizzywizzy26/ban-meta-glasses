@@ -528,8 +528,42 @@ body.modal-open{overflow:hidden;}
 /* ---------- this is bigger than meta ---------- */
 .bigger-band{
   display:grid;
-  grid-template-columns:1fr;
-  max-width:840px;
+  grid-template-columns:35fr 65fr;
+  gap:32px;
+  align-items:start;
+}
+.stat-column__figure{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:clamp(88px,10vw,152px);
+  line-height:0.85;
+  letter-spacing:-.02em;
+  color:var(--violet);
+  margin:0 0 18px;
+}
+.stat-column__sub{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:clamp(18px,1.8vw,21px);
+  line-height:1.4;
+  color:var(--ink);
+  margin:0 0 12px;
+  max-width:24ch;
+}
+.stat-column__source{
+  font-size:12.5px;
+  color:var(--muted);
+  letter-spacing:.02em;
+  margin:0;
+}
+.wider-column{
+  border-left:1px solid var(--line);
+  padding-left:32px;
+}
+@media (max-width:860px){
+  .bigger-band{grid-template-columns:1fr;gap:0;}
+  .stat-column{margin-bottom:52px;}
+  .wider-column{border-left:none;padding-left:0;}
 }
 .forward-note{font-size:13.5px;color:var(--muted);border-left:3px solid var(--violet);padding-left:14px;margin-top:24px;max-width:46ch;}
 .section-cta{display:inline-block;font-size:15px;font-weight:600;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:3px;margin-top:8px;}
@@ -884,8 +918,8 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
       <p class="eyebrow-label">Local action</p>
       <h2 class="section-title">Stop them being sold on<br>our high&nbsp;streets</h2>
       <p class="section-statement">Find where they're sold. Ask them to&nbsp;stop.</p>
-      <p class="section-lede">Enter your postcode or town to find smart-glasses stockists near you. Then ask them to stop selling them.</p>
-      <p class="section-lede">Together, we can let retailers know our concerns and see who will be brave enough to stop selling them&nbsp;first.</p>
+      <p class="section-lede">Enter your postcode or town to find smart-glasses stockists near you. From Vision Express to Boots to your local optician. Then ask them to stop selling&nbsp;them.</p>
+      <p class="section-lede">Together, we can let retailers know our concerns and see who will be the first to stop selling&nbsp;them.</p>
     </div>
 
     <div class="finder-panel">
@@ -909,7 +943,12 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
 <!-- ============== THIS IS BIGGER THAN META ============== -->
 <section class="section--shaded">
   <div class="wrap bigger-band">
-    <div>
+    <div class="stat-column">
+      <p class="stat-column__figure">49%</p>
+      <p class="stat-column__sub">of Britons support a public-space ban on smart glasses</p>
+      <p class="stat-column__source">YouGov, March 2026</p>
+    </div>
+    <div class="wider-column">
       <p class="eyebrow-label">The wider picture</p>
       <h2 class="section-title">Meta is trying to open the&nbsp;floodgates</h2>
       <p class="section-lede">Meta is the ringleader but the problem is much bigger than just&nbsp;them.</p>

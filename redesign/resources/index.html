@@ -66,9 +66,22 @@ a{color:inherit;}
 }
 
 /* ---------- resources content ---------- */
-.res-hero{padding:8px 0 44px;border-bottom:1px solid var(--line);}
+.res-hero{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:48px;
+  align-items:center;
+  padding:8px 0 44px;
+  border-bottom:1px solid var(--line);
+}
 .res-hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(32px,4.2vw,48px);line-height:1.1;margin:0 0 18px;}
 .res-hero p{font-size:16.5px;line-height:1.6;color:var(--muted);max-width:66ch;margin:0;}
+.res-hero__media{aspect-ratio:4/5;overflow:hidden;background:var(--cream-shade);}
+.res-hero__media img{width:100%;height:100%;object-fit:cover;object-position:52% 26%;display:block;}
+@media (max-width:760px){
+  .res-hero{grid-template-columns:1fr;gap:24px;}
+  .res-hero__media{aspect-ratio:16/10;}
+}
 
 .res-body{padding:48px 0 72px;}
 .res-section{max-width:72ch;margin:0 0 52px;}
@@ -164,8 +177,13 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
 </nav>
 
 <header class="wrap res-hero">
-  <h1>Stop Smart Glasses — Resources</h1>
-  <p>Smart glasses raise questions about privacy, consent, harassment, safeguarding, data protection and the design of AI-enabled technology. This resource library brings together regulatory documents, government sources, legal analysis, investigations and real-world examples behind the campaign.</p>
+  <div>
+    <h1>Stop Smart Glasses — Resources</h1>
+    <p>Smart glasses raise questions about privacy, consent, harassment, safeguarding, data protection and the design of AI-enabled technology. This resource library brings together regulatory documents, government sources, legal analysis, investigations and real-world examples behind the campaign.</p>
+  </div>
+  <div class="res-hero__media">
+    <img src="../../assets/resources-hero-bus-bw.jpg" alt="A young woman sits on a bus, headphones round her neck, looking directly at the camera." loading="lazy">
+  </div>
 </header>
 
 <main class="wrap res-body">

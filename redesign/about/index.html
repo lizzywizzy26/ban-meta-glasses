@@ -67,9 +67,22 @@ a{color:inherit;}
 
 /* ---------- about content ---------- */
 mark.highlight{background:var(--yellow);color:var(--ink);padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
-.about-hero{padding:8px 0 40px;border-bottom:1px solid var(--line);}
+.about-hero{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:48px;
+  align-items:center;
+  padding:8px 0 40px;
+  border-bottom:1px solid var(--line);
+}
 .about-hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(32px,4.2vw,48px);line-height:1.1;margin:0 0 16px;max-width:18ch;}
 .about-hero__lead{font-family:var(--serif);font-weight:700;font-size:clamp(19px,2vw,24px);line-height:1.35;color:var(--violet);margin:0;max-width:28ch;}
+.about-hero__media{aspect-ratio:4/5;overflow:hidden;background:var(--cream-shade);}
+.about-hero__media img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block;}
+@media (max-width:760px){
+  .about-hero{grid-template-columns:1fr;gap:24px;}
+  .about-hero__media{aspect-ratio:16/10;}
+}
 
 .about-body{padding:48px 0 0;max-width:70ch;}
 .about-body p{font-size:16px;line-height:1.65;color:var(--ink);margin:0 0 20px;}
@@ -138,8 +151,13 @@ mark.highlight{background:var(--yellow);color:var(--ink);padding:0 .12em;box-dec
 </nav>
 
 <header class="wrap about-hero">
-  <h1>About Ban Smart&nbsp;Glasses</h1>
-  <p class="about-hero__lead">Stop smart glasses becoming the new&nbsp;normal</p>
+  <div>
+    <h1>About Stop Smart&nbsp;Glasses</h1>
+    <p class="about-hero__lead">Stop smart glasses becoming the new&nbsp;normal</p>
+  </div>
+  <div class="about-hero__media">
+    <img src="../../assets/about-hero-optionB-bw.jpg" alt="A father walks away holding hands with his young child in an open park." loading="lazy">
+  </div>
 </header>
 
 <main class="wrap about-body">
