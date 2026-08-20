@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Accessibility — Stop Smart Glasses</title>
-<meta name="description" content="How Stop Smart Glasses approaches accessibility and assistive use of smart glasses by disabled people.">
+<title>Global action — Stop Smart Glasses</title>
+<meta name="description" content="Stop Smart Glasses has been built to travel. The campaign is open source, so you can adapt it and launch it in your own country.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
 <style>
@@ -65,28 +65,24 @@ a{color:inherit;}
   .site-nav__mobile-menu a[aria-disabled="true"]{color:var(--muted);}
 }
 
-/* ---------- accessibility content ---------- */
-.stub-hero{padding:8px 0 44px;border-bottom:1px solid var(--line);}
-.stub-hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,4vw,44px);line-height:1.15;margin:0 0 18px;max-width:20ch;}
-.stub-body{padding:44px 0 20px;max-width:66ch;}
-.stub-body h2{font-family:var(--serif);font-weight:700;font-size:clamp(21px,2.4vw,26px);line-height:1.25;margin:40px 0 18px;}
-.stub-body h2:first-child{margin-top:0;}
-.stub-body p{font-size:16px;line-height:1.6;color:var(--muted);margin:0 0 18px;}
-.stub-body p:last-child{margin-bottom:0;}
-.a11y-source{font-size:13.5px;color:var(--muted);margin:0 0 18px;}
-.a11y-source a{color:var(--violet);text-decoration:none;border-bottom:1px solid var(--violet);word-break:break-word;}
-.a11y-source a:hover{color:var(--violet-deep);border-color:var(--violet-deep);}
-.a11y-source-list{list-style:none;margin:0 0 18px;padding:0;}
-.a11y-source-list li{margin:0 0 6px;font-size:13.5px;}
-.a11y-source-list a{color:var(--violet);text-decoration:none;border-bottom:1px solid var(--violet);word-break:break-word;}
-.a11y-source-list a:hover{color:var(--violet-deep);border-color:var(--violet-deep);}
-.a11y-position{background:var(--violet);color:var(--cream);padding:32px 28px;margin:40px 0 0;}
-.a11y-position__label{font-family:var(--serif);font-weight:700;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--yellow);margin:0 0 16px;}
-.a11y-position p{font-family:var(--serif);font-weight:700;font-size:clamp(19px,2vw,23px);line-height:1.35;color:var(--cream);margin:0 0 12px;}
-.a11y-position p:last-child{margin-bottom:0;}
+/* ---------- global action content ---------- */
+.eyebrow-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);font-weight:700;margin:0 0 14px;}
+.stub-hero{padding:8px 0 40px;border-bottom:1px solid var(--line);}
+.stub-hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(32px,4.2vw,48px);line-height:1.1;margin:0;max-width:18ch;}
+.stub-body{padding:48px 0 0;max-width:70ch;}
+.stub-body p{font-size:16px;line-height:1.65;color:var(--ink);margin:0 0 20px;}
+.stub-lede{font-family:var(--serif);font-weight:700;font-size:19px;line-height:1.4;color:var(--ink);margin:0 0 20px;}
+.global-cta{display:inline-block;background:var(--yellow);color:var(--ink);font-size:14px;font-weight:700;padding:12px 20px;text-decoration:none;margin:8px 0 12px;}
+.global-cta:hover{background:#ffe544;}
+.stub-section{margin:52px 0 0;max-width:70ch;}
+.stub-section h2{font-family:var(--serif);font-weight:700;font-size:clamp(21px,2.4vw,26px);line-height:1.25;margin:0 0 18px;}
+.adapt-list{list-style:none;margin:0;padding:0;}
+.adapt-list li{font-size:15.5px;line-height:1.55;color:var(--ink);margin:0 0 12px;padding-left:20px;position:relative;}
+.adapt-list li:last-child{margin-bottom:0;}
+.adapt-list li::before{content:"—";position:absolute;left:0;color:var(--violet);font-weight:700;}
 
 /* ---------- footer (matches homepage) ---------- */
-footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line);padding:56px 0 0;margin-top:24px;}
+footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line);padding:56px 0 0;margin-top:72px;}
 .footer__top{display:grid;grid-template-columns:1.6fr 1fr;gap:40px;align-items:start;padding-bottom:40px;}
 .footer__mark{font-family:var(--serif);font-weight:700;font-size:clamp(21px,2vw,25px);letter-spacing:-.01em;margin:0 0 10px;}
 .footer__tagline{font-family:var(--serif);font-weight:700;font-size:clamp(18px,1.6vw,21px);line-height:1.3;margin:0 0 12px;color:var(--ink);}
@@ -135,9 +131,9 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
     <ul class="site-nav__links">
       <li><a href="/#take-action">Take action</a></li>
       <li><a href="/#why-this-matters">Why this matters</a></li>
-      <li><a href="/exemption-for-disabled-people/" class="is-current">Accessibility</a></li>
+      <li><a href="/exemption-for-disabled-people/">Accessibility</a></li>
       <li><a href="/resources/">Resources</a></li>
-      <li><a href="/global-action/">Global action</a></li>
+      <li><a href="/global-action/" class="is-current">Global action</a></li>
       <li><a href="/about/">About</a></li>
     </ul>
     <div class="site-nav__actions">
@@ -158,39 +154,29 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
 </nav>
 
 <header class="wrap stub-hero">
-  <h1>Accessibility</h1>
+  <p class="eyebrow-label">Global action</p>
+  <h1>Take the campaign global</h1>
 </header>
 
 <main class="wrap stub-body">
-  <h2>Accessibility should be protected</h2>
-  <p>Smart glasses can offer genuine and important benefits for disabled people.</p>
-  <p>For blind and partially sighted people, wearable technology can help with tasks such as understanding their surroundings, accessing information and navigating everyday life more independently. The Royal National Institute of Blind People (RNIB) already recommends assistive technology, including 'smart glasses', that are dedicated for those with little or no vision.</p>
-  <p class="a11y-source">Source: <a href="https://www.rnib.org.uk/living-with-sight-loss/assistive-aids-and-technology/wearable-technology-smart-glasses-and-head-mounted-cameras/" target="_blank" rel="noopener">https://www.rnib.org.uk/living-with-sight-loss/assistive-aids-and-technology/wearable-technology-smart-glasses-and-head-mounted-cameras/</a></p>
-  <p>The UK Government also recognises the importance of assistive technology in removing barriers for disabled people and helping people participate more fully and independently in everyday life. Government-backed research has supported the development of smart glasses specifically designed to improve independence and quality of life for people with sight loss.</p>
-  <p class="a11y-source">Sources:</p>
-  <ul class="a11y-source-list">
-    <li><a href="https://www.gov.uk/government/publications/using-assistive-and-accessible-technology-atech" target="_blank" rel="noopener">https://www.gov.uk/government/publications/using-assistive-and-accessible-technology-atech</a></li>
-    <li><a href="https://www.gov.uk/government/publications/assistive-technology-research-and-development-work-2021-to-2022/assistive-technology-research-and-development-work-2021-to-2022" target="_blank" rel="noopener">https://www.gov.uk/government/publications/assistive-technology-research-and-development-work-2021-to-2022/assistive-technology-research-and-development-work-2021-to-2022</a></li>
-  </ul>
-  <p>Stop Smart Glasses supports the use of assistive technology by disabled people.</p>
-  <p>We are campaigning against the mass-market sale, promotion and normalisation of camera-equipped glasses as an everyday consumer product.</p>
+  <p class="stub-lede">Smart glasses are a global problem, so Stop Smart Glasses has been built to travel.</p>
+  <p>We've made the campaign open source so people in other countries can use what we've already built rather than starting from scratch. You can adapt the campaign for your country, add your own retailers, laws, political routes and local actions, and launch Stop Smart Glasses where you live.</p>
+  <p>You do not need to be a developer to get involved.</p>
+  <p>If you want to launch a local version, the open-source project contains the website, campaign structure and technical resources needed to get started.</p>
+  <a class="global-cta" href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">View the open-source campaign on GitHub →</a>
 
-  <h2>Assistive use is different from mass-market use</h2>
-  <p>There is an important distinction between technology being used to overcome a disability-related barrier and millions of consumers being encouraged to wear cameras on their faces as part of everyday life.</p>
-  <p>UK government guidance already recognises a similar distinction in its approach to assistive technology and medical devices: the intended purpose of a product and the people it is designed to support can matter when determining how it should be treated.</p>
-  <p class="a11y-source">Source: <a href="https://www.gov.uk/government/publications/assistive-technology-definition-and-safe-use/assistive-technology-definition-and-safe-use" target="_blank" rel="noopener">https://www.gov.uk/government/publications/assistive-technology-definition-and-safe-use/assistive-technology-definition-and-safe-use</a></p>
-  <p>Regulation and restrictions on camera-equipped smart glasses should therefore protect legitimate disability-related and assistive uses.</p>
-  <p>The precise legal and policy mechanism for achieving that needs to be developed with disabled people, accessibility organisations and relevant experts — not decided without them.</p>
-  <p>Accessibility and privacy should not be pitted against each other. We are more than capable of protecting both.</p>
-</main>
-
-<div class="wrap">
-  <div class="a11y-position">
-    <p class="a11y-position__label">Our position</p>
-    <p>Protect assistive use for disabled people.</p>
-    <p>Stop the mass-market normalisation of cameras worn on our faces.</p>
+  <div class="stub-section">
+    <h2>What you can adapt</h2>
+    <ul class="adapt-list">
+      <li>Local stockist database</li>
+      <li>Retailer contact routes</li>
+      <li>Political action</li>
+      <li>Petition links</li>
+      <li>Legal/evidence resources</li>
+      <li>Campaign copy and structure</li>
+    </ul>
   </div>
-</div>
+</main>
 
 <footer>
   <div class="wrap footer__top">
@@ -211,7 +197,7 @@ footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--line)
     <div class="footer__replicate">
       <p class="footer__replicate-label">Global action</p>
       <p class="footer__replicate-copy">This starts in the UK and Ireland. But smart glasses are a global issue. The Stop Smart Glasses website is open source – designed to be copied and adapted by anyone who wants to launch the campaign in their country.</p>
-      <a class="footer__replicate-cta" href="/global-action/">Create your local site →</a>
+      <a class="footer__replicate-cta" href="https://github.com/lizzywizzy26/ban-meta-glasses" target="_blank" rel="noopener">View on GitHub →</a>
     </div>
   </div>
   <div class="wrap footer__legal">
